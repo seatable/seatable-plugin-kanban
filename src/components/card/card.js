@@ -20,7 +20,7 @@ class Card extends Component {
         className="plugin-kanban-card movable"
       >
         <header className="plugin-kanban-card-header">
-          <span className={classNames('plugin-kanban-card-title', {'draggable': cardDraggable})}>
+          <span title={cardNameNode} className={classNames('plugin-kanban-card-title', {'draggable': cardDraggable})}>
             {cardNameNode}
           </span>
         </header>

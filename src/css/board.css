@@ -144,7 +144,7 @@
   align-self: center;
   flex-direction: column;
   justify-content: space-between;
-  min-width: 250px;
+  width: 100%;
   max-height: 100%;
   margin-top: 10px;
   padding: 0 10px;
@@ -156,6 +156,7 @@
   position: relative;
   display: inline-flex;
   flex-direction: column;
+  width: 278px;
   height: auto;
   max-height: 100%;
   margin: 0 4px;
@@ -183,6 +184,25 @@
 
 .plugin-kanban .list-title.draggable {
   cursor: grab;
+}
+
+.plugin-kanban .list-title .select-item {
+  margin-right: 0 !important;
+  max-width: 258px !important;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.plugin-kanban .list-title .collaborator-avatar {
+  width: 16px;
+}
+
+.plugin-kanban .list-title .collaborator-name {
+  max-width: 226px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .plugin-kanban .kanban-list-title {
@@ -337,8 +357,7 @@
 }
 
 .plugin-kanban-card {
-  max-width: 250px;
-  min-width: 230px;
+  width: 100%;
   margin-bottom: 7px;
   padding: 10px;
   border-radius: 6px;
@@ -360,11 +379,14 @@
 }
 
 .plugin-kanban-card-title {
-  width: 70%;
+  width: 100%;
   font-size: 14px;
   line-height: 18px;
   font-weight: bold;
   cursor: auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .plugin-kanban-card-title.draggable {
