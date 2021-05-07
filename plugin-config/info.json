@@ -1,0 +1,17 @@
+{
+  "name": "kanban",
+  "version": "0.1.0",
+  "display_type": "overlay",
+  "display_name": {
+    "de": "Kanban",
+    "en": "Kanban",
+    "fr": "Kanban",
+    "zh-cn": "看板"
+  },
+  "description": {
+    "de": "Zeigen Sie Ihre Unterlagen als Karten auf einer Kanbantafel an",
+    "en": "Display your records as cards on a kanban board",
+    "fr": "Affichez vos enregistrements sous forme de cartes sur un tableau kanban",
+    "zh-cn": "在看板上以卡片形式显示你的记录"
+  }
+}

@@ -1,0 +1,422 @@
+.plugin-kanban .kanban {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* .plugin-kanban-boards */
+.plugin-kanban-boards {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  overflow: hidden;
+}
+
+.plugin-kanban-boards .boards-scroll {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.plugin-kanban-boards .boards-scroll::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.plugin-kanban-boards .views {
+  height: 100%;
+}
+
+.plugin-kanban-boards-item {
+  height: 100%;
+  padding: 0 16px;
+  flex: 1 0 auto;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.plugin-kanban-boards-item .boards-item-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-bottom: 2px solid transparent;
+  color: #999;
+}
+
+.plugin-kanban-boards-item .boards-item-content:hover {
+  border-color: rgb(31, 87, 197);
+  color: #444;
+  cursor: pointer;
+}
+
+.plugin-kanban-boards-item.active .boards-item-content {
+  border-color: rgb(31, 87, 197);
+  color: #444;
+  cursor: default;
+}
+
+.plugin-kanban-boards-item .btn-boards-item-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+  margin-right: -5px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.plugin-kanban-boards-item .btn-boards-item-dropdown .dtable-icon-drop-down {
+  display: inline-block;
+  height: 18px;
+  font-size: 12px;
+  color: #949494;
+  transform: scale(.8);
+  transition: all .1s;
+}
+
+.plugin-kanban-boards-item .btn-boards-item-dropdown:hover .dtable-icon-drop-down {
+  color: #aaa;
+}
+
+.plugin-kanban-boards .btn-add-board {
+  display: flex;
+  align-items: center;
+  width: 24px;
+  height: 100%;
+}
+
+.plugin-kanban-boards .btn-add-board .dtable-icon-add-table {
+  height: 24px;
+  width: 24px;
+  margin-left: 4px;
+  text-align: center;
+  cursor: pointer;
+  color: #000;
+  opacity: 0.5;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.plugin-kanban .kanban-board-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.plugin-kanban .kanban-board {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 8px 4px 0 4px;
+  color: #393939;
+  background-color: #e2e2e2;
+  -webkit-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.plugin-kanban .tips-empty-board {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.plugin-kanban .smooth-dnd-container.horizontal {
+  height: 100%;
+  padding-bottom: 16px;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+
+.plugin-kanban .scrollable-list {
+  flex: 1;
+  align-self: center;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 250px;
+  max-height: 100%;
+  margin-top: 10px;
+  padding: 0 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.plugin-kanban-list {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  height: auto;
+  max-height: 100%;
+  margin: 0 4px;
+  padding: 10px 0;
+  border-radius: 6px;
+  vertical-align: top;
+  background-color: rgba(255, 255, 255, 0.52);
+}
+
+.plugin-kanban .list-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 0;
+  padding: 0 10px;
+}
+
+.plugin-kanban .list-title {
+  flex: 1;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 18px;
+  cursor: auto;
+}
+
+.plugin-kanban .list-title.draggable {
+  cursor: grab;
+}
+
+.plugin-kanban .kanban-list-title {
+  width: 268px;
+  height: auto;
+  font-size: 15px;
+}
+
+.plugin-kanban .btn-list-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.plugin-kanban .btn-list-dropdown .toggle-icon {
+  font-size: 12px;
+  color: #666;
+}
+
+.plugin-kanban .btn-list-dropdown:hover .toggle-icon {
+  color: inherit;
+}
+
+.plugin-kanban .list-footer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0 10px;
+  position: relative;
+}
+
+.plugin-kanban-dragged-card {
+  /* transform: rotate(3deg); */
+}
+
+.plugin-kanban-dragged-list {
+  /* transform: rotate(3deg); */
+  background-color: #fff !important;
+}
+
+.plugin-kanban .kanban-loader {
+  margin: 15px 0;
+  text-align: center;
+}
+
+.plugin-kanban .kanban-loading-bar {
+  display: inline-block;
+  margin: 0 2px;
+  width: 4px;
+  height: 18px;
+  border-radius: 4px;
+  animation: keyframeAnimation 1s ease-in-out infinite;
+  background-color: #777;
+}
+
+.plugin-kanban .kanban-loading-bar:nth-child(1) {
+  animation-delay: 0.0001s;
+}
+
+.plugin-kanban .kanban-loading-bar:nth-child(2) {
+  animation-delay: 0.09s;
+}
+
+.plugin-kanban .kanban-loading-bar:nth-child(3) {
+  animation-delay: 0.18s;
+}
+
+.plugin-kanban .kanban-loading-bar:nth-child(4) {
+  animation-delay: 0.27s;
+}
+
+@keyframes keyframeAnimation {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1, 2.2);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+.plugin-kanban .kanban-list-section {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  height: auto;
+  max-height: 90%;
+  margin: 5px 5px;
+  padding: 10px;
+  border-radius: 3px;
+  background-color: #e3e3e3;
+}
+
+.plugin-kanban-btn-add-list {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 278px;
+  height: 48px;
+  padding: 0 1rem;
+  margin: 0 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.52);
+  transition: .085s all ease-in;
+}
+
+.plugin-kanban-btn-add-list:hover {
+  background-color: #fff;
+}
+
+.plugin-kanban .icon-add-list,
+.plugin-kanban .icon-add-card {
+  font-size: 14px;
+  margin-top: 2px;
+  margin-right: .5rem;
+}
+
+.plugin-kanban .new-list-selection {
+  background-color: #2b6aa3;
+  border-radius: 3px;
+  margin: 5px;
+  margin-right: 8px;
+  position: relative;
+  padding: 5px;
+  display: inline-flex;
+  height: auto;
+  flex-direction: column;
+  width: 270px;
+}
+
+.plugin-kanban .btn-add-card {
+  flex: 1;
+  position: relative;
+  margin-top: 10px;
+  padding: 4px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.plugin-kanban .btn-add-card:hover {
+  background-color: #e2e2e2;
+}
+
+.plugin-kanban .kanban-card-form {
+  background-color: #e3e3e3;
+}
+
+.plugin-kanban-card {
+  max-width: 250px;
+  min-width: 230px;
+  margin-bottom: 7px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 2px solid rgb(0 0 0 / 10%);
+  background-color: #fff;
+  position: relative;
+  cursor: pointer;
+}
+
+.plugin-kanban-card.movable:hover {
+  border: 2px solid rgb(0 0 0 / 25%);
+}
+
+.plugin-kanban-card-header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  color: #000;
+}
+
+.plugin-kanban-card-title {
+  width: 70%;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: bold;
+  cursor: auto;
+}
+
+.plugin-kanban-card-title.draggable {
+  cursor: grab
+}
+
+.plugin-kanban .btn-toggle-expand {
+  width: 36px;
+  margin: 0 auto;
+  font-size: 14px;
+  position: relative;
+  cursor: pointer;
+}
+
+.plugin-kanban .btn-toggle-expand.btn-collapse::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 6px;
+  border-bottom: 7px solid #444;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+}
+
+.plugin-kanban .btn-toggle-expand.btn-collapse::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  border-bottom: 3px solid #e3e3e3;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+}
+
+.plugin-kanban .btn-toggle-expand.btn-expand::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-top: 7px solid #444;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-radius: 6px;
+}
+
+.plugin-kanban .btn-toggle-expand.btn-expand::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 0px;
+  border-top: 3px solid #e3e3e3;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+}

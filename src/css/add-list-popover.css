@@ -1,0 +1,48 @@
+.plugin-kanban-add-list-popover .popover {
+  margin-top: 0;
+  overflow: auto;
+  max-width: none;
+}
+
+.plugin-kanban-add-list-inner {
+  width: 360px;
+  padding: 1rem 0 0 0;
+  background: #fff;
+}
+
+.plugin-kanban-selected-option {
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.plugin-kanban-option-color {
+  height: 20px;
+  width: 20px;
+  margin-right: .5rem;
+  border-radius: 3px;
+  line-height: 20px;
+  text-align: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.plugin-kanban-option-color .dtable-icon-drop-down {
+  font-size: 12px;
+}
+
+.plugin-kanban-selected-option .editing-list-name {
+  width: 100%;
+}
+
+.plugin-kanban-add-list-popover-footer {
+  text-align: right;
+  position: relative;
+  background: #fff;
+  padding: 1rem;
+}
+
+.plugin-kanban-option-color-popover .popover {
+  max-width: 460px;
+  padding: 10px 1rem;
+}

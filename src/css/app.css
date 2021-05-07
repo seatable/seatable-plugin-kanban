@@ -1,0 +1,64 @@
+.dtable-plugin.plugin-kanban {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 0;
+  background-color: #fff;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -1px 12px #0000004d;
+}
+
+.plugin-kanban .plugin-body {
+  flex: 1;
+}
+
+/* plugin-header */
+.plugin-kanban .plugin-header {
+  height: 48px;
+  padding: 0 16px;
+  background-color: #fff;
+  border-bottom: 1px solid #e7eaec;
+  border-radius: 12px 12px 0 0;
+}
+
+.plugin-kanban .plugin-header-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.plugin-kanban .plugin-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 80px 0 0;
+}
+
+.plugin-kanban .plugin-logo .plugin-logo-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+}
+
+.plugin-kanban .plugin-header .kanban-operators {
+  margin-left: 80px;
+}
+
+.plugin-kanban .plugin-header .kanban-operator,
+.plugin-kanban .btn-close {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  color: #000;
+  opacity: 0.5;
+  text-align: center;
+  cursor: pointer;
+}
+
+.plugin-kanban .plugin-header .btn-settings {
+  margin-right: .25rem;
+}
+
+.plugin-kanban .btn-close {
+  font-weight: 700;
+}
