@@ -1,6 +1,6 @@
 {
   "name": "seatable-plugin-kanban",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Display records on a kanban board.",
   "dependencies": {
     "classnames": "^2.2.6",
