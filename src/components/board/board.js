@@ -116,9 +116,7 @@ class Board extends Component {
       cellValue = collaborator ? [collaborator.name] : [];
     }
     const rowData = Object.assign({}, initData, {[groupbyColumn.name]: cellValue});
-    dtable.appendRow(selectedTable, rowData, selectedView, { collaborators });
-    const viewRows = dtable.getViewRows(selectedView, selectedTable);
-    const insertedRow = viewRows[viewRows.length - 1];
+    const insertedRow = dtable.appendRow(selectedTable, rowData, selectedView, { collaborators });
     insertedRow && pluginContext.expandRow(insertedRow, selectedTable);
   }
 
