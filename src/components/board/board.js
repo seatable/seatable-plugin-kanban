@@ -105,7 +105,8 @@ class Board extends Component {
     if (!targetList) return;
     const { type: columnType, data: columnData } = groupbyColumn;
     const { name: listName, cards } = targetList;
-    const prevRowId = cards && cards.length > 0 ? cards[0].id : '';
+    const cardsLen = cards ? cards.length : 0;
+    const prevRowId = cardsLen > 0 ? cards[cardsLen - 1].id : '';
     const initData = dtable.getInsertedRowInitData(selectedView, selectedTable, prevRowId);
     let cellValue = listName;
     if (columnType === cellType.SINGLE_SELECT) {
