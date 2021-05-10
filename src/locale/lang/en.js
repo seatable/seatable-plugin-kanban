@@ -3,7 +3,7 @@ const en = {
   "Settings": "Settings",
   "Table": "Table",
   "View": "View",
-  "Groupby": "Groupby",
+  "Groupby": "Group by",
   "Rename_board": "Rename board",
   "Delete_board": "Delete board",
   "Default_board": "Default board",
