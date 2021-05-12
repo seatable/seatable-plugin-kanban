@@ -11,10 +11,6 @@ import kanbanLogo from './assets/image/kanban.png';
 
 class Kanban extends Component {
 
-  onKanbanClick = () => {
-    this.props.eventBus.dispatch(EventTypes.CLOSE_BOARD_SETTING);
-  }
-
   onPluginToggle = () => {
     setTimeout(() => {
       this.setState({showDialog: false});
@@ -59,7 +55,7 @@ class Kanban extends Component {
   render() {
     const { selectedBoardIndex, eventBus } = this.props;
     return (
-      <div className="dtable-plugin plugin-kanban" onClick={this.onKanbanClick}>
+      <div className="dtable-plugin plugin-kanban">
         <div className="plugin-header">
           <div className="plugin-header-container">
             <div className="plugin-logo">

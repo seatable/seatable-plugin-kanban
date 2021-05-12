@@ -12,11 +12,6 @@ import '../css/board-setting.css';
 
 class BoardSetting extends React.Component {
 
-  onBoardSettingClick = (evt) => {
-    evt.preventDefault();
-    evt.stopPropagation();
-  }
-
   onModifySettings = (selectedOption) => {
     const { boardSetting } = this.props;
     let { setting_key, value } = selectedOption;
@@ -159,7 +154,7 @@ class BoardSetting extends React.Component {
     });
 
     return (
-      <div className="plugin-kanban-board-setting" style={{zIndex: zIndexes.BOARD_SETTING}} onClick={this.onBoardSettingClick}>
+      <div className="plugin-kanban-board-setting" style={{zIndex: zIndexes.BOARD_SETTING}}>
         <div className="setting-container">
           <div className="setting-header">
             <div className="setting-header-container">
