@@ -1,8 +1,10 @@
 import React, { Fragment }  from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import intl from 'react-intl-universal';
+import { connect } from 'react-redux';
+import { Input } from 'reactstrap';
 import PluginSelect from './plugin-select';
+import ColumnSetting from './column-setting';
 import { SETTING_KEY } from '../constants';
 import * as zIndexes from '../constants/zIndexes';
 
@@ -91,6 +93,55 @@ class BoardSetting extends React.Component {
     }));
   }
 
+  updateColumn = (targetColumnKey, targetShown) => {
+    const { boardSetting: settings } = this.props;
+    settings.columns = this.configuredColumns.map(item => {
+      if (item.key == targetColumnKey) {
+        item.shown = targetShown;
+      }
+      return item;
+    });
+    this.props.onUpdateBoardSetting(settings);
+  }
+
+  moveColumn = (targetColumnKey, targetIndexColumnKey) => {
+    const { boardSetting: settings } = this.props;
+    const configuredColumns = this.configuredColumns;
+    const targetColumn = configuredColumns.filter(column => column.key == targetColumnKey)[0];
+    const originalIndex = configuredColumns.indexOf(targetColumn);
+    const targetIndexColumn = configuredColumns.filter(column => column.key == targetIndexColumnKey)[0];
+    const targetIndex = configuredColumns.indexOf(targetIndexColumn);
+    configuredColumns.splice(originalIndex, 1);
+    configuredColumns.splice(targetIndex, 0, targetColumn);
+    settings.columns = configuredColumns;
+    this.props.onUpdateBoardSetting(settings);
+  }
+
+
+  getCurrentConfiguredColumns = (columns) => {
+    const { boardSetting: settings } = this.props;
+
+    // TODO: `slice` or ?
+    const initialConfiguredColumns = columns.slice(1).map((item, index) => {
+      return {
+        key: item.key,
+        shown: false
+      };
+    });
+
+    let configuredColumns = initialConfiguredColumns;
+    if (settings.columns) {
+      const baseConfiguredColumns = settings.columns.filter(item => {
+        return columns.some(c => item.key == c.key);
+      });
+      const addedColumns = columns
+        .filter(item => !baseConfiguredColumns.some(c => item.key == c.key))
+        .map(item => ({key: item.key, shown: false}));
+      configuredColumns = baseConfiguredColumns.concat(addedColumns);
+    }
+    return configuredColumns;
+  }
+
   render() {
     const { dtableValue, activeBoard } = this.props;
     const { tables } = dtableValue;
@@ -99,6 +150,13 @@ class BoardSetting extends React.Component {
     const { groupbyColumns } = this.getSelectorColumns(selectedTable.columns);
     const { tableOptions, viewOptions, groupbyColumnOptions }
       = this.getSelectorOptions(selectedTable, { groupbyColumns });
+
+    const columns = selectedTable.columns;
+    this.configuredColumns = this.getCurrentConfiguredColumns(columns);
+    const configuredColumns = this.configuredColumns.map((item, index) => {
+      const targetItem = columns.filter(c => c.key == item.key)[0];
+      return Object.assign({}, targetItem, item);
+    });
 
     return (
       <div className="plugin-kanban-board-setting" style={{zIndex: zIndexes.BOARD_SETTING}} onClick={this.onBoardSettingClick}>
@@ -119,12 +177,34 @@ class BoardSetting extends React.Component {
                 <div className="title">{intl.get('View')}</div>
                 {this.renderSelector(viewOptions, SETTING_KEY.VIEW_NAME)}
               </div>
-              
+
               <div className="split-line"></div>
-              <div className="setting-item start-time">
+              <div className="setting-item">
                 <div className="title">{intl.get('Groupby')}</div>
                 {this.renderSelector(groupbyColumnOptions, SETTING_KEY.GROUPBY_COLUMN_NAME)}
               </div>
+
+              <div className="split-line"></div>
+              <div className="setting-item">
+                <div className="title">{intl.get('Title_field')}</div>
+                <Input readOnly={true} value={'TODO'} />
+              </div>
+              <div className="setting-item">
+                <div className="title">{intl.get('Other_fields')}</div>
+                <div className="timeline-column-manager-columns">
+                  {configuredColumns.map((column, index) => {
+                    return (
+                      <ColumnSetting
+                        key={index}
+                        column={column}
+                        updateColumn={this.updateColumn}
+                        moveColumn={this.moveColumn}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+
             </div>
           </div>
         </div>

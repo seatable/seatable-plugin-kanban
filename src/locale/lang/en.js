@@ -17,8 +17,9 @@ const en = {
   "Unnamed_record": "Unnamed record",
   "Cancel": "Cancel",
   "Submit": "Submit",
-  "Name_is_required": "Name is required"
-}
-;
+  "Name_is_required": "Name is required",
+  "Title_field": "Title field",
+  "Other_fields": "Other fields"
+};
 
 export default en;

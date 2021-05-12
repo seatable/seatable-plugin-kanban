@@ -143,3 +143,70 @@
 .kanban-setting-selector__menu .kanban-setting-selector__option--is-selected .null-option-name {
   color: #fff !important;
 }
+/* column manager */
+.kanban-column-setting-item {
+  position: relative;
+  font-size: 14px;
+  height: 30px;
+  line-height: 30px;
+  display: flex;
+  padding: 0 3px 0 2px;
+  border-radius: 4px;
+}
+
+.kanban-column-setting-item:hover {
+  background: #f0f0f0;
+}
+
+.kanban-column-setting-item.column-can-drop {
+  background: #e9e9e9;
+}
+
+.kanban-column-setting-item .drag-column-handle {
+  color: #c2c2c2;
+  font-size: 14px;
+  cursor: grab;
+}
+
+.kanban-column-setting-item .kanban-column-switch {
+  flex: 1;
+  display: flex;
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+.kanban-column-setting-item .kanban-column-switch .custom-switch {
+  width: 100%;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.kanban-column-setting-item .custom-switch .custom-switch-description {
+  width: 165px;
+  margin: 0;
+  padding-right: 5px;
+}
+
+.kanban-column-setting-item .custom-switch .dtable-font {
+  -webkit-transform: scale(.8);
+  transform: scale(.8);
+  display: inline-block;
+  line-height: 24px;
+  margin-right: 8px;
+  color: #666;
+}
+
+.kanban-column-setting-item .custom-switch .custom-switch-indicator {
+  width: 22px;
+  height: 12px;
+  border-radius: 6px;
+}
+
+.kanban-column-setting-item .custom-switch .custom-switch-input:checked~.custom-switch-indicator:before {
+  left: 12px;
+}
+
+.kanban-column-setting-item .custom-switch .custom-switch-indicator:before {
+  height: 8px;
+  width: 8px;
+}

@@ -32,6 +32,6 @@
     "no-irregular-whitespace": "warn",
     "no-console": "off",
     "no-useless-escape": "warn",
-    "no-trailing-spaces": "off"
+    "no-trailing-spaces": "warn"
   }
 }
