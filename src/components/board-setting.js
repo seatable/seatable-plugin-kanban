@@ -116,7 +116,7 @@ class BoardSetting extends React.Component {
   getCurrentConfiguredColumns = (columns) => {
     const { boardSetting: settings } = this.props;
 
-    // TODO: `slice` or ?
+    // `slice(1)`: the first column ('name' column) is always shown, and not included here.
     const initialConfiguredColumns = columns.slice(1).map((item, index) => {
       return {
         key: item.key,
@@ -182,7 +182,7 @@ class BoardSetting extends React.Component {
               <div className="split-line"></div>
               <div className="setting-item">
                 <div className="title">{intl.get('Title_field')}</div>
-                <Input readOnly={true} value={'TODO'} />
+                <Input readOnly={true} value={columns[0].name} />
               </div>
               <div className="setting-item">
                 <div className="title">{intl.get('Other_fields')}</div>
