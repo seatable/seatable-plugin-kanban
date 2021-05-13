@@ -88,6 +88,8 @@ class BoardContainer extends Component {
                 <List
                   key={listKey}
                   boardId={this.groupName}
+                  boardSetting={this.props.boardSetting}
+                  dtable={this.props.dtable}
                   listIndex={index}
                   listName={listName}
                   listNameNode={listNameNode}

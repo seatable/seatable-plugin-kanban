@@ -214,8 +214,7 @@ class App extends React.Component {
     if (listIndex < 0) return;
     const card = new Card({
       id: originRow._id,
-      name: originRow['0000'],
-      row: originRow,
+      row: originRow
     });
     lists[listIndex].cards.push(card);
   }

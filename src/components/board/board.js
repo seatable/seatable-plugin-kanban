@@ -164,7 +164,7 @@ class Board extends Component {
   }
 
   renderBoard = () => {
-    const { dtable, activeBoard } = this.props;
+    const { dtable, activeBoard, boards, selectedBoardIndex } = this.props;
     const { valid } = activeBoard;
     if (!valid) {
       return (
@@ -179,6 +179,7 @@ class Board extends Component {
         onAddCard={this.onAppendRow}
         moveCard={this.onMoveRow}
         addNewList={this.addNewList}
+        boardSetting={boards[selectedBoardIndex]}
       />
     );
   }

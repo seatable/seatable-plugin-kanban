@@ -26,7 +26,7 @@ import {
 import pluginContext from '../plugin-context';
 import { isValidEmail } from '../utils/common-utils';
 
-const EMPTY_CELL_FORMATTER = <span className="row-cell-empty d-inline-block"></span>;
+const EMPTY_CELL_FORMATTER = <div className="dtable-ui cell-formatter-container row-cell-empty"></div>;
 
 class CellFormatter extends Component {
 

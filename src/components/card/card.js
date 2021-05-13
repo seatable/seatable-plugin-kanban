@@ -1,38 +1,79 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import intl from 'react-intl-universal';
+import { connect } from 'react-redux';
+import CellFormatter from '../cell-formatter';
 
 class Card extends Component {
-  
-  constructor(props) {
-    super(props);
-    this.unnamedRecord = intl.get('Unnamed_record');
-  }
 
   render()  {
-    const { listIndex, name, cardDraggable } = this.props;
-    const cardNameNode = name || this.unnamedRecord;
+    const {
+      listIndex, cardDraggable, card,
+      boardSetting: settings,
+      dtable, dtableValue, activeBoard
+    } = this.props;
+    const { tables, collaborators, cellType } = dtableValue;
+    let { selectedTable } = activeBoard;
+    selectedTable = selectedTable || tables[0];
+    const columns = selectedTable.columns;
+
+    let shownColumns = [];
+    if (settings.columns) {
+      shownColumns = settings.columns.filter(item => {
+        return item.shown && columns.some(c => item.key == c.key);
+      }).map((item, index) => {
+        const targetItem = columns.filter(c => c.key == item.key)[0];
+        return Object.assign({}, targetItem, item);
+      });
+    }
+
+    const cellFormatterProps = {
+      row: card.row,
+      CellType: cellType,
+      table: selectedTable,
+      dtable,
+      tables,
+      collaborators
+    };
+
     return (
       <article
         data-id={listIndex}
-        onClick={this.props.onCardClick}
-        className="plugin-kanban-card movable"
+        className={classNames('plugin-kanban-card movable', {'draggable': cardDraggable})}
       >
-        <header className="plugin-kanban-card-header">
-          <span title={cardNameNode} className={classNames('plugin-kanban-card-title', {'draggable': cardDraggable})}>
-            {cardNameNode}
-          </span>
-        </header>
+        <Fragment>
+          <div onClick={this.props.onCardClick}>
+            <CellFormatter
+              column={columns[0]}
+              {...cellFormatterProps}
+            />
+          </div>
+          {shownColumns.map((column, index) => (
+            <CellFormatter
+              key={index}
+              column={column}
+              {...cellFormatterProps}
+            />
+          ))}
+        </Fragment>
       </article>
     );
   }
 }
 
 Card.propTypes = {
+  dtableValue: PropTypes.object,
+  activeBoard: PropTypes.object,
   listIndex: PropTypes.number.isRequired,
-  name: PropTypes.string,
   onCardClick: PropTypes.func,
 };
 
-export default Card;
+const mapStateToProps = (state) => {
+  const { dtableValue, activeBoard } = state;
+  return {
+    dtableValue,
+    activeBoard,
+  };
+};
+
+export default connect(mapStateToProps, null)(Card);
