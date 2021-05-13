@@ -116,8 +116,7 @@ class BoardSetting extends React.Component {
   getCurrentConfiguredColumns = (columns) => {
     const { boardSetting: settings } = this.props;
 
-    // `slice(1)`: the first column ('name' column) is always shown, and not included here.
-    const initialConfiguredColumns = columns.slice(1).map((item, index) => {
+    const initialConfiguredColumns = columns.map((item, index) => {
       return {
         key: item.key,
         shown: false
@@ -146,7 +145,8 @@ class BoardSetting extends React.Component {
     const { tableOptions, viewOptions, groupbyColumnOptions }
       = this.getSelectorOptions(selectedTable, { groupbyColumns });
 
-    const columns = selectedTable.columns;
+    // `slice(1)`: the first column ('name' column) is always shown, and not included here.
+    const columns = selectedTable.columns.slice(1);
     this.configuredColumns = this.getCurrentConfiguredColumns(columns);
     const configuredColumns = this.configuredColumns.map((item, index) => {
       const targetItem = columns.filter(c => c.key == item.key)[0];
