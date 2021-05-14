@@ -13,7 +13,7 @@ class Card extends Component {
       dtable, dtableValue, activeBoard
     } = this.props;
     const { tables, collaborators, cellType } = dtableValue;
-    let { selectedTable } = activeBoard;
+    let { selectedTable, formulaRows } = activeBoard;
     selectedTable = selectedTable || tables[0];
     const columns = selectedTable.columns;
 
@@ -33,7 +33,8 @@ class Card extends Component {
       table: selectedTable,
       dtable,
       tables,
-      collaborators
+      collaborators,
+      formulaRows
     };
 
     return (

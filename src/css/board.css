@@ -397,6 +397,10 @@
   cursor: text;
 }
 
+.plugin-kanban-card .cell-formatter-container.formula-formatter {
+  display: flex;
+}
+
 .plugin-kanban-card .row-cell-empty {
   width: 20px;
   height: 8px;

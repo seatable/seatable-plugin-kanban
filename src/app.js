@@ -130,12 +130,18 @@ class App extends React.Component {
     return selectedBoardIndex > 0 ? selectedBoardIndex : 0;
   }
 
+  getTableFormulaRows = (table, view) => {
+    let rows = this.dtable.getViewRows(view, table);
+    return this.dtable.getTableFormulaResults(table, rows);
+  }
+
   getActiveBoard = (boardSetting, tables) => {
     const { _id, name, table_name, view_name, groupby_column_name } = boardSetting;
     const selectedTable = (table_name && this.dtable.getTableByName(table_name)) || tables[0];
     const selectedView = (view_name && this.dtable.getViewByName(selectedTable, view_name)) || selectedTable.views[0];
     const groupbyColumn = this.dtable.getColumnByName(selectedTable, groupby_column_name);
     const { key: groupbyColumnKey, type: groupbyColumnType } = groupbyColumn || {};
+    let formulaRows = this.getTableFormulaRows(selectedTable, selectedView);
     let lists = [], canAddList = false, draggable = false, valid = false;
     if (!selectedTable || !selectedView || !groupbyColumn ||
       this.supportGroupbyColumnTypes.indexOf(groupbyColumnType) < 0
@@ -178,7 +184,7 @@ class App extends React.Component {
     if (lists.length > 0 && lists[0].name === null && lists[0].cards.length === 0) {
       lists.splice(0, 1);
     }
-    return { _id, name, lists, selectedTable, selectedView, groupbyColumn, canAddList, draggable, valid };
+    return { _id, name, lists, selectedTable, selectedView, formulaRows, groupbyColumn, canAddList, draggable, valid };
   }
 
   getLists = (groupbyColumn) => {
