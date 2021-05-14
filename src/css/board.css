@@ -384,10 +384,17 @@
 .plugin-kanban-card .cell-formatter-container {
   font-size: 14px;
   margin-top: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .plugin-kanban-card .cell-formatter-container.link-formatter {
   display: flex;
+}
+
+.plugin-kanban-card .cell-formatter-container .link-item {
+  cursor: text;
 }
 
 .plugin-kanban-card .row-cell-empty {
