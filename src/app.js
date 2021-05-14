@@ -136,7 +136,7 @@ class App extends React.Component {
   }
 
   getActiveBoard = (boardSetting, tables) => {
-    const { _id, name, table_name, view_name, groupby_column_name } = boardSetting;
+    const { _id, name, table_name, view_name, groupby_column_name, columns: configuredColumns } = boardSetting;
     const selectedTable = (table_name && this.dtable.getTableByName(table_name)) || tables[0];
     const selectedView = (view_name && this.dtable.getViewByName(selectedTable, view_name)) || selectedTable.views[0];
     const groupbyColumn = this.dtable.getColumnByName(selectedTable, groupby_column_name);
@@ -184,7 +184,7 @@ class App extends React.Component {
     if (lists.length > 0 && lists[0].name === null && lists[0].cards.length === 0) {
       lists.splice(0, 1);
     }
-    return { _id, name, lists, selectedTable, selectedView, formulaRows, groupbyColumn, canAddList, draggable, valid };
+    return { _id, name, lists, selectedTable, selectedView, formulaRows, groupbyColumn, configuredColumns, canAddList, draggable, valid };
   }
 
   getLists = (groupbyColumn) => {

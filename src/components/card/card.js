@@ -9,17 +9,16 @@ class Card extends Component {
   render()  {
     const {
       listIndex, cardDraggable, card,
-      boardSetting: settings,
-      dtable, dtableValue, activeBoard
+      dtableValue, activeBoard
     } = this.props;
-    const { tables, collaborators, cellType } = dtableValue;
-    let { selectedTable, formulaRows } = activeBoard;
+    const { dtable, tables, collaborators, cellType } = dtableValue;
+    let { selectedTable, formulaRows, configuredColumns } = activeBoard;
     selectedTable = selectedTable || tables[0];
     const columns = selectedTable.columns;
 
     let shownColumns = [];
-    if (settings.columns) {
-      shownColumns = settings.columns.filter(item => {
+    if (configuredColumns) {
+      shownColumns = configuredColumns.filter(item => {
         return item.shown && columns.some(c => item.key == c.key);
       }).map((item, index) => {
         const targetItem = columns.filter(c => c.key == item.key)[0];

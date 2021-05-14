@@ -114,8 +114,6 @@ class List extends Component {
             card={card}
             onCardClick={this.handleCardClick.bind(this, card)}
             cardDraggable
-            boardSetting={this.props.boardSetting}
-            dtable={this.props.dtable}
           />
         </Draggable>
       );
