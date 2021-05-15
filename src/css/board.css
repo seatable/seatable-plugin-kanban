@@ -374,7 +374,7 @@
   border: 2px solid rgb(0 0 0 / 25%);
 }
 
-.plugin-kanban-card .cell-formatter-container:first-child {
+.plugin-kanban-card .name-cell-container .cell-formatter-container {
   font-size: 15px;
   font-weight: 500;
   margin: 0 0 12px;
@@ -394,12 +394,30 @@
 }
 
 .plugin-kanban-card .cell-formatter-container .link-item {
-  cursor: text;
+  cursor: inherit;
 }
 
 .plugin-kanban-card .cell-formatter-container.formula-formatter {
   display: flex;
 }
+
+.plugin-kanban-card .dtable-ui.image-formatter .image-item {
+  width: auto;
+  height: auto;
+  max-height: 28px;
+}
+
+/* for link-formula */
+.plugin-kanban-card .formula-formatter.multiple {
+  display: flex;
+  overflow: hidden;
+  margin-top: 8px;
+}
+.plugin-kanban-card .formula-formatter-content-item .cell-formatter-container {
+  font-size: 13px;
+  margin: 0;
+}
+/* end: for link-formula */
 
 .plugin-kanban-card .row-cell-empty {
   width: 20px;

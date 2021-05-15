@@ -141,7 +141,6 @@ class App extends React.Component {
     const selectedView = (view_name && this.dtable.getViewByName(selectedTable, view_name)) || selectedTable.views[0];
     const groupbyColumn = this.dtable.getColumnByName(selectedTable, groupby_column_name);
     const { key: groupbyColumnKey, type: groupbyColumnType } = groupbyColumn || {};
-    let formulaRows = this.getTableFormulaRows(selectedTable, selectedView);
     let lists = [], canAddList = false, draggable = false, valid = false;
     if (!selectedTable || !selectedView || !groupbyColumn ||
       this.supportGroupbyColumnTypes.indexOf(groupbyColumnType) < 0
@@ -184,6 +183,7 @@ class App extends React.Component {
     if (lists.length > 0 && lists[0].name === null && lists[0].cards.length === 0) {
       lists.splice(0, 1);
     }
+    let formulaRows = this.getTableFormulaRows(selectedTable, selectedView);
     return { _id, name, lists, selectedTable, selectedView, formulaRows, groupbyColumn, configuredColumns, canAddList, draggable, valid };
   }
 

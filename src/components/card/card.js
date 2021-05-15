@@ -42,7 +42,7 @@ class Card extends Component {
         className={classNames('plugin-kanban-card movable', {'draggable': cardDraggable})}
       >
         <Fragment>
-          <div onClick={this.props.onCardClick}>
+          <div onClick={this.props.onCardClick} className="name-cell-container">
             <CellFormatter
               column={columns[0]}
               {...cellFormatterProps}
