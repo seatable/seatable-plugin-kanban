@@ -164,6 +164,7 @@
   border-radius: 6px;
   vertical-align: top;
   background-color: rgba(255, 255, 255, 0.52);
+  cursor: pointer;
 }
 
 .plugin-kanban .list-header {
@@ -179,11 +180,6 @@
   font-weight: bold;
   font-size: 14px;
   line-height: 18px;
-  cursor: auto;
-}
-
-.plugin-kanban .list-title.draggable {
-  cursor: grab;
 }
 
 .plugin-kanban .list-title .select-item {
@@ -238,11 +234,13 @@
 }
 
 .plugin-kanban-dragged-card {
+  cursor: grab !important;
   /* transform: rotate(3deg); */
 }
 
 .plugin-kanban-dragged-list {
   /* transform: rotate(3deg); */
+  cursor: grab !important;
   background-color: #fff !important;
 }
 
@@ -364,10 +362,7 @@
   border: 2px solid rgb(0 0 0 / 10%);
   background-color: #fff;
   position: relative;
-}
-
-.plugin-kanban-card.draggable {
-  cursor: grab
+  cursor: pointer;
 }
 
 .plugin-kanban-card.movable:hover {
