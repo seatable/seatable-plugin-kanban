@@ -20,6 +20,7 @@ const en = {
   "Name_is_required": "Name is required",
   "Title_field": "Title field",
   "Other_fields": "Other fields"
-};
+}
+;
 
 export default en;

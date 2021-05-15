@@ -3,11 +3,11 @@
   "Settings": "Einstellungen",
   "Table": "Tabelle",
   "View": "Ansicht",
-  "Groupby": "Gruppierung",
-  "Rename_board": "Rename board",
-  "Delete_board": "Delete board",
-  "Default_board": "Default board",
-  "New_Board": "New Board",
+  "Groupby": "Group by",
+  "Rename_board": "Board umbenennen",
+  "Delete_board": "Board löschen",
+  "Default_board": "Standardboard",
+  "New_Board": "Neues Board",
   "Name": "Name",
   "Uncategorized": "nicht kategorisiert",
   "There_are_no_lists_yet": "Es gibt keine Listen.",
@@ -17,5 +17,7 @@
   "Unnamed_record": "Neuer Eintrag",
   "Cancel": "Abbrechen",
   "Submit": "Absenden",
-  "Name_is_required": "Der Name ist eine Pflichtangabe."
+  "Name_is_required": "Der Name ist eine Pflichtangabe.",
+  "Title_field": "Title field",
+  "Other_fields": "Other fields"
 }
