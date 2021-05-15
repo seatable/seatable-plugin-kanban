@@ -186,7 +186,7 @@ class BoardSetting extends React.Component {
               </div>
               <div className="setting-item">
                 <div className="title">{intl.get('Other_fields')}</div>
-                <div className="timeline-column-manager-columns">
+                <div className="kanban-column-manager-columns">
                   {configuredColumns.map((column, index) => {
                     return (
                       <ColumnSetting
