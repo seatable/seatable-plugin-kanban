@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { 
+import {
   TextFormatter,
   NumberFormatter,
   CheckboxFormatter,
@@ -21,12 +21,13 @@ import {
   AutoNumberFormatter,
   UrlFormatter,
   EmailFormatter,
-  DurationFormatter
+  DurationFormatter,
+  RateFormatter
 } from 'dtable-ui-component';
 import pluginContext from '../plugin-context';
 import { isValidEmail } from '../utils/common-utils';
 
-const EMPTY_CELL_FORMATTER = <span className="row-cell-empty d-inline-block"></span>;
+const EMPTY_CELL_FORMATTER = <div className="dtable-ui cell-formatter-container row-cell-empty"></div>;
 
 class CellFormatter extends Component {
 
@@ -78,7 +79,7 @@ class CellFormatter extends Component {
       this.setState({isDataLoaded: true, collaborator});
       return;
     }
-    
+
     this.getUserCommonInfo(value).then(res => {
       collaborator = res.data;
       this.setState({isDataLoaded: true, collaborator});
@@ -187,7 +188,8 @@ class CellFormatter extends Component {
         }
         return null;
       }
-      case CellType.FORMULA: {
+      case CellType.FORMULA:
+      case CellType.LINK_FORMULA: {
         let formulaRows = this.props.formulaRows ? {...this.props.formulaRows} : {};
         let formulaValue = formulaRows[row._id] ? formulaRows[row._id][columnKey] : '';
         if (!formulaValue) return EMPTY_CELL_FORMATTER;
@@ -227,10 +229,14 @@ class CellFormatter extends Component {
         const duration_format = columnData && columnData.duration_format;
         return <DurationFormatter value={cellValue} format={duration_format} containerClassName="plugin-kanban-cell-formatter-text" />;
       }
+      case CellType.RATE: {
+        if (!cellValue) return EMPTY_CELL_FORMATTER;
+        return <RateFormatter value={cellValue} data={columnData || {}} />;
+      }
       default: return null;
     }
   }
-  
+
   render() {
     return this.renderCellFormatter();
   }

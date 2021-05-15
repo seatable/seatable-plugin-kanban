@@ -105,13 +105,13 @@ class List extends Component {
     const { listIndex, cards } = this.props;
     const cardList = cards.map((cardItem, idx) => {
       const card = Object.assign({}, cardItem, {listIndex, cardIndex: idx});
-      const { id: cardId, name  } = card;
+      const { id: cardId } = card;
       return (
         <Draggable key={`plugin-kanban-card-${cardId}`}>
           <Card
             index={idx}
             listIndex={listIndex}
-            name={name}
+            card={card}
             onCardClick={this.handleCardClick.bind(this, card)}
             cardDraggable
           />

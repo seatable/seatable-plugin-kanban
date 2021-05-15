@@ -3,7 +3,7 @@ const en = {
   "Settings": "Settings",
   "Table": "Table",
   "View": "View",
-  "Groupby": "Groupby",
+  "Groupby": "Group by",
   "Rename_board": "Rename board",
   "Delete_board": "Delete board",
   "Default_board": "Default board",
@@ -17,8 +17,9 @@ const en = {
   "Unnamed_record": "Unnamed record",
   "Cancel": "Cancel",
   "Submit": "Submit",
-  "Name_is_required": "Name is required"
-}
-;
+  "Name_is_required": "Name is required",
+  "Title_field": "Title field",
+  "Other_fields": "Other fields"
+};
 
 export default en;

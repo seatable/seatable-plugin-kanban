@@ -364,33 +364,66 @@
   border: 2px solid rgb(0 0 0 / 10%);
   background-color: #fff;
   position: relative;
-  cursor: pointer;
+}
+
+.plugin-kanban-card.draggable {
+  cursor: grab
 }
 
 .plugin-kanban-card.movable:hover {
   border: 2px solid rgb(0 0 0 / 25%);
 }
 
-.plugin-kanban-card-header {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  color: #000;
+.plugin-kanban-card .name-cell-container .cell-formatter-container {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0 0 12px;
+  cursor: pointer;
 }
 
-.plugin-kanban-card-title {
-  width: 100%;
+.plugin-kanban-card .cell-formatter-container {
   font-size: 14px;
-  line-height: 18px;
-  font-weight: bold;
-  cursor: auto;
+  margin-top: 8px;
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.plugin-kanban-card-title.draggable {
-  cursor: grab
+.plugin-kanban-card .cell-formatter-container.link-formatter {
+  display: flex;
+}
+
+.plugin-kanban-card .cell-formatter-container .link-item {
+  cursor: inherit;
+}
+
+.plugin-kanban-card .cell-formatter-container.formula-formatter {
+  display: flex;
+}
+
+.plugin-kanban-card .dtable-ui.image-formatter .image-item {
+  width: auto;
+  height: auto;
+  max-height: 28px;
+}
+
+/* for link-formula */
+.plugin-kanban-card .formula-formatter.multiple {
+  display: flex;
+  overflow: hidden;
+  margin-top: 8px;
+}
+.plugin-kanban-card .formula-formatter-content-item .cell-formatter-container {
+  font-size: 13px;
+  margin: 0;
+}
+/* end: for link-formula */
+
+.plugin-kanban-card .row-cell-empty {
+  width: 20px;
+  height: 8px;
+  background-color: #f1f1f1;
+  border-radius: 4px;
 }
 
 .plugin-kanban .btn-toggle-expand {

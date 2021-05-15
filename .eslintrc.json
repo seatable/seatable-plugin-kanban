@@ -30,8 +30,9 @@
     "no-class-assign": "warn",
     "no-unused-vars": "warn",
     "no-irregular-whitespace": "warn",
-    "no-console": "off",
+    "no-console": "warn",
     "no-useless-escape": "warn",
-    "no-trailing-spaces": "off"
+    "no-trailing-spaces": "warn",
+    "eqeqeq": "off"
   }
 }
