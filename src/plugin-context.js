@@ -5,6 +5,10 @@ class PluginContext {
     this.api = window.dtableWebAPI || null;
   }
 
+  getConfig() {
+    return this.settings;
+  }
+
   getSettingByKey(key) {
     return this.settings[key] || '';
   }

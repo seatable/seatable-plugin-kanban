@@ -25,7 +25,7 @@ import {
   RateFormatter
 } from 'dtable-ui-component';
 import pluginContext from '../plugin-context';
-import { isValidEmail } from '../utils/common-utils';
+import { isValidEmail, getMediaUrl } from '../utils/common-utils';
 
 const EMPTY_CELL_FORMATTER = <div className="dtable-ui cell-formatter-container row-cell-empty"></div>;
 
@@ -70,7 +70,7 @@ class CellFormatter extends Component {
     }
 
     if (!isValidEmail(value)) {
-      let mediaUrl = this.getMediaUrl();
+      let mediaUrl = getMediaUrl();
       let defaultAvatarUrl = `${mediaUrl}/avatars/default.png`;
       collaborator = {
         name: value,
@@ -84,7 +84,7 @@ class CellFormatter extends Component {
       collaborator = res.data;
       this.setState({isDataLoaded: true, collaborator});
     }).catch(() => {
-      let mediaUrl = this.getMediaUrl();
+      let mediaUrl = getMediaUrl();
       let defaultAvatarUrl = `${mediaUrl}/avatars/default.png`;
       collaborator = {
         name: value,
@@ -94,12 +94,8 @@ class CellFormatter extends Component {
     });
   }
 
-  getMediaUrl = () => {
-    pluginContext.getSettingByKey('mediaUrl');
-  }
-
   getUserCommonInfo = (email, avatarSize = '') => {
-    pluginContext.getUserCommonInfo(email, avatarSize);
+    return pluginContext.getUserCommonInfo(email, avatarSize);
   }
 
   getLinkCellValue = (linkId, table1Id, table2Id, rowId) => {

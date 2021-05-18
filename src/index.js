@@ -6,7 +6,7 @@ import './setting';
 class TaskList {
 
   static execute() {
-    ReactDOM.render(<App isDevelopment={true} showDialog={true} />, document.getElementById('root'));
+    ReactDOM.render(<App isDevelopment={true} showDialog={true} key={(new Date()).getTime()} />, document.getElementById('root'));
   }
 
 }

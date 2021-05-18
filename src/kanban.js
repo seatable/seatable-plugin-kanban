@@ -39,7 +39,6 @@ class Kanban extends Component {
       this.props.storeSelectedViewId(newSelectedBoard._id);
       this.props.eventBus.dispatch(EventTypes.BOARDS_SCROLL_TO_RIGHT_END);
     });
-    
   }
 
   onDeleteBoard = (index) => {
@@ -81,7 +80,6 @@ class Kanban extends Component {
             {selectedBoardIndex > -1 &&
               <Board
                 selectedBoardIndex={selectedBoardIndex}
-                dtable={this.props.dtable}
                 eventBus={eventBus}
                 updatePluginSettings={this.props.updatePluginSettings}
               />
@@ -101,7 +99,6 @@ const mapStateToProps = (state) => {
 };
 
 Kanban.propTypes = {
-  dtable: PropTypes.object,
   eventBus: PropTypes.object,
   updatePluginSettings: PropTypes.func,
   storeSelectedViewId: PropTypes.func,

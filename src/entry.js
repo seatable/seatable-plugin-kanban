@@ -6,7 +6,7 @@ class TaskList {
 
   static execute() {
     let wrapper = document.querySelector('#plugin-wrapper');
-    ReactDOM.render(<App showDialog={true} />, wrapper);
+    ReactDOM.render(<App showDialog={true} key={(new Date()).getTime()} />, wrapper);
   }
 
 }

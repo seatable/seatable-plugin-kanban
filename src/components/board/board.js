@@ -56,8 +56,8 @@ class Board extends Component {
   }
 
   moveList = ({ fromIndex, targetIndex }) => {
-    const { activeBoard, dtableValue, dtable } = this.props;
-    const { cellType } = dtableValue;
+    const { activeBoard, dtableValue } = this.props;
+    const { cellType, dtable } = dtableValue;
     const { lists, selectedTable, groupbyColumn } = activeBoard;
     const fromList = lists[fromIndex];
     const targetList = lists[targetIndex];
@@ -76,8 +76,8 @@ class Board extends Component {
   }
 
   addNewList = (list) => {
-    const { activeBoard, dtableValue, dtable } = this.props;
-    const { cellType } = dtableValue;
+    const { activeBoard, dtableValue } = this.props;
+    const { cellType, dtable } = dtableValue;
     const { selectedTable, groupbyColumn } = activeBoard;
     const { type: columnType, name: columnName, data: columnData } = groupbyColumn;
     const { listName, payload } = list;
@@ -98,8 +98,8 @@ class Board extends Component {
   }
 
   onAppendRow = (listIndex) => {
-    const { dtable, activeBoard, dtableValue } = this.props;
-    const { cellType, collaborators } = dtableValue;
+    const { activeBoard, dtableValue } = this.props;
+    const { cellType, collaborators, dtable } = dtableValue;
     const { lists, selectedTable, selectedView, groupbyColumn } = activeBoard;
     const targetList = lists[listIndex];
     if (!targetList) return;
@@ -122,7 +122,8 @@ class Board extends Component {
   }
 
   onMoveRow = ({ fromListIndex, targetListIndex, fromCardIndex, targetCardIndex }) => {
-    const { dtable, activeBoard } = this.props;
+    const { dtableValue, activeBoard } = this.props;
+    const { dtable } = dtableValue;
     const { lists, selectedTable, selectedView, groupbyColumn } = activeBoard;
     const fromList = lists[fromListIndex];
     const targetList = lists[targetListIndex];
@@ -164,7 +165,7 @@ class Board extends Component {
   }
 
   renderBoard = () => {
-    const { dtable, activeBoard } = this.props;
+    const { activeBoard } = this.props;
     const { valid } = activeBoard;
     if (!valid) {
       return (
@@ -173,7 +174,6 @@ class Board extends Component {
     }
     return (
       <BoardContainer
-        dtable={dtable}
         moveList={this.moveList}
         onCardClick={this.onExpandRow}
         onAddCard={this.onAppendRow}
@@ -212,7 +212,6 @@ const mapStateToProps = (state) => {
 Board.propTypes = {
   selectedBoardIndex: PropTypes.number,
   boards: PropTypes.array,
-  dtable: PropTypes.object,
   dtableValue: PropTypes.object,
   activeBoard: PropTypes.object,
   eventBus: PropTypes.object,

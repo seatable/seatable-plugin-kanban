@@ -112,7 +112,7 @@ class App extends React.Component {
     if (selectedBoardIndex > -1) {
       const boardSetting = boards[selectedBoardIndex] || {};
       const activeBoard = this.getActiveBoard(boardSetting, this.tables);
-      store.dispatch({ type: 'UPDATE_ACTIVE_BOARD', activeBoard });
+      store.dispatch({ type: actionTypes.UPDATE_ACTIVE_BOARD, activeBoard });
     }
     this.setState({
       isLoading: false,
@@ -142,7 +142,7 @@ class App extends React.Component {
     const { _id, name, table_name, view_name, groupby_column_name, columns: configuredColumns } = boardSetting;
     const selectedTable = (table_name && this.dtable.getTableByName(table_name)) || tables[0];
     const selectedView = (view_name && this.dtable.getViewByName(selectedTable, view_name)) || selectedTable.views[0];
-    const groupbyColumn = this.dtable.getColumnByName(selectedTable, groupby_column_name);
+    const groupbyColumn = groupby_column_name && this.dtable.getColumnByName(selectedTable, groupby_column_name);
     const { key: groupbyColumnKey, type: groupbyColumnType } = groupbyColumn || {};
     let lists = [], canAddList = false, draggable = false, valid = false;
     if (!selectedTable || !selectedView || !groupbyColumn ||
@@ -314,20 +314,6 @@ class App extends React.Component {
     return collaborators; // local develop
   }
 
-  getMediaUrl = () => {
-    if (window.dtable) {
-      return window.dtable.mediaUrl;
-    }
-    return window.dtablePluginConfig.mediaUrl;
-  }
-
-  onRowExpand = (table, row) => {
-    if (window.app.expandRow) {
-      let originRow = this.dtable.getRowById(table, row._id);
-      window.app.expandRow(originRow, table);
-    }
-  }
-
   onSelectBoard = (selectedBoardIndex, callback = null) => {
     const { boards = [], dtableValue } = store.getState();
     this.setState({ selectedBoardIndex }, () => {
@@ -356,7 +342,6 @@ class App extends React.Component {
       <Provider store={store}>
         <Kanban
           selectedBoardIndex={this.state.selectedBoardIndex}
-          dtable={this.dtable}
           eventBus={this.eventBus}
           onSelectBoard={this.onSelectBoard}
           updatePluginSettings={this.updatePluginSettings}

@@ -45,8 +45,8 @@ class BoardContainer extends Component {
     if (!listName) {
       return this.unCategorized;
     }
-    const { dtable, dtableValue, activeBoard } = this.props;
-    const { tables, collaborators, cellType } = dtableValue;
+    const { dtableValue, activeBoard } = this.props;
+    const { tables, collaborators, cellType, dtable } = dtableValue;
     const { selectedTable, groupbyColumn } = activeBoard;
     const row = { [groupbyColumn.key]: listName };
     return (

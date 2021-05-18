@@ -40,8 +40,8 @@ class SingleSelectItem extends Component {
     return (
       <Fragment>
         <div className="plugin-kanban-selected-option">
-          <span 
-            className="plugin-kanban-option-color" 
+          <span
+            className="plugin-kanban-option-color"
             onClick={this.onToggleColorSelector}
             style={{ backgroundColor: optionColor }}
             id="plugin-kanban-option-item-id"
@@ -52,7 +52,7 @@ class SingleSelectItem extends Component {
             <Input className="list-name-input" value={lisName} onChange={this.onListNameChange} />
           </div>
         </div>
-        {isShowColorSelector && 
+        {isShowColorSelector &&
           <PluginPopover
             target='plugin-kanban-option-item-id'
             hidePluginPopover={this.onToggleColorSelector}

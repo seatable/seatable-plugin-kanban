@@ -46,6 +46,13 @@ export const getDtableUuid = () => {
   return window.dtablePluginConfig.dtableUuid;
 };
 
+export const getMediaUrl = () => {
+  if (window.dtable) {
+    return window.dtable.mediaUrl;
+  }
+  return window.dtablePluginConfig.mediaUrl;
+};
+
 export const isValidEmail = (email) => {
   const reg = /^[A-Za-zd]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,6}$/;
   return reg.test(email);
