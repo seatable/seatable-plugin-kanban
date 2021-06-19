@@ -373,12 +373,13 @@
 .plugin-kanban-card .name-cell-container .cell-formatter-container {
   font-size: 15px;
   font-weight: 500;
-  margin: 0 0 12px;
+  margin: 0 0 8px;
   cursor: pointer;
 }
 
 .plugin-kanban-card .cell-formatter-container {
   font-size: 14px;
+  line-height: 1.2;
   margin-top: 8px;
   overflow: hidden;
   text-overflow: ellipsis;
