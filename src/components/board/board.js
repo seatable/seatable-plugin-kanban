@@ -193,6 +193,7 @@ class Board extends Component {
             boardSetting={boards[selectedBoardIndex]}
             onCloseBoardSetting={this.onCloseBoardSetting}
             onUpdateBoardSetting={this.onUpdateBoardSetting}
+            getNonArchiveViews={this.props.getNonArchiveViews}
           />
         }
       </Fragment>
@@ -218,6 +219,7 @@ Board.propTypes = {
   onBackToHome: PropTypes.func,
   updatePluginSettings: PropTypes.func,
   modifyColumnData: PropTypes.func,
+  getNonArchiveViews: PropTypes.func,
 };
 
 export default connect(mapStateToProps, null)(Board);

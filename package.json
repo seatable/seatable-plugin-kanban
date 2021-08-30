@@ -4,7 +4,7 @@
   "description": "Display records on a kanban board.",
   "dependencies": {
     "classnames": "^2.2.6",
-    "dtable-sdk": "0.0.83",
+    "dtable-sdk": "0.0.100",
     "dtable-ui-component": "^0.1.25",
     "is-hotkey": "^0.1.8",
     "prop-types": "^15.7.2",
