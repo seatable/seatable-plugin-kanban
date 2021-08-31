@@ -141,7 +141,8 @@ class App extends React.Component {
   getActiveBoard = (boardSetting, tables) => {
     const { _id, name, table_name, view_name, groupby_column_name, columns: configuredColumns } = boardSetting;
     const selectedTable = (table_name && this.dtable.getTableByName(table_name)) || tables[0];
-    const selectedView = (view_name && this.dtable.getViewByName(selectedTable, view_name)) || selectedTable.views[0];
+    const views = this.getNonArchiveViews(selectedTable);
+    const selectedView = (view_name && this.dtable.getViewByName(selectedTable, view_name)) || views[0];
     const groupbyColumn = groupby_column_name && this.dtable.getColumnByName(selectedTable, groupby_column_name);
     const { key: groupbyColumnKey, type: groupbyColumnType } = groupbyColumn || {};
     let lists = [], canAddList = false, draggable = false, valid = false;
@@ -333,6 +334,10 @@ class App extends React.Component {
     this.dtable.updatePluginSettings(PLUGIN_NAME, { boards });
   }
 
+  getNonArchiveViews = (table) => {
+    return this.dtable.getNonArchiveViews(table);
+  }
+
   render() {
     let { isLoading, showDialog } = this.state;
     if (isLoading || !showDialog) {
@@ -346,6 +351,7 @@ class App extends React.Component {
           onSelectBoard={this.onSelectBoard}
           updatePluginSettings={this.updatePluginSettings}
           storeSelectedViewId={this.storeSelectedViewId}
+          getNonArchiveViews={this.getNonArchiveViews}
         />
       </Provider>
     );

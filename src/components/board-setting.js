@@ -66,8 +66,9 @@ class BoardSetting extends React.Component {
 
   getSelectorOptions(selectedTable, { groupbyColumns }) {
     const { tables } = this.props.dtableValue;
+    const views = this.props.getNonArchiveViews(selectedTable);
     const tableOptions = this.createOptions(tables, SETTING_KEY.TABLE_NAME, 'name');
-    const viewOptions = this.createOptions(selectedTable.views, SETTING_KEY.VIEW_NAME, 'name');
+    const viewOptions = this.createOptions(views, SETTING_KEY.VIEW_NAME, 'name');
     const groupbyColumnOptions = this.createOptions(groupbyColumns, SETTING_KEY.GROUPBY_COLUMN_NAME, 'value');
     return { tableOptions, viewOptions, groupbyColumnOptions };
   }
@@ -220,6 +221,7 @@ BoardSetting.propTypes = {
   boardSetting: PropTypes.object,
   onUpdateBoardSetting: PropTypes.func,
   onCloseBoardSetting: PropTypes.func,
+  getNonArchiveViews: PropTypes.func,
 };
 
 export default connect(mapStateToProps, null)(BoardSetting);
