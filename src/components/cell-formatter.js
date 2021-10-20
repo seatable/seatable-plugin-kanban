@@ -111,7 +111,7 @@ class CellFormatter extends Component {
   }
 
   renderCellFormatter = () => {
-    const { column, row, collaborators, CellType, tables } = this.props;
+    const { column, row, collaborators, CellType } = this.props;
     const { type: columnType, key: columnKey, data: columnData } = column;
     const { isDataLoaded, collaborator } = this.state;
     const cellValue = row[columnKey];
@@ -189,7 +189,7 @@ class CellFormatter extends Component {
         let formulaRows = this.props.formulaRows ? {...this.props.formulaRows} : {};
         let formulaValue = formulaRows[row._id] ? formulaRows[row._id][columnKey] : '';
         if (!formulaValue) return EMPTY_CELL_FORMATTER;
-        return <FormulaFormatter value={formulaValue} column={column} collaborators={collaborators} tables={tables} containerClassName="plugin-kanban-cell-formatter-formula" />;
+        return <FormulaFormatter value={formulaValue} column={column} collaborators={collaborators} containerClassName="plugin-kanban-cell-formatter-formula" />;
       }
       case CellType.LINK: {
         const linkMetaData = {
@@ -239,7 +239,6 @@ class CellFormatter extends Component {
 }
 
 CellFormatter.propTypes = {
-  tables: PropTypes.array,
   column: PropTypes.object.isRequired,
   row: PropTypes.object.isRequired,
   table: PropTypes.object.isRequired,

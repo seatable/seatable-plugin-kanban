@@ -45,13 +45,13 @@
 // Reference: http://es5.github.io/#x15.4.4.17
 if (!Array.prototype.some) {
   Array.prototype.some = function(fun /*, thisArg*/) {
-    "use strict";
+    'use strict';
 
     if (this == null) {
-      throw new TypeError("Array.prototype.some called on null or undefined");
+      throw new TypeError('Array.prototype.some called on null or undefined');
     }
 
-    if (typeof fun !== "function") {
+    if (typeof fun !== 'function') {
       throw new TypeError();
     }
 

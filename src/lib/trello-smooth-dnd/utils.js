@@ -8,7 +8,7 @@ export const getIntersection = (rect1, rect2) => {
 };
 
 export const getIntersectionOnAxis = (rect1, rect2, axis) => {
-  if (axis === "x") {
+  if (axis === 'x') {
     return {
       left: Math.max(rect1.left, rect2.left),
       top: rect1.top,
@@ -34,12 +34,12 @@ export const getContainerRect = element => {
     bottom: _rect.bottom
   };
 
-  if (hasBiggerChild(element, "x") && !isScrollingOrHidden(element, "x")) {
+  if (hasBiggerChild(element, 'x') && !isScrollingOrHidden(element, 'x')) {
     const width = rect.right - rect.left;
     rect.right = rect.right + element.scrollWidth - width;
   }
 
-  if (hasBiggerChild(element, "y") && !isScrollingOrHidden(element, "y")) {
+  if (hasBiggerChild(element, 'y') && !isScrollingOrHidden(element, 'y')) {
     const height = rect.bottom - rect.top;
     rect.bottom = rect.bottom + element.scrollHeight - height;
   }
@@ -49,41 +49,41 @@ export const getContainerRect = element => {
 
 export const getScrollingAxis = element => {
   const style = global.getComputedStyle(element);
-  const overflow = style["overflow"];
-  const general = overflow === "auto" || overflow === "scroll";
-  if (general) return "xy";
-  const overFlowX = style[`overflow-x`];
-  const xScroll = overFlowX === "auto" || overFlowX === "scroll";
-  const overFlowY = style[`overflow-y`];
-  const yScroll = overFlowY === "auto" || overFlowY === "scroll";
+  const overflow = style['overflow'];
+  const general = overflow === 'auto' || overflow === 'scroll';
+  if (general) return 'xy';
+  const overFlowX = style['overflow-x'];
+  const xScroll = overFlowX === 'auto' || overFlowX === 'scroll';
+  const overFlowY = style['overflow-y'];
+  const yScroll = overFlowY === 'auto' || overFlowY === 'scroll';
 
-  return `${xScroll ? "x" : ""}${yScroll ? "y" : ""}` || null;
+  return `${xScroll ? 'x' : ''}${yScroll ? 'y' : ''}` || null;
 };
 
 export const isScrolling = (element, axis) => {
   const style = global.getComputedStyle(element);
-  const overflow = style["overflow"];
+  const overflow = style['overflow'];
   const overFlowAxis = style[`overflow-${axis}`];
-  const general = overflow === "auto" || overflow === "scroll";
-  const dimensionScroll = overFlowAxis === "auto" || overFlowAxis === "scroll";
+  const general = overflow === 'auto' || overflow === 'scroll';
+  const dimensionScroll = overFlowAxis === 'auto' || overFlowAxis === 'scroll';
   return general || dimensionScroll;
 };
 
 export const isScrollingOrHidden = (element, axis) => {
   const style = global.getComputedStyle(element);
-  const overflow = style["overflow"];
+  const overflow = style['overflow'];
   const overFlowAxis = style[`overflow-${axis}`];
   const general =
-    overflow === "auto" || overflow === "scroll" || overflow === "hidden";
+    overflow === 'auto' || overflow === 'scroll' || overflow === 'hidden';
   const dimensionScroll =
-    overFlowAxis === "auto" ||
-    overFlowAxis === "scroll" ||
-    overFlowAxis === "hidden";
+    overFlowAxis === 'auto' ||
+    overFlowAxis === 'scroll' ||
+    overFlowAxis === 'hidden';
   return general || dimensionScroll;
 };
 
 export const hasBiggerChild = (element, axis) => {
-  if (axis === "x") {
+  if (axis === 'x') {
     return element.scrollWidth > element.clientWidth;
   } else {
     return element.scrollHeight > element.clientHeight;
@@ -100,24 +100,24 @@ export const getVisibleRect = (element, elementRect) => {
   currentElement = element.parentElement;
   while (currentElement) {
     if (
-      hasBiggerChild(currentElement, "x") &&
-      isScrollingOrHidden(currentElement, "x")
+      hasBiggerChild(currentElement, 'x') &&
+      isScrollingOrHidden(currentElement, 'x')
     ) {
       rect = getIntersectionOnAxis(
         rect,
         currentElement.getBoundingClientRect(),
-        "x"
+        'x'
       );
     }
 
     if (
-      hasBiggerChild(currentElement, "y") &&
-      isScrollingOrHidden(currentElement, "y")
+      hasBiggerChild(currentElement, 'y') &&
+      isScrollingOrHidden(currentElement, 'y')
     ) {
       rect = getIntersectionOnAxis(
         rect,
         currentElement.getBoundingClientRect(),
-        "y"
+        'y'
       );
     }
 
@@ -131,25 +131,25 @@ export const listenScrollParent = (element, clb) => {
   let scrollers = [];
   const dispose = () => {
     scrollers.forEach(p => {
-      p.removeEventListener("scroll", clb);
+      p.removeEventListener('scroll', clb);
     });
-    global.removeEventListener("scroll", clb);
+    global.removeEventListener('scroll', clb);
   };
 
   setTimeout(function() {
     let currentElement = element;
     while (currentElement) {
       if (
-        isScrolling(currentElement, "x") ||
-        isScrolling(currentElement, "y")
+        isScrolling(currentElement, 'x') ||
+        isScrolling(currentElement, 'y')
       ) {
-        currentElement.addEventListener("scroll", clb);
+        currentElement.addEventListener('scroll', clb);
         scrollers.push(currentElement);
       }
       currentElement = currentElement.parentElement;
     }
 
-    global.addEventListener("scroll", clb);
+    global.addEventListener('scroll', clb);
   }, 10);
 
   return {
@@ -183,7 +183,7 @@ export const getParent = (element, selector) => {
 export const hasClass = (element, cls) => {
   return (
     element.className
-      .split(" ")
+      .split(' ')
       .map(p => p)
       .indexOf(cls) > -1
   );
@@ -191,19 +191,19 @@ export const hasClass = (element, cls) => {
 
 export const addClass = (element, cls) => {
   if (element) {
-    element.className = element.className || ''
-    const classes = element.className.split(" ").filter(p => p);
+    element.className = element.className || '';
+    const classes = element.className.split(' ').filter(p => p);
     if (classes.indexOf(cls) === -1) {
       classes.unshift(cls);
-      element.className = classes.join(" ");
+      element.className = classes.join(' ');
     }
   }
 };
 
 export const removeClass = (element, cls) => {
   if (element) {
-    const classes = element.className.split(" ").filter(p => p && p !== cls);
-    element.className = classes.join(" ");
+    const classes = element.className.split(' ').filter(p => p && p !== cls);
+    element.className = classes.join(' ');
   }
 };
 
@@ -279,4 +279,4 @@ export const getElementCursor = (element) => {
   }
 
   return null;
-}
+};

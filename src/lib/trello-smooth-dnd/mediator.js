@@ -14,7 +14,7 @@ let ghostInfo = null;
 let draggableInfo = null;
 let containers = [];
 let isDragging = false;
-let removedElement = null;
+// let removedElement = null;
 
 let handleDrag = null;
 let handleScroll = null;
