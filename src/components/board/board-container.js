@@ -46,12 +46,11 @@ class BoardContainer extends Component {
       return this.unCategorized;
     }
     const { dtableValue, activeBoard } = this.props;
-    const { tables, collaborators, cellType, dtable } = dtableValue;
+    const { collaborators, cellType, dtable } = dtableValue;
     const { selectedTable, groupbyColumn } = activeBoard;
     const row = { [groupbyColumn.key]: listName };
     return (
       <CellFormatter
-        tables={tables}
         column={groupbyColumn}
         row={row}
         table={selectedTable}

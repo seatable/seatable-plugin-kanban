@@ -3,7 +3,7 @@ import layoutManager from './layoutManager';
 import { hasClass, addClass, removeClass, getParent } from './utils';
 import { domDropHandler } from './dropHandlers';
 import {
-  defaultGroupName,
+  // defaultGroupName,
   wrapperClass,
   animationClass,
   stretcherElementClass,
@@ -86,7 +86,7 @@ function wrapChildren(element) {
       wrapper[translationValue] = 0;
       draggables.push(wrapper);
     } else {
-      if (typeof element.removeChild === "function") {
+      if (typeof element.removeChild === 'function') {
         element.removeChild(child);
       }
     }
@@ -376,9 +376,9 @@ function handleInsertionSizeChange({ element, draggables, layout, options }) {
   return function({ dragResult: { addedIndex, removedIndex, elementSize } }) {
     if (removedIndex === null) {
       if (addedIndex !== null) {
-				if (!strectherElement) {
-					const containerBeginEnd = layout.getBeginEndOfContainer();
-					containerBeginEnd.end = containerBeginEnd.begin + layout.getSize(element);
+        if (!strectherElement) {
+          const containerBeginEnd = layout.getBeginEndOfContainer();
+          containerBeginEnd.end = containerBeginEnd.begin + layout.getSize(element);
           const hasScrollBar = layout.getScrollSize(element) > layout.getSize(element);
           const containerEnd = hasScrollBar
             ? containerBeginEnd.begin + layout.getScrollSize(element) - layout.getScrollValue(element)
@@ -560,7 +560,7 @@ function fireOnDropReady({ options }) {
 
       options.onDropReady({ addedIndex: adjustedAddedIndex, removedIndex, payload, element: element.firstElementChild });
     }
-  }
+  };
 }
 
 function getDragHandler(params) {
@@ -737,27 +737,27 @@ function Container(element) {
   };
 }
 
-const options = {
-  behaviour: 'move',
-  groupName: 'bla bla', // if not defined => container will not interfere with other containers
-  orientation: 'vertical',
-  dragHandleSelector: null,
-  nonDragAreaSelector: 'some selector',
-  dragBeginDelay: 0,
-  animationDuration: 180,
-  autoScrollEnabled: true,
-  lockAxis: true,
-  dragClass: null,
-  dropClass: null,
-  onDragStart: (index, payload) => {},
-  onDrop: ({ removedIndex, addedIndex, payload, element }) => {},
-  getChildPayload: index => null,
-  shouldAnimateDrop: (sourceContainerOptions, payload) => true,
-  shouldAcceptDrop: (sourceContainerOptions, payload) => true,
-  onDragEnter: () => {},
-  onDragLeave: () => { },
-  onDropReady: ({ removedIndex, addedIndex, payload, element }) => { },
-};
+// const options = {
+//   behaviour: 'move',
+//   groupName: 'bla bla', // if not defined => container will not interfere with other containers
+//   orientation: 'vertical',
+//   dragHandleSelector: null,
+//   nonDragAreaSelector: 'some selector',
+//   dragBeginDelay: 0,
+//   animationDuration: 180,
+//   autoScrollEnabled: true,
+//   lockAxis: true,
+//   dragClass: null,
+//   dropClass: null,
+//   onDragStart: (index, payload) => {},
+//   onDrop: ({ removedIndex, addedIndex, payload, element }) => {},
+//   getChildPayload: index => null,
+//   shouldAnimateDrop: (sourceContainerOptions, payload) => true,
+//   shouldAcceptDrop: (sourceContainerOptions, payload) => true,
+//   onDragEnter: () => {},
+//   onDragLeave: () => { },
+//   onDropReady: ({ removedIndex, addedIndex, payload, element }) => { },
+// };
 
 // exported part of container
 function SmoothDnD(element, options) {
