@@ -10,7 +10,7 @@ import {
   CollaboratorFormatter,
   ImageFormatter,
   FileFormatter,
-  LongTextFormatter,
+  SimpleLongTextFormatter,
   GeolocationFormatter,
   LinkFormatter,
   FormulaFormatter,
@@ -126,7 +126,7 @@ class CellFormatter extends Component {
       }
       case CellType.LONG_TEXT: {
         if (!cellValue) return EMPTY_CELL_FORMATTER;
-        return <LongTextFormatter value={cellValue} />;
+        return <SimpleLongTextFormatter value={cellValue} />;
       }
       case CellType.IMAGE: {
         if (!cellValue || cellValue.length === 0) return EMPTY_CELL_FORMATTER;

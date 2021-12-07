@@ -26,7 +26,7 @@
   height: 0;
 }
 
-.plugin-kanban-boards .views {
+.plugin-kanban-boards .boards {
   height: 100%;
 }
 
@@ -86,6 +86,39 @@
   color: #aaa;
 }
 
+.plugin-kanban-boards .boards-scroll-control {
+  display: flex;
+  align-items: center;
+  padding: 0 .25rem;
+}
+
+.plugin-kanban-boards .scroll-control-btn {
+  cursor: default;
+}
+
+.plugin-kanban-boards .scroll-control-btn:first-child {
+  margin-right: .1rem;
+}
+
+.plugin-kanban-boards .scroll-active {
+  cursor: pointer;
+}
+
+.plugin-kanban-boards .btn-scroll-icon {
+  color: #c2c2c2;
+  font-size: 12px;
+  line-height: 24px;
+}
+
+.plugin-kanban-boards .scroll-active .btn-scroll-icon {
+  color: #8c8c8c;
+}
+
+.plugin-kanban-boards .scroll-active:hover .btn-scroll-icon {
+  color: #000;
+  opacity: .75;
+}
+
 .plugin-kanban-boards .btn-add-board {
   display: flex;
   align-items: center;
@@ -100,10 +133,14 @@
   text-align: center;
   cursor: pointer;
   color: #000;
-  opacity: 0.5;
+  opacity: .5;
   font-size: 14px;
   font-weight: 500;
   line-height: 24px;
+}
+
+.plugin-kanban-boards .btn-add-board .dtable-icon-add-table:hover {
+  opacity: .75;
 }
 
 .plugin-kanban .kanban-board-wrapper {

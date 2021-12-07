@@ -10,6 +10,11 @@ import NewBoardDialog from '../dialog/new-board-dialog';
 import { generatorBoardId } from '../../utils/common-utils';
 import * as EventTypes from '../../constants/event-types';
 
+const SCROLL_TYPE = {
+  PREV: 'prev',
+  NEXT: 'next',
+};
+
 class Boards extends Component {
 
   constructor(props) {
@@ -22,6 +27,9 @@ class Boards extends Component {
         top: 0,
         left: 0
       },
+      canScrollPrev: false,
+      canScrollNext: false,
+      canBoardsScroll: true,
     };
     this.boards = [];
   }
@@ -32,6 +40,8 @@ class Boards extends Component {
     let { offsetWidth } = this.boardsScroll;
     if (left > offsetWidth) {
       this.boardsScroll.scrollLeft = left - offsetWidth;
+    } else {
+      this.checkAvailableScrollType();
     }
     document.addEventListener('click', this.onHideBoardDropdown);
     this.unsubscribeScrollToRightEnd = this.props.eventBus.subscribe(EventTypes.BOARDS_SCROLL_TO_RIGHT_END, this.scrollToRightEnd);
@@ -40,6 +50,64 @@ class Boards extends Component {
   componentWillUnmount() {
     document.removeEventListener('click', this.onHideBoardDropdown);
     this.unsubscribeScrollToRightEnd();
+  }
+
+  checkAvailableScrollType = () => {
+    const { canScrollPrev, canScrollNext } = this.state;
+    let { offsetWidth, scrollWidth, scrollLeft } = this.boardsScroll;
+    let _canScrollPrev = false;
+    let _canScrollNext = false;
+    if (scrollLeft > 0) {
+      _canScrollPrev = true;
+    }
+    if (scrollLeft + offsetWidth < scrollWidth) {
+      _canScrollNext = true;
+    }
+
+    if (_canScrollPrev !== canScrollPrev || _canScrollNext !== canScrollNext) {
+      this.setState({
+        canScrollPrev: _canScrollPrev,
+        canScrollNext: _canScrollNext,
+      });
+    }
+  }
+
+  onScrollWithControl = (type) => {
+    const { offsetWidth, scrollWidth, scrollLeft } = this.boardsScroll;
+    let targetScrollLeft;
+    if (type === SCROLL_TYPE.PREV) {
+      if (scrollLeft === 0) {
+        return;
+      }
+      targetScrollLeft = scrollLeft - offsetWidth;
+      targetScrollLeft = targetScrollLeft > 0 ? targetScrollLeft : 0;
+    }
+
+    if (type === SCROLL_TYPE.NEXT) {
+      if (scrollLeft + offsetWidth === scrollWidth) {
+        return;
+      }
+      targetScrollLeft = scrollLeft + offsetWidth;
+      targetScrollLeft = targetScrollLeft > scrollWidth - offsetWidth ? scrollWidth - offsetWidth : targetScrollLeft;
+    }
+    if (this.state.canBoardsScroll) {
+      this.setState({ canBoardsScroll: false });
+      let timer = null;
+      timer = setInterval(() => {
+        let step = (targetScrollLeft - scrollLeft) / 10;
+        step = step > 0 ? Math.ceil(step) : Math.floor(step);
+        this.boardsScroll.scrollLeft = this.boardsScroll.scrollLeft + step;
+        if (Math.abs(targetScrollLeft - this.boardsScroll.scrollLeft) <= Math.abs(step)) {
+          this.boardsScroll.scrollLeft = targetScrollLeft;
+          clearInterval(timer);
+          this.setState({ canBoardsScroll: true });
+        }
+      }, 15);
+    }
+  }
+
+  onBoardsScroll = () => {
+    this.checkAvailableScrollType();
   }
 
   setBoardItem = idx => boardItem => {
@@ -105,12 +173,19 @@ class Boards extends Component {
 
   render() {
     const { boards, selectedBoardIndex } = this.props;
-    let { isShowBoardDropdown, dropdownMenuPosition, isShowNewBoardDialog, isShowRenameBoardDialog } = this.state;
+    let {
+      isShowBoardDropdown, dropdownMenuPosition, isShowNewBoardDialog, isShowRenameBoardDialog,
+      canScrollPrev, canScrollNext,
+    } = this.state;
     let selectedBoard = boards[selectedBoardIndex] || {};
     return (
       <div className="plugin-kanban-boards">
-        <div className="boards-scroll" ref={ref => this.boardsScroll = ref}>
-          <div className="views d-inline-flex">
+        <div
+          className="boards-scroll"
+          ref={ref => this.boardsScroll = ref}
+          onScroll={this.onBoardsScroll}
+        >
+          <div className="boards d-inline-flex">
             {boards.map((board, i) => {
               let { _id, name } = board;
               let isActiveBoard = selectedBoardIndex === i;
@@ -164,6 +239,22 @@ class Boards extends Component {
             })}
           </div>
         </div>
+        {(canScrollPrev || canScrollNext) &&
+          <div className="boards-scroll-control">
+            <span
+              className={classnames('scroll-control-btn', 'scroll-prev', { 'scroll-active': canScrollPrev })}
+              onClick={this.onScrollWithControl.bind(this, SCROLL_TYPE.PREV)}
+            >
+              <i className="dtable-font dtable-icon-left-slide btn-scroll-icon" />
+            </span>
+            <span
+              className={classnames('scroll-control-btn', 'scroll-next', { 'scroll-active': canScrollNext })}
+              onClick={this.onScrollWithControl.bind(this, SCROLL_TYPE.NEXT)}
+            >
+              <i className="dtable-font dtable-icon-right-slide btn-scroll-icon" />
+            </span>
+          </div>
+        }
         <div className="btn-add-board" onClick={this.onNewBoardToggle}>
           <i className="dtable-font dtable-icon-add-table"></i>
         </div>
