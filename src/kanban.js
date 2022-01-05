@@ -76,7 +76,7 @@ class Kanban extends Component {
           </div>
         </div>
         <div className="plugin-body">
-          <div className="kanban">
+          <div className="kanban o-hidden">
             {selectedBoardIndex > -1 &&
               <Board
                 selectedBoardIndex={selectedBoardIndex}
