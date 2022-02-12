@@ -3,7 +3,7 @@ const fr = {
   "Settings": "Paramètres",
   "Table": "Tableau",
   "View": "Vue",
-  "Groupby": "Group by",
+  "Groupby": "Groupement",
   "Rename_board": "Renommer le board",
   "Delete_board": "Supprimer le board",
   "Default_board": "Board standard",
@@ -18,8 +18,10 @@ const fr = {
   "Cancel": "Annuler",
   "Submit": "Soumettre",
   "Name_is_required": "Le nom est nécessaire.",
-  "Title_field": "Title field",
-  "Other_fields": "Other fields"
+  "Title_field": "Titre",
+  "Other_fields": "Autres colonnes",
+  "Do_not_show_empty_values": "Don't show empty values",
+  "Show_field_names": "Show field names"
 }
 ;
 

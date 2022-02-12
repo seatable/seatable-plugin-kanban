@@ -19,7 +19,9 @@ const zh_CN = {
   "Submit": "提交",
   "Name_is_required": "名称必须存在",
   "Title_field": "标题字段",
-  "Other_fields": "其他字段"
+  "Other_fields": "其他字段",
+  "Do_not_show_empty_values": "不显示空值",
+  "Show_field_names": "显示字段名称"
 }
 ;
 

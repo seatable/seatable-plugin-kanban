@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Input } from 'reactstrap';
 import PluginSelect from './plugin-select';
 import ColumnSetting from './column-setting';
+import ToggleSetting from './toggle-setting';
 import { SETTING_KEY } from '../constants';
 import * as zIndexes from '../constants/zIndexes';
 
@@ -138,7 +139,7 @@ class BoardSetting extends React.Component {
   }
 
   render() {
-    const { dtableValue, activeBoard } = this.props;
+    const { dtableValue, activeBoard, boardSetting } = this.props;
     const { tables } = dtableValue;
     let { selectedTable } = activeBoard;
     selectedTable = selectedTable || tables[0];
@@ -200,6 +201,27 @@ class BoardSetting extends React.Component {
                   })}
                 </div>
               </div>
+
+              <div className="split-line"></div>
+              <div className="setting-item">
+                <ToggleSetting
+                  settings={boardSetting}
+                  settingKey="hideEmptyValues"
+                  settingDesc={intl.get('Do_not_show_empty_values')}
+                  updateSettings={this.updateBoardSetting}
+                />
+              </div>
+
+              <div className="split-line"></div>
+              <div className="setting-item">
+                <ToggleSetting
+                  settings={boardSetting}
+                  settingKey="showFieldNames"
+                  settingDesc={intl.get('Show_field_names')}
+                  updateSettings={this.updateBoardSetting}
+                />
+              </div>
+
             </div>
           </div>
         </div>

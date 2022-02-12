@@ -19,7 +19,9 @@ const en = {
   "Submit": "Submit",
   "Name_is_required": "Name is required",
   "Title_field": "Title field",
-  "Other_fields": "Other fields"
+  "Other_fields": "Other fields",
+  "Do_not_show_empty_values": "Don't show empty values",
+  "Show_field_names": "Show field names"
 }
 ;
 
