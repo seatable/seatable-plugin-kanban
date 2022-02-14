@@ -175,7 +175,7 @@
   cursor: pointer;
 }
 
-.kanban-column-setting-item .kanban-column-switch .custom-switch {
+.plugin-kanban-board-setting .custom-switch {
   width: 100%;
   justify-content: space-between;
   cursor: pointer;
@@ -196,17 +196,21 @@
   color: #666;
 }
 
-.kanban-column-setting-item .custom-switch .custom-switch-indicator {
+.plugin-kanban-board-setting .custom-switch .custom-switch-indicator {
   width: 22px;
   height: 12px;
   border-radius: 6px;
 }
 
-.kanban-column-setting-item .custom-switch .custom-switch-input:checked~.custom-switch-indicator:before {
+.plugin-kanban-board-setting .custom-switch .custom-switch-input:checked~.custom-switch-indicator:before {
   left: 12px;
 }
 
-.kanban-column-setting-item .custom-switch .custom-switch-indicator:before {
+.plugin-kanban-board-setting .custom-switch .custom-switch-indicator:before {
   height: 8px;
   width: 8px;
+}
+
+.plugin-kanban-board-setting .switch-setting-item {
+  padding-right: 3px;
 }

@@ -12,7 +12,7 @@ class Card extends Component {
       dtableValue, activeBoard
     } = this.props;
     const { dtable, tables, collaborators, cellType } = dtableValue;
-    let { selectedTable, formulaRows, configuredColumns } = activeBoard;
+    let { selectedTable, formulaRows, configuredColumns, hideEmptyValues, showFieldNames } = activeBoard;
     selectedTable = selectedTable || tables[0];
     const columns = selectedTable.columns;
 
@@ -53,6 +53,8 @@ class Card extends Component {
             <CellFormatter
               key={index}
               column={column}
+              hideEmptyValues={hideEmptyValues}
+              showFieldNames={showFieldNames}
               {...cellFormatterProps}
             />
           ))}

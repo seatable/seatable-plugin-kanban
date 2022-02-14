@@ -3,7 +3,7 @@
   "Settings": "Einstellungen",
   "Table": "Tabelle",
   "View": "Ansicht",
-  "Groupby": "Group by",
+  "Groupby": "Gruppierung",
   "Rename_board": "Board umbenennen",
   "Delete_board": "Board löschen",
   "Default_board": "Standardboard",
@@ -18,6 +18,8 @@
   "Cancel": "Abbrechen",
   "Submit": "Absenden",
   "Name_is_required": "Der Name ist eine Pflichtangabe.",
-  "Title_field": "Title field",
-  "Other_fields": "Other fields"
+  "Title_field": "Titel",
+  "Other_fields": "Weitere Spalten",
+  "Do_not_show_empty_values": "Don't show empty values",
+  "Show_field_names": "Show field names"
 }

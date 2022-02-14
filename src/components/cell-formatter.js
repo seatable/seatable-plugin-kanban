@@ -27,8 +27,6 @@ import {
 import pluginContext from '../plugin-context';
 import { isValidEmail, getMediaUrl } from '../utils/common-utils';
 
-const EMPTY_CELL_FORMATTER = <div className="dtable-ui cell-formatter-container row-cell-empty"></div>;
-
 class CellFormatter extends Component {
 
   constructor(props) {
@@ -111,10 +109,17 @@ class CellFormatter extends Component {
   }
 
   renderCellFormatter = () => {
-    const { column, row, collaborators, CellType } = this.props;
+    const { column, row, collaborators, CellType, hideEmptyValues } = this.props;
     const { type: columnType, key: columnKey, data: columnData } = column;
     const { isDataLoaded, collaborator } = this.state;
     const cellValue = row[columnKey];
+
+    // keep using `EMPTY_CELL_FORMATTER` here to be compatible with the old code
+    let EMPTY_CELL_FORMATTER = <div className="dtable-ui cell-formatter-container row-cell-empty"></div>;
+    if (hideEmptyValues) {
+      EMPTY_CELL_FORMATTER = null;
+    }
+
     switch (columnType) {
       case CellType.TEXT: {
         if (!cellValue) return EMPTY_CELL_FORMATTER;
@@ -234,7 +239,17 @@ class CellFormatter extends Component {
   }
 
   render() {
-    return this.renderCellFormatter();
+    const { column, hideEmptyValues, showFieldNames } = this.props;
+    const cellValue = this.renderCellFormatter();
+    if (showFieldNames && !(hideEmptyValues && cellValue === null)) {
+      return (
+        <div className="mt-2">
+          <h5 className="card-column-name">{column.name}</h5>
+          {cellValue}
+        </div>
+      );
+    }
+    return cellValue;
   }
 }
 
