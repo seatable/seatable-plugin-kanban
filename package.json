@@ -1,12 +1,13 @@
 {
   "name": "seatable-plugin-kanban",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "Display records on a kanban board.",
   "dependencies": {
     "babel-plugin-on-demand-loading": "^0.0.9",
     "classnames": "^2.2.6",
-    "dtable-sdk": "0.0.131",
-    "dtable-ui-component": "0.1.82",
+    "dayjs": "^1.10.7",
+    "dtable-sdk": "0.0.134",
+    "dtable-ui-component": "0.1.82beta",
     "is-hotkey": "^0.1.8",
     "prop-types": "^15.7.2",
     "react": "16.14.0",
