@@ -83,6 +83,7 @@ class Kanban extends Component {
                 eventBus={eventBus}
                 updatePluginSettings={this.props.updatePluginSettings}
                 getNonArchiveViews={this.props.getNonArchiveViews}
+                getViewFields={this.props.getViewFields}
               />
             }
           </div>
@@ -104,6 +105,7 @@ Kanban.propTypes = {
   updatePluginSettings: PropTypes.func,
   storeSelectedViewId: PropTypes.func,
   getNonArchiveViews: PropTypes.func,
+  getViewFields: PropTypes.func,
 };
 
 export default connect(mapStateToProps, null)(Kanban);

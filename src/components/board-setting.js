@@ -141,13 +141,13 @@ class BoardSetting extends React.Component {
   render() {
     const { dtableValue, activeBoard, boardSetting } = this.props;
     const { tables } = dtableValue;
-    let { selectedTable } = activeBoard;
+    let { selectedTable, selectedView } = activeBoard;
     selectedTable = selectedTable || tables[0];
     const { groupbyColumns } = this.getSelectorColumns(selectedTable.columns);
     const { tableOptions, viewOptions, groupbyColumnOptions }
       = this.getSelectorOptions(selectedTable, { groupbyColumns });
 
-    const columns = selectedTable.columns;
+    const columns = this.props.getViewFields(selectedTable, selectedView);
     // `slice(1)`: the first column ('name' column) is always shown, and not included here.
     this.configuredColumns = this.getCurrentConfiguredColumns(columns.slice(1));
     const configuredColumns = this.configuredColumns.map((item, index) => {
@@ -221,7 +221,6 @@ class BoardSetting extends React.Component {
                   updateSettings={this.updateBoardSetting}
                 />
               </div>
-
             </div>
           </div>
         </div>
@@ -244,6 +243,7 @@ BoardSetting.propTypes = {
   onUpdateBoardSetting: PropTypes.func,
   onCloseBoardSetting: PropTypes.func,
   getNonArchiveViews: PropTypes.func,
+  getViewFields: PropTypes.func,
 };
 
 export default connect(mapStateToProps, null)(BoardSetting);
