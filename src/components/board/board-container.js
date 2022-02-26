@@ -96,7 +96,7 @@ class BoardContainer extends Component {
                   onCardClick={this.props.onCardClick}
                   onAddCard={this.props.onAddCard.bind(this, index)}
                   moveCard={this.props.moveCard}
-                  getViewFields={this.props.getViewFields}
+                  getViewShownColumns={this.props.getViewShownColumns}
                 />
               );
               if (draggable && name !== null) {
@@ -134,7 +134,7 @@ BoardContainer.propTypes = {
   onCardAdd: PropTypes.func,
   moveCard: PropTypes.func,
   addNewList: PropTypes.func,
-  getViewFields: PropTypes.func,
+  getViewShownColumns: PropTypes.func,
 };
 
 BoardContainer.defaultProps = {

@@ -113,7 +113,7 @@ class List extends Component {
             listIndex={listIndex}
             card={card}
             onCardClick={this.handleCardClick.bind(this, card)}
-            getViewFields={this.props.getViewFields}
+            getViewShownColumns={this.props.getViewShownColumns}
             cardDraggable
           />
         </Draggable>
@@ -162,7 +162,7 @@ List.propTypes = {
   onAddCard: PropTypes.func,
   moveCard: PropTypes.func,
   onListScroll: PropTypes.func,
-  getViewFields: PropTypes.func,
+  getViewShownColumns: PropTypes.func,
 };
 
 export default List;

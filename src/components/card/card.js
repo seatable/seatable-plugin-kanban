@@ -15,7 +15,7 @@ class Card extends Component {
     let { selectedTable, selectedView, formulaRows, configuredColumns, hideEmptyValues, showFieldNames } = activeBoard;
     selectedTable = selectedTable || tables[0];
     selectedView = selectedView || selectedTable.views[0];
-    const columns = this.props.getViewFields(selectedTable, selectedView);
+    const columns = this.props.getViewShownColumns(selectedView, selectedTable);
 
     let shownColumns = [];
     if (configuredColumns) {
@@ -70,7 +70,7 @@ Card.propTypes = {
   activeBoard: PropTypes.object,
   listIndex: PropTypes.number.isRequired,
   onCardClick: PropTypes.func,
-  getViewFields: PropTypes.func,
+  getViewShownColumns: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {

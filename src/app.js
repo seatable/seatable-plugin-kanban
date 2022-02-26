@@ -338,9 +338,10 @@ class App extends React.Component {
     return this.dtable.getNonArchiveViews(table);
   }
 
-  getViewFields = (table, view) => {
-    return this.dtable.getViewColumns(table, view);
+  getViewShownColumns = (view, table) => {
+    return this.dtable.getViewShownColumns(view, table);
   }
+
   render() {
     let { isLoading, showDialog } = this.state;
     if (isLoading || !showDialog) {
@@ -355,7 +356,7 @@ class App extends React.Component {
           updatePluginSettings={this.updatePluginSettings}
           storeSelectedViewId={this.storeSelectedViewId}
           getNonArchiveViews={this.getNonArchiveViews}
-          getViewFields={this.getViewFields}
+          getViewShownColumns={this.getViewShownColumns}
         />
       </Provider>
     );

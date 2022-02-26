@@ -179,7 +179,7 @@ class Board extends Component {
         onAddCard={this.onAppendRow}
         moveCard={this.onMoveRow}
         addNewList={this.addNewList}
-        getViewFields={this.props.getViewFields}
+        getViewShownColumns={this.props.getViewShownColumns}
       />
     );
   }
@@ -195,7 +195,7 @@ class Board extends Component {
             onCloseBoardSetting={this.onCloseBoardSetting}
             onUpdateBoardSetting={this.onUpdateBoardSetting}
             getNonArchiveViews={this.props.getNonArchiveViews}
-            getViewFields={this.props.getViewFields}
+            getViewShownColumns={this.props.getViewShownColumns}
           />
         }
       </Fragment>
@@ -222,7 +222,7 @@ Board.propTypes = {
   updatePluginSettings: PropTypes.func,
   modifyColumnData: PropTypes.func,
   getNonArchiveViews: PropTypes.func,
-  getViewFields: PropTypes.func,
+  getViewShownColumns: PropTypes.func,
 };
 
 export default connect(mapStateToProps, null)(Board);

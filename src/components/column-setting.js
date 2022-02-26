@@ -7,6 +7,7 @@ const propTypes = {
   updateColumn: PropTypes.func.isRequired,
   moveColumn: PropTypes.func
 };
+
 class ColumnSetting extends React.Component {
 
   constructor(props) {

@@ -32,8 +32,8 @@ class BoardSetting extends React.Component {
   getSelectorColumns = (columns) => {
     const { columnIconConfig, supportGroupbyColumnTypes } = this.props.dtableValue;
     let groupbyColumns = [];
-    columns && columns.forEach((c) => {
-      const { type, name } = c;
+    columns && columns.forEach((column) => {
+      const { type, name } = column;
       const columnOption = {
         name,
         value: name,
@@ -143,11 +143,11 @@ class BoardSetting extends React.Component {
     const { tables } = dtableValue;
     let { selectedTable, selectedView } = activeBoard;
     selectedTable = selectedTable || tables[0];
-    const { groupbyColumns } = this.getSelectorColumns(selectedTable.columns);
+    const columns = this.props.getViewShownColumns(selectedView, selectedTable);
+    const { groupbyColumns } = this.getSelectorColumns(columns);
     const { tableOptions, viewOptions, groupbyColumnOptions }
       = this.getSelectorOptions(selectedTable, { groupbyColumns });
 
-    const columns = this.props.getViewFields(selectedTable, selectedView);
     // `slice(1)`: the first column ('name' column) is always shown, and not included here.
     this.configuredColumns = this.getCurrentConfiguredColumns(columns.slice(1));
     const configuredColumns = this.configuredColumns.map((item, index) => {
@@ -243,7 +243,7 @@ BoardSetting.propTypes = {
   onUpdateBoardSetting: PropTypes.func,
   onCloseBoardSetting: PropTypes.func,
   getNonArchiveViews: PropTypes.func,
-  getViewFields: PropTypes.func,
+  getViewShownColumns: PropTypes.func,
 };
 
 export default connect(mapStateToProps, null)(BoardSetting);
