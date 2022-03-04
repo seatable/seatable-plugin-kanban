@@ -12,9 +12,10 @@ class Card extends Component {
       dtableValue, activeBoard
     } = this.props;
     const { dtable, tables, collaborators, cellType } = dtableValue;
-    let { selectedTable, formulaRows, configuredColumns, hideEmptyValues, showFieldNames } = activeBoard;
+    let { selectedTable, selectedView, formulaRows, configuredColumns, hideEmptyValues, showFieldNames } = activeBoard;
     selectedTable = selectedTable || tables[0];
-    const columns = selectedTable.columns;
+    selectedView = selectedView || selectedTable.views[0];
+    const columns = this.props.getViewShownColumns(selectedView, selectedTable);
 
     let shownColumns = [];
     if (configuredColumns) {
@@ -69,6 +70,7 @@ Card.propTypes = {
   activeBoard: PropTypes.object,
   listIndex: PropTypes.number.isRequired,
   onCardClick: PropTypes.func,
+  getViewShownColumns: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
