@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import intl from 'react-intl-universal';
 import { connect } from 'react-redux';
 import { Input } from 'reactstrap';
-import PluginSelect from './plugin-select';
+import DtableSelect from './dtable-select';
 import ColumnSetting from './column-setting';
 import ToggleSetting from './toggle-setting';
 import { SETTING_KEY } from '../constants';
@@ -56,7 +56,7 @@ class BoardSetting extends React.Component {
       selectedOption = options[0];
     }
     return (
-      <PluginSelect
+      <DtableSelect
         classNamePrefix={'kanban-setting-selector'}
         value={selectedOption}
         options={options}
