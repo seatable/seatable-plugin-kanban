@@ -12,10 +12,11 @@ class Card extends Component {
       dtableValue, activeBoard
     } = this.props;
     const { dtable, tables, collaborators, cellType } = dtableValue;
-    let { selectedTable, selectedView, formulaRows, configuredColumns, hideEmptyValues, showFieldNames } = activeBoard;
+    let { selectedTable, selectedView, titleColumn, formulaRows, configuredColumns, hideEmptyValues, showFieldNames } = activeBoard;
     selectedTable = selectedTable || tables[0];
     selectedView = selectedView || selectedTable.views[0];
     const columns = this.props.getViewShownColumns(selectedView, selectedTable);
+    titleColumn = titleColumn || columns[0];
 
     let shownColumns = [];
     if (configuredColumns) {
@@ -46,7 +47,7 @@ class Card extends Component {
         <Fragment>
           <div className="name-cell-container">
             <CellFormatter
-              column={columns[0]}
+              column={titleColumn}
               {...cellFormatterProps}
             />
           </div>
