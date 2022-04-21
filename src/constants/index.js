@@ -9,4 +9,5 @@ export const SETTING_KEY = {
   TABLE_NAME: 'table_name',
   VIEW_NAME: 'view_name',
   GROUPBY_COLUMN_NAME: 'groupby_column_name',
+  TITLE_COLUMN_NAME: 'title_column_name'
 };

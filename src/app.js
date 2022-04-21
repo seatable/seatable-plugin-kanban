@@ -139,10 +139,11 @@ class App extends React.Component {
   }
 
   getActiveBoard = (boardSetting, tables) => {
-    const { _id, name, table_name, view_name, groupby_column_name, columns: configuredColumns, hideEmptyValues, showFieldNames } = boardSetting;
+    const { _id, name, table_name, view_name, groupby_column_name, title_column_name, columns: configuredColumns, hideEmptyValues, showFieldNames } = boardSetting;
     const selectedTable = (table_name && this.dtable.getTableByName(table_name)) || tables[0];
     const views = this.getNonArchiveViews(selectedTable);
     const selectedView = (view_name && this.dtable.getViewByName(selectedTable, view_name)) || views[0];
+    const titleColumn = title_column_name && this.dtable.getColumnByName(selectedTable, title_column_name);
     const groupbyColumn = groupby_column_name && this.dtable.getColumnByName(selectedTable, groupby_column_name);
     const { key: groupbyColumnKey, type: groupbyColumnType } = groupbyColumn || {};
     let lists = [], canAddList = false, draggable = false, valid = false;
@@ -188,7 +189,7 @@ class App extends React.Component {
       lists.splice(0, 1);
     }
     let formulaRows = this.getTableFormulaRows(selectedTable, selectedView);
-    return { _id, name, lists, selectedTable, selectedView, formulaRows, groupbyColumn, configuredColumns, hideEmptyValues, showFieldNames, canAddList, draggable, valid };
+    return { _id, name, lists, selectedTable, selectedView, formulaRows, groupbyColumn, titleColumn, configuredColumns, hideEmptyValues, showFieldNames, canAddList, draggable, valid };
   }
 
   getLists = (groupbyColumn) => {

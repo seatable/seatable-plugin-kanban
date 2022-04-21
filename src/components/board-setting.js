@@ -31,7 +31,8 @@ class BoardSetting extends React.Component {
 
   getSelectorColumns = (columns) => {
     const { columnIconConfig, supportGroupbyColumnTypes } = this.props.dtableValue;
-    let groupbyColumns = [];
+    let groupbyColumns = [],
+      titleColumns = [];
     columns && columns.forEach((column) => {
       const { type, name } = column;
       const columnOption = {
@@ -42,17 +43,19 @@ class BoardSetting extends React.Component {
       if (supportGroupbyColumnTypes.includes(type)) {
         groupbyColumns.push(columnOption);
       }
+      titleColumns.push(columnOption);
     });
-    return { groupbyColumns };
+    return { groupbyColumns, titleColumns };
   }
 
   renderSelector = (options, settingKey) => {
     const { boardSetting } = this.props;
     let selectedOption = options.find(item => item.value === boardSetting[settingKey]);
-    if (!selectedOption &&
-      (settingKey === SETTING_KEY.TABLE_NAME ||
-      settingKey === SETTING_KEY.VIEW_NAME)
-    ) {
+    if (!selectedOption && (
+      settingKey === SETTING_KEY.TABLE_NAME ||
+      settingKey === SETTING_KEY.VIEW_NAME ||
+      settingKey === SETTING_KEY.TITLE_COLUMN_NAME
+    )) {
       selectedOption = options[0];
     }
     return (
@@ -65,13 +68,14 @@ class BoardSetting extends React.Component {
     );
   }
 
-  getSelectorOptions(selectedTable, { groupbyColumns }) {
+  getSelectorOptions(selectedTable, { groupbyColumns, titleColumns }) {
     const { tables } = this.props.dtableValue;
     const views = this.props.getNonArchiveViews(selectedTable);
     const tableOptions = this.createOptions(tables, SETTING_KEY.TABLE_NAME, 'name');
     const viewOptions = this.createOptions(views, SETTING_KEY.VIEW_NAME, 'name');
     const groupbyColumnOptions = this.createOptions(groupbyColumns, SETTING_KEY.GROUPBY_COLUMN_NAME, 'value');
-    return { tableOptions, viewOptions, groupbyColumnOptions };
+    const titleColumnOptions = this.createOptions(titleColumns, SETTING_KEY.TITLE_COLUMN_NAME, 'value');
+    return { tableOptions, viewOptions, groupbyColumnOptions, titleColumnOptions };
   }
 
   createOptions(source, settingKey, valueKey) {
@@ -141,15 +145,17 @@ class BoardSetting extends React.Component {
   render() {
     const { dtableValue, activeBoard, boardSetting } = this.props;
     const { tables } = dtableValue;
-    let { selectedTable, selectedView } = activeBoard;
+    let { selectedTable, selectedView, titleColumn } = activeBoard;
     selectedTable = selectedTable || tables[0];
     const columns = this.props.getViewShownColumns(selectedView, selectedTable);
-    const { groupbyColumns } = this.getSelectorColumns(columns);
-    const { tableOptions, viewOptions, groupbyColumnOptions }
-      = this.getSelectorOptions(selectedTable, { groupbyColumns });
+    const { groupbyColumns, titleColumns } = this.getSelectorColumns(columns);
+    const { tableOptions, viewOptions, groupbyColumnOptions, titleColumnOptions }
+      = this.getSelectorOptions(selectedTable, { groupbyColumns, titleColumns });
 
-    // `slice(1)`: the first column ('name' column) is always shown, and not included here.
-    this.configuredColumns = this.getCurrentConfiguredColumns(columns.slice(1));
+    titleColumn = titleColumn || columns[0];
+    this.configuredColumns = this.getCurrentConfiguredColumns(columns.filter(
+      column => column.key != titleColumn.key
+    ));
     const configuredColumns = this.configuredColumns.map((item, index) => {
       const targetItem = columns.filter(c => c.key == item.key)[0];
       return Object.assign({}, targetItem, item);
@@ -184,7 +190,7 @@ class BoardSetting extends React.Component {
               <div className="split-line"></div>
               <div className="setting-item">
                 <div className="title">{intl.get('Title_field')}</div>
-                <Input readOnly={true} value={columns[0].name} />
+                {this.renderSelector(titleColumnOptions, SETTING_KEY.TITLE_COLUMN_NAME)}
               </div>
               <div className="setting-item">
                 <div className="title">{intl.get('Other_fields')}</div>
