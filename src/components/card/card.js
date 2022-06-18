@@ -12,7 +12,7 @@ class Card extends Component {
       dtableValue, activeBoard
     } = this.props;
     const { dtable, tables, collaborators, cellType } = dtableValue;
-    let { selectedTable, selectedView, titleColumn, formulaRows, configuredColumns, hideEmptyValues, showFieldNames } = activeBoard;
+    let { selectedTable, selectedView, titleColumn, formulaRows, configuredColumns, hideEmptyValues, showFieldNames, wrapText } = activeBoard;
     selectedTable = selectedTable || tables[0];
     selectedView = selectedView || selectedTable.views[0];
     const columns = this.props.getViewShownColumns(selectedView, selectedTable);
@@ -41,7 +41,9 @@ class Card extends Component {
     return (
       <article
         data-id={listIndex}
-        className={classNames('plugin-kanban-card movable', {'draggable': cardDraggable})}
+        className={classNames('plugin-kanban-card movable', {
+          'draggable': cardDraggable
+        })}
         onClick={this.props.onCardClick}
       >
         <Fragment>
@@ -51,15 +53,19 @@ class Card extends Component {
               {...cellFormatterProps}
             />
           </div>
-          {shownColumns.map((column, index) => (
-            <CellFormatter
-              key={index}
-              column={column}
-              hideEmptyValues={hideEmptyValues}
-              showFieldNames={showFieldNames}
-              {...cellFormatterProps}
-            />
-          ))}
+          <div className={classNames({
+            'plugin-kanban-card-body-wrap-text': wrapText
+          })}>
+            {shownColumns.map((column, index) => (
+              <CellFormatter
+                key={index}
+                column={column}
+                hideEmptyValues={hideEmptyValues}
+                showFieldNames={showFieldNames}
+                {...cellFormatterProps}
+              />
+            ))}
+          </div>
         </Fragment>
       </article>
     );

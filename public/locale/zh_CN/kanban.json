@@ -21,5 +21,6 @@
   "Title_field": "标题字段",
   "Other_fields": "其他字段",
   "Do_not_show_empty_values": "不显示空值",
-  "Show_field_names": "显示字段名称"
+  "Show_field_names": "显示字段名称",
+  "Wrap_text": "文本自动换行"
 }

@@ -423,6 +423,34 @@
   white-space: nowrap;
 }
 
+.plugin-kanban-card-body-wrap-text .text-formatter {
+  white-space: normal;
+  max-height: 68px;
+}
+
+.plugin-kanban-card-body-wrap-text .long-text-formatter {
+  display: block;
+  height: auto;
+  max-height: 68px;
+  white-space: normal;
+}
+
+.plugin-kanban-card-body-wrap-text .formula-formatter,
+.plugin-kanban-card-body-wrap-text .link-formatter .link-name {
+  white-space: normal;
+  max-height: 68px;
+}
+
+/* for link formula - lookup text */
+.plugin-kanban-card-body-wrap-text .dtable-ui.formula-formatter.multiple .formula-formatter-content-item.simple-cell-formatter {
+  height: auto;
+}
+
+.plugin-kanban-card-body-wrap-text .formula-formatter-content-item .text-formatter,
+.plugin-kanban-card-body-wrap-text .formula-formatter-content-item .long-text-formatter {
+  max-height: 62px;
+}
+
 .plugin-kanban-card .cell-formatter-container.link-formatter {
   display: flex;
 }

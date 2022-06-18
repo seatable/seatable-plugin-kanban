@@ -21,7 +21,8 @@ const en = {
   "Title_field": "Title field",
   "Other_fields": "Other fields",
   "Do_not_show_empty_values": "Don't show empty values",
-  "Show_field_names": "Show field names"
+  "Show_field_names": "Show field names",
+  "Wrap_text": "Wrap text"
 }
 ;
 

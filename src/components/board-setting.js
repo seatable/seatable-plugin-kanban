@@ -227,6 +227,17 @@ class BoardSetting extends React.Component {
                   updateSettings={this.updateBoardSetting}
                 />
               </div>
+
+              <div className="split-line"></div>
+              <div className="setting-item">
+                <ToggleSetting
+                  settings={boardSetting}
+                  settingKey="wrapText"
+                  settingDesc={intl.get('Wrap_text')}
+                  updateSettings={this.updateBoardSetting}
+                />
+              </div>
+
             </div>
           </div>
         </div>
