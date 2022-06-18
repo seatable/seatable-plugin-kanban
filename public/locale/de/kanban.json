@@ -20,6 +20,7 @@
   "Name_is_required": "Der Name ist eine Pflichtangabe.",
   "Title_field": "Titel",
   "Other_fields": "Weitere Spalten",
-  "Do_not_show_empty_values": "Don't show empty values",
-  "Show_field_names": "Show field names"
+  "Do_not_show_empty_values": "Leere Werte nicht anzeigen",
+  "Show_field_names": "Spaltennamen anzeigen",
+  "Wrap_text": "Wrap text"
 }

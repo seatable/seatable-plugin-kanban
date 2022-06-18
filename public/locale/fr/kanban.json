@@ -20,6 +20,7 @@
   "Name_is_required": "Le nom est nécessaire.",
   "Title_field": "Titre",
   "Other_fields": "Autres colonnes",
-  "Do_not_show_empty_values": "Don't show empty values",
-  "Show_field_names": "Show field names"
+  "Do_not_show_empty_values": "Ne pas afficher les valeurs vides",
+  "Show_field_names": " Afficher nom de colonne",
+  "Wrap_text": "Wrap text"
 }

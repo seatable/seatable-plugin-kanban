@@ -5,7 +5,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "dtable-sdk": "0.0.139",
-    "dtable-ui-component": "0.1.83",
+    "dtable-ui-component": "0.1.91",
     "is-hotkey": "^0.1.8",
     "prop-types": "^15.7.2",
     "react": "16.14.0",
