@@ -114,7 +114,7 @@ class Board extends Component {
       cellValue = options.find(option => option.id === listName).name;
     } else if (columnType === cellType.COLLABORATOR) {
       const collaborator = collaborators.find(collaborator => listName === collaborator.email);
-      cellValue = collaborator ? [collaborator.name] : [];
+      cellValue = collaborator ? [ collaborator.name ] : [];
     }
     const rowData = Object.assign({}, initData, {[groupbyColumn.name]: cellValue});
     const insertedRow = dtable.appendRow(selectedTable, rowData, selectedView, { collaborators });
@@ -155,13 +155,69 @@ class Board extends Component {
     const targetIds = [targetRow._id];
     const movedRows = [movedCard.row];
     const upperRowIds = [upperRow._id];
-    let updatedRowDataList = {}, oldRowDataList = {};
+    let updatedRowDataList = {};
+    let oldRowDataList = {};
     if (fromListIndex !== targetListIndex) {
-      updatedRowDataList = {[movedRow._id]: {[groupbyColumn.key]: targetList.name}};
-      oldRowDataList = {[movedRow._id]: {[groupbyColumn.key]: fromList.name}};
+      updatedRowDataList = this.getUpdatedRowData(movedRow, groupbyColumn, fromList, targetList);
+      if (!updatedRowDataList) {
+        return;
+      }
+
+      oldRowDataList = this.getOldRowData(movedRow, groupbyColumn);
     }
     dtable.moveGroupRows(selectedTable, targetIds, movePosition, movedRows, upperRowIds, updatedRowDataList,
-      oldRowDataList, groupbyColumn);
+      oldRowDataList, [ groupbyColumn ]);
+  }
+
+  getUpdatedRowData = (movedRow, groupbyColumn, fromList, targetList) => {
+    const { dtableValue } = this.props;
+    const { cellType } = dtableValue;
+    const { key, type } = groupbyColumn;
+    const fromName = fromList.name;
+    const targetName = targetList.name;
+    const movedRowId = movedRow._id;
+    const originalCellValue = movedRow[key];
+    switch (type) {
+      case cellType.COLLABORATOR: {
+        if (!targetName) {
+          if (fromName) {
+            // clear all emails
+            return { [movedRowId]: { [key]: null } };
+          }
+          return null; // not changed under un-categorized list
+        }
+
+        // move record(under un-categorized list) to other list
+        if (!fromName) {
+          return { [movedRowId]: { [key]: [ targetName ] } };
+        }
+
+        // delete from current list
+        const deleteIndex = originalCellValue.indexOf(fromName);
+        if (deleteIndex < 0) {
+          return null;
+        }
+
+        let emails = [ ...originalCellValue ];
+        emails.splice(deleteIndex, 1);
+
+        // add target email which not exist
+        if (!emails.includes(targetName)) {
+          emails.push(targetName);
+        }
+        return { [movedRowId]: { [key]: emails } };
+      }
+      default: {
+        return { [movedRowId]: { [key]: targetName }};
+      }
+    }
+  }
+
+  getOldRowData = (movedRow, groupbyColumn) => {
+    const { key } = groupbyColumn;
+    const movedRowId = movedRow._id;
+    const originalCellValue = movedRow[key];
+    return { [movedRowId]: { [key]: originalCellValue }};
   }
 
   renderBoard = () => {

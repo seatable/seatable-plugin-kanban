@@ -1,3 +1,4 @@
+/* eslint-disable */
 import './polyfills';
 import * as Utils from './utils';
 import * as constants from './constants';

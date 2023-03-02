@@ -1,3 +1,4 @@
+/* eslint-disable */
 (function(constructor) {
   if (constructor && constructor.prototype && !constructor.prototype.matches) {
     constructor.prototype.matches =
@@ -7,8 +8,9 @@
       constructor.prototype.oMatchesSelector ||
       constructor.prototype.webkitMatchesSelector ||
       function(s) {
-        var matches = (this.document || this.ownerDocument).querySelectorAll(s),
-          i = matches.length;
+        const doc = this.document || this.ownerDocument
+        var matches = doc && doc.querySelectorAll(s),
+          i = matches ? matches.length : -1;
         // while (--i >= 0 && matches.item(i) !== this) { } // need confirm.
         return i > -1;
       };

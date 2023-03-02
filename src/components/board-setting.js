@@ -2,7 +2,6 @@ import React, { Fragment }  from 'react';
 import PropTypes from 'prop-types';
 import intl from 'react-intl-universal';
 import { connect } from 'react-redux';
-import { Input } from 'reactstrap';
 import DtableSelect from './dtable-select';
 import ColumnSetting from './column-setting';
 import ToggleSetting from './toggle-setting';
