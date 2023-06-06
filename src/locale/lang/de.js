@@ -9,7 +9,7 @@ const de = {
   "Default_board": "Standardboard",
   "New_Board": "Neues Board",
   "Name": "Name",
-  "Uncategorized": "nicht kategorisiert",
+  "Uncategorized": "Nicht kategorisiert",
   "There_are_no_lists_yet": "Es gibt keine Listen.",
   "Create_new_board": "Neues Board erstellen",
   "Add_another_list": "Weitere Liste erstellen",
@@ -22,7 +22,7 @@ const de = {
   "Other_fields": "Weitere Spalten",
   "Do_not_show_empty_values": "Leere Werte nicht anzeigen",
   "Show_field_names": "Spaltennamen anzeigen",
-  "Wrap_text": "Wrap text"
+  "Wrap_text": "Text umbrechen"
 }
 ;
 
