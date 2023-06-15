@@ -22,7 +22,7 @@ const fr = {
   "Other_fields": "Autres colonnes",
   "Do_not_show_empty_values": "Ne pas afficher les valeurs vides",
   "Show_field_names": " Afficher nom de colonne",
-  "Wrap_text": "Wrap text"
+  "Wrap_text": "Renvoyer à la ligne"
 }
 ;
 

@@ -1,8 +1,10 @@
 [main]
 host = https://www.transifex.com
 
-[seatable_plugins.kanban]
-file_filter = public/locale/<lang>/kanban.json
-source_file = public/locale/en/kanban.json
-source_lang = en_US
-type = KEYVALUEJSON
+[o:seafile-ltd:p:seatable_plugins:r:kanban]
+source_file   = public/locale/en/kanban.json
+source_lang   = en_US
+type          = KEYVALUEJSON
+file_filter   = public/locale/<lang>/kanban.json
+minimum_perc  = 0
+resource_name = kanban
