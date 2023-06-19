@@ -29,7 +29,7 @@ class BoardSetting extends React.Component {
   }
 
   getSelectorColumns = (columns) => {
-    const { columnIconConfig, supportGroupbyColumnTypes } = this.props.dtableValue;
+    const { columnIconConfig, supportGroupbyColumnTypes, unsupportedSetTitleFieldTypes } = this.props.dtableValue;
     let groupbyColumns = [],
       titleColumns = [];
     columns && columns.forEach((column) => {
@@ -42,7 +42,9 @@ class BoardSetting extends React.Component {
       if (supportGroupbyColumnTypes.includes(type)) {
         groupbyColumns.push(columnOption);
       }
-      titleColumns.push(columnOption);
+      if (!unsupportedSetTitleFieldTypes[type]) {
+        titleColumns.push(columnOption);
+      }
     });
     return { groupbyColumns, titleColumns };
   }

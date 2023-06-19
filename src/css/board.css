@@ -423,6 +423,11 @@
   white-space: nowrap;
 }
 
+.plugin-kanban-card .cell-formatter-container.digital-sign-formatter img {
+  height: 26px;
+  width: 52px;
+}
+
 .plugin-kanban-card-body-wrap-text .text-formatter {
   white-space: normal;
   max-height: 68px;
