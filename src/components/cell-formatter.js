@@ -22,10 +22,12 @@ import {
   UrlFormatter,
   EmailFormatter,
   DurationFormatter,
-  RateFormatter
+  RateFormatter,
+  DigitalSignFormatter,
 } from 'dtable-ui-component';
+import { isValidDigitalSignImageValue } from 'dtable-ui-component/lib/DigitalSignFormatter/utils';
 import pluginContext from '../plugin-context';
-import { isValidEmail, getMediaUrl } from '../utils/common-utils';
+import { isValidEmail, getMediaUrl, getValueFromPluginConfig } from '../utils/common-utils';
 
 class CellFormatter extends Component {
 
@@ -233,6 +235,22 @@ class CellFormatter extends Component {
       case CellType.RATE: {
         if (!cellValue) return EMPTY_CELL_FORMATTER;
         return <RateFormatter value={cellValue} data={columnData || {}} />;
+      }
+      case CellType.DIGITAL_SIGN: {
+        const value = isValidDigitalSignImageValue(cellValue);
+        if (!value) return EMPTY_CELL_FORMATTER;
+        return (
+          <DigitalSignFormatter
+            isSample
+            isSupportPreview={false}
+            value={cellValue}
+            config={{
+              server: getValueFromPluginConfig('server'),
+              workspaceID: getValueFromPluginConfig('workspaceID'),
+              dtableUuid: getValueFromPluginConfig('dtableUuid')
+            }}
+          />
+        );
       }
       default: return null;
     }

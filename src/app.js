@@ -106,6 +106,7 @@ class App extends React.Component {
     this.columnIconConfig = this.dtable.getColumnIconConfig();
     this.tables = this.dtable.getTables();
     this.supportGroupbyColumnTypes = [this.cellType.SINGLE_SELECT, this.cellType.COLLABORATOR];
+    this.unsupportedSetTitleFieldTypes = { [this.cellType.DIGITAL_SIGN]: true };
     this.optionColors = this.dtable.getOptionColors();
 
     store.dispatch({ type: actionTypes.UPDATE_BOARDS, boards });
@@ -281,6 +282,7 @@ class App extends React.Component {
       columnIconConfig: this.columnIconConfig,
       collaborators: this.collaborators,
       supportGroupbyColumnTypes: this.supportGroupbyColumnTypes,
+      unsupportedSetTitleFieldTypes: this.unsupportedSetTitleFieldTypes,
       optionColors: this.optionColors,
     };
     store.dispatch({
