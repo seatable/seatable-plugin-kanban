@@ -2,8 +2,8 @@ import React, { Fragment }  from 'react';
 import PropTypes from 'prop-types';
 import intl from 'react-intl-universal';
 import { connect } from 'react-redux';
+import { FieldDisplaySetting } from 'dtable-ui-component';
 import DtableSelect from './dtable-select';
-import ColumnSetting from './column-setting';
 import ToggleSetting from './toggle-setting';
 import { SETTING_KEY } from '../constants';
 import * as zIndexes from '../constants/zIndexes';
@@ -119,6 +119,15 @@ class BoardSetting extends React.Component {
     this.props.onUpdateBoardSetting(settings);
   }
 
+  onToggleColumnsVisibility = (columns, allColumnsShown) => {
+    const { boardSetting: settings } = this.props;
+    const updatedColumns = columns.map(column => ({
+      ...column,
+      shown: !allColumnsShown,
+    }));
+    settings.columns = updatedColumns;
+    this.props.onUpdateBoardSetting(settings);
+  }
 
   getCurrentConfiguredColumns = (columns) => {
     const { boardSetting: settings } = this.props;
@@ -161,6 +170,13 @@ class BoardSetting extends React.Component {
       const targetItem = columns.filter(c => c.key == item.key)[0];
       return Object.assign({}, targetItem, item);
     });
+    const allColumnsShown = configuredColumns.every(column => column.shown);
+    const textProperties = {
+      titleValue: intl.get('Other_fields_shown_in_kanban'),
+      bannerValue: intl.get('Fields'),
+      hideValue: intl.get('Hide_all'),
+      showValue: intl.get('Show_all'),
+    };
 
     return (
       <div className="plugin-kanban-board-setting" style={{zIndex: zIndexes.BOARD_SETTING}}>
@@ -193,21 +209,6 @@ class BoardSetting extends React.Component {
                 <div className="title">{intl.get('Title_field')}</div>
                 {this.renderSelector(titleColumnOptions, SETTING_KEY.TITLE_COLUMN_NAME)}
               </div>
-              <div className="setting-item">
-                <div className="title">{intl.get('Other_fields')}</div>
-                <div className="kanban-column-manager-columns">
-                  {configuredColumns.map((column, index) => {
-                    return (
-                      <ColumnSetting
-                        key={index}
-                        column={column}
-                        updateColumn={this.updateColumn}
-                        moveColumn={this.moveColumn}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
 
               <div className="split-line"></div>
               <div className="setting-item">
@@ -236,6 +237,18 @@ class BoardSetting extends React.Component {
                   settingKey="wrapText"
                   settingDesc={intl.get('Wrap_text')}
                   updateSettings={this.updateBoardSetting}
+                />
+              </div>
+
+              <div className="split-line"></div>
+              <div className="setting-item">
+                <FieldDisplaySetting
+                  fields={configuredColumns}
+                  textProperties={textProperties}
+                  fieldAllShown={allColumnsShown}
+                  onClickField={this.updateColumn}
+                  onMoveField={this.moveColumn}
+                  onToggleFieldsVisibility={() => this.onToggleColumnsVisibility(configuredColumns, allColumnsShown)}
                 />
               </div>
 

@@ -20,6 +20,10 @@ const en = {
   "Name_is_required": "Name is required",
   "Title_field": "Title field",
   "Other_fields": "Other fields",
+  "Fields": "Fields",
+  "Show_all": "Show all",
+  "Hide_all": "Hide all",
+  "Other_fields_shown_in_kanban": "Other fields shown in kanban",
   "Do_not_show_empty_values": "Don't show empty values",
   "Show_field_names": "Show field names",
   "Wrap_text": "Wrap text"
