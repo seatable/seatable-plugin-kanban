@@ -8,7 +8,6 @@ import Container from '../dnd/container';
 import Draggable from '../dnd/draggable';
 
 class List extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -25,56 +24,57 @@ class List extends Component {
   componentWillReceiveProps(nextProps) {
     if (!shallowEqual(this.props.cards, nextProps.cards)) {
       this.setState({
-        currentPage: nextProps.currentPage
+        currentPage: nextProps.currentPage,
       });
     }
   }
 
   handleScroll = (evt) => {
     const node = evt.target;
-    const elemScrollPosition = node.scrollHeight - node.scrollTop - node.clientHeight;
+    const elemScrollPosition =
+      node.scrollHeight - node.scrollTop - node.clientHeight;
     const { onListScroll } = this.props;
 
     // In some browsers and/or screen sizes a decimal rest value between 0 and 1 exists, so it should be checked on < 1 instead of < 0
     if (elemScrollPosition < 1 && onListScroll && !this.state.loading) {
       const { currentPage } = this.state;
-      this.setState({loading: true});
+      this.setState({ loading: true });
       const nextPage = currentPage + 1;
-      onListScroll(nextPage, this.props.id).then(moreCards => {
+      onListScroll(nextPage, this.props.id).then((moreCards) => {
         if ((moreCards || []).length > 0) {
           this.props.actions.paginateList({
             listName: this.props.listName,
             newCards: moreCards,
-            nextPage: nextPage
+            nextPage: nextPage,
           });
         }
-        this.setState({loading: false});
+        this.setState({ loading: false });
       });
     }
-  }
+  };
 
-  listDidMount = node => {
+  listDidMount = (node) => {
     if (node) {
       node.addEventListener('scroll', this.handleScroll);
     }
-  }
+  };
 
   handleCardClick = (card, evt) => {
     evt.stopPropagation();
     this.props.onCardClick(card.row);
-  }
+  };
 
-  shouldAcceptDrop = sourceContainerOptions => {
+  shouldAcceptDrop = (sourceContainerOptions) => {
     return sourceContainerOptions.groupName === this.groupName;
-  }
+  };
 
   onDragStart = ({ payload }) => {
     return payload;
-  }
+  };
 
   onDragEnd = (listIndex, result) => {
     if (this.state.isDraggingOver) {
-      this.setState({isDraggingOver: false});
+      this.setState({ isDraggingOver: false });
     }
     const { removedIndex, addedIndex, payload } = result;
     const { listIndex: fromListIndex, cardIndex: fromCardIndex } = payload;
@@ -89,22 +89,25 @@ class List extends Component {
         targetCardIndex: addedIndex,
       });
     }
-  }
+  };
 
   renderHeader = () => {
-    const { listNameNode, draggable } = this.props;
+    const { listNameNode, draggable, onCollapse, isCollapsed } = this.props;
+
     return (
       <ListHeader
         listNameNode={listNameNode}
         draggable={draggable}
+        onCollapse={onCollapse}
+        isCollapsed={isCollapsed}
       />
     );
-  }
+  };
 
   renderDragContainer = () => {
     const { listIndex, cards } = this.props;
     const cardList = cards.map((cardItem, idx) => {
-      const card = Object.assign({}, cardItem, {listIndex, cardIndex: idx});
+      const card = Object.assign({}, cardItem, { listIndex, cardIndex: idx });
       const { id: cardId } = card;
       return (
         <Draggable key={`plugin-kanban-card-${cardId}`}>
@@ -121,33 +124,51 @@ class List extends Component {
     });
 
     return (
-      <div className="scrollable-list" onScroll={this.handleScroll}>
+      <div className='scrollable-list' onScroll={this.handleScroll}>
         <Container
-          orientation="vertical"
+          orientation='vertical'
           groupName={this.groupName}
           dragClass={'plugin-kanban-dragged-card'}
           dropClass={''}
           onDragStart={this.onDragStart}
-          onDrop={e => this.onDragEnd(listIndex, e)}
-          onDragEnter={() => this.setState({isDraggingOver: true})}
-          onDragLeave={() => this.setState({isDraggingOver: false})}
+          onDrop={(e) => this.onDragEnd(listIndex, e)}
+          onDragEnter={() => this.setState({ isDraggingOver: true })}
+          onDragLeave={() => this.setState({ isDraggingOver: false })}
           shouldAcceptDrop={this.shouldAcceptDrop}
-          getChildPayload={index => this.props.getCardDetails(listIndex, index)}>
+          getChildPayload={(index) =>
+            this.props.getCardDetails(listIndex, index)
+          }
+        >
           {cardList}
         </Container>
       </div>
     );
-  }
+  };
 
   render() {
+    const { isCollapsed } = this.props;
+
+    if (!isCollapsed) {
+      return this.renderExpandedList();
+    } else {
+      return this.renderCollapsedList();
+    }
+  }
+
+  renderExpandedList() {
     return (
-      <section
-        draggable={false}
-        className={'plugin-kanban-list'}
-      >
+      <section draggable={false} className={'plugin-kanban-list'}>
         {this.renderHeader()}
         {this.renderDragContainer()}
         <ListFooter onAddCard={this.props.onAddCard} />
+      </section>
+    );
+  }
+
+  renderCollapsedList() {
+    return (
+      <section draggable={false} className={'plugin-kanban-list-mini'}>
+        {this.renderHeader()}
       </section>
     );
   }
