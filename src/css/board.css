@@ -203,20 +203,53 @@
   background-color: rgba(255, 255, 255, 0.52);
   cursor: pointer;
 }
+.plugin-kanban-list-mini {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  width: 278px;
+  height: auto;
+  max-height: 100%;
+  margin: 0 4px;
+  padding: 10px 0;
+  border-radius: 6px;
+  vertical-align: top;
+  background-color: rgba(255, 255, 255, 0.52);
+  cursor: pointer;
+  rotate: 270deg;
+  transform-origin: 3%;
+  transform: translateX(-250px);
+  left: 12px;
+}
 
 .plugin-kanban .list-header {
   display: flex;
   flex-direction: row;
   align-items: center;
   margin-bottom: 0;
-  padding: 0 10px;
+  padding: 0 15px;
+}
+
+.plugin-kanban .list-header-mini {
+  width: 200px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 0;
+  padding: 0 15px;
+  rotate: 270deg;
+  transform-origin: 3%;
+  transform: translateX(-250px);
 }
 
 .plugin-kanban .list-title {
+  display: grid;
+  grid-template-columns: 1fr auto;
   flex: 1;
   font-weight: bold;
   font-size: 14px;
   line-height: 18px;
+  align-items: center;
 }
 
 .plugin-kanban .list-title .select-item {
@@ -517,6 +550,7 @@
   border-bottom: 7px solid #444;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
+  transform: rotate(90deg);
 }
 
 .plugin-kanban .btn-toggle-expand.btn-collapse::after {
@@ -548,4 +582,19 @@
   border-top: 3px solid #e3e3e3;
   border-left: 3px solid transparent;
   border-right: 3px solid transparent;
+}
+
+.dot-button {
+  width: 10px;
+  height: 10px; 
+  background-color: #808080;
+  border-radius: 50%; 
+  cursor: pointer; 
+}
+.dot-button-after {
+  width: 10px;
+  height: 10px; 
+  background-color: #949494;
+  border-radius: 50%; 
+  cursor: pointer; 
 }

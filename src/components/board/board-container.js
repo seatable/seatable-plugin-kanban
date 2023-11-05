@@ -9,9 +9,13 @@ import CellFormatter from '../cell-formatter';
 import AddList from '../list/list-add';
 
 class BoardContainer extends Component {
-
   constructor(props) {
     super(props);
+    this.state = {
+      isCollapsedList: new Array(this.props.activeBoard.lists.length).fill(
+        false
+      ), // Initialize the array with false values for each Draggable component
+    };
     this.unCategorized = intl.get('Uncategorized');
   }
 
@@ -22,23 +26,23 @@ class BoardContainer extends Component {
 
   onDragStart = ({ payload }) => {
     return payload;
-  }
+  };
 
   onListDrop = ({ removedIndex, addedIndex }) => {
     if (removedIndex !== addedIndex) {
-      this.props.moveList({fromIndex: removedIndex, targetIndex: addedIndex});
+      this.props.moveList({ fromIndex: removedIndex, targetIndex: addedIndex });
     }
-  }
+  };
 
-  getListDetails = index => {
+  getListDetails = (index) => {
     return this.props.activeBoard.lists[index];
-  }
+  };
 
   getCardDetails = (listIndex, cardIndex) => {
     const list = this.props.activeBoard.lists[listIndex] || {};
     const cards = list.cards || [];
-    return Object.assign({}, cards[cardIndex], {listIndex, cardIndex});
-  }
+    return Object.assign({}, cards[cardIndex], { listIndex, cardIndex });
+  };
 
   getListNameNode = (list) => {
     const listName = list.name;
@@ -59,58 +63,75 @@ class BoardContainer extends Component {
         dtable={dtable}
       />
     );
-  }
+  };
+
+  onCollapse = (index) => {
+    const { isCollapsedList } = this.state;
+    const updatedIsCollapsedList = [...isCollapsedList];
+    updatedIsCollapsedList[index] = !updatedIsCollapsedList[index];
+    this.setState({ isCollapsedList: updatedIsCollapsedList });
+  };
 
   render() {
-    const { activeBoard } = this.props;
+    const { activeBoard, targetListIndex } = this.props;
     const { lists, canAddList, draggable } = activeBoard;
 
     return (
-      <div className="kanban-board-wrapper" draggable={false}>
-        <div className="kanban-board">
+      <div className='kanban-board-wrapper' draggable={false}>
+        <div className='kanban-board'>
           <Container
-            orientation="horizontal"
+            orientation='horizontal'
             dragClass={'plugin-kanban-dragged-list'}
-            lockAxis="x"
+            lockAxis='x'
             dropClass={''}
             groupName={this.groupName}
             onDragStart={this.onDragStart}
             onDrop={this.onListDrop}
             getChildPayload={this.getListDetails}
           >
-            {Array.isArray(lists) && lists.map((list, index) => {
-              const { name, cards } = list;
-              const listName = name || this.unCategorized;
-              const listKey = `plugin-kanban-list-${listName}`;
-              const listNameNode = this.getListNameNode(list);
-              const listToRender = (
-                <List
-                  key={listKey}
-                  boardId={this.groupName}
-                  listIndex={index}
-                  listName={listName}
-                  listNameNode={listNameNode}
-                  cards={cards}
-                  getCardDetails={this.getCardDetails}
-                  draggable={draggable && name !== null}
-                  onCardClick={this.props.onCardClick}
-                  onAddCard={this.props.onAddCard.bind(this, index)}
-                  moveCard={this.props.moveCard}
-                  getViewShownColumns={this.props.getViewShownColumns}
-                />
-              );
-              if (draggable && name !== null) {
-                return (
-                  <Draggable key={listKey}>{listToRender}</Draggable>
+            {Array.isArray(lists) &&
+              lists.map((list, index) => {
+                const isCollapsed = this.state.isCollapsedList[index];
+                const { name, cards } = list;
+                const listName = name || this.unCategorized;
+                const listKey = `plugin-kanban-list-${listName}`;
+                const listNameNode = this.getListNameNode(list);
+                const listToRender = (
+                  <List
+                    key={listKey}
+                    boardId={this.groupName}
+                    listIndex={index}
+                    listName={listName}
+                    listNameNode={listNameNode}
+                    cards={cards}
+                    getCardDetails={this.getCardDetails}
+                    draggable={draggable && name !== null}
+                    onCardClick={this.props.onCardClick}
+                    onAddCard={this.props.onAddCard.bind(this, index)}
+                    moveCard={this.props.moveCard}
+                    getViewShownColumns={this.props.getViewShownColumns}
+                    onCollapse={() => this.onCollapse(index)}
+                    isCollapsed={isCollapsed}
+                  />
                 );
-              }
-              return listToRender;
-            })}
-            {canAddList &&
-              <AddList
-                onAddList={this.props.addNewList}
-              />
-            }
+                if (draggable && name !== null) {
+                  return (
+                    <Draggable
+                      key={listKey}
+                      isCollapsed={isCollapsed}
+                      targetListIndex={targetListIndex}
+                      style={{
+                        width: isCollapsed ? '50px' : 'auto',
+                        ...this.props.style,
+                      }}
+                    >
+                      {listToRender}
+                    </Draggable>
+                  );
+                }
+                return listToRender;
+              })}
+            {canAddList && <AddList onAddList={this.props.addNewList} />}
           </Container>
         </div>
       </div>
@@ -138,7 +159,7 @@ BoardContainer.propTypes = {
 };
 
 BoardContainer.defaultProps = {
-  activeBoard: {lists: []},
+  activeBoard: { lists: [] },
 };
 
 export default connect(mapStateToProps, null)(BoardContainer);

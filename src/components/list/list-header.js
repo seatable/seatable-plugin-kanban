@@ -3,15 +3,29 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 // import ListMenu from './ListMenu'; // TODO: if required.
 
-
-const ListHeader = ({ listNameNode, draggable }) => {
+const ListHeader = ({ listNameNode, draggable, onCollapse, isCollapsed }) => {
   return (
-    <div className="list-header">
-      <span className={classNames('list-title', {'draggable': draggable})}>
+    <div className='list-header'>
+      <span className={classNames('list-title', { draggable: draggable })}>
         {listNameNode}
+        {isCollapsed ? (
+          <span
+            className='dot-button-after'
+            onClick={() => {
+              onCollapse();
+            }}
+          ></span>
+        ) : (
+          <span
+            className='dot-button'
+            onClick={() => {
+              onCollapse();
+            }}
+          ></span>
+        )}
       </span>
-      {/* <div className="btn-list-dropdown">
-        <i className="toggle-icon dtable-font dtable-icon-drop-down"></i>
+      {/* <div className='btn-list-dropdown' >
+        <i className='toggle-icon dtable-font dtable-icon-drop-down'></i>
       </div> */}
       {/* {canAddLanes && <ListMenu onDelete={onDelete} />} */}
     </div>
@@ -32,7 +46,7 @@ ListHeader.propTypes = {
 ListHeader.defaultProps = {
   updateTitle: () => {},
   editLaneTitle: false,
-  canAddLanes: false
+  canAddLanes: false,
 };
 
 export default ListHeader;

@@ -12,18 +12,24 @@ import * as EventTypes from '../../constants/event-types';
 import '../../css/board.css';
 
 class Board extends Component {
-
   constructor(props) {
     super(props);
     const { activeBoard } = props;
     this.state = {
       isShowBoardSetting: !activeBoard.valid,
+      targetListIndex: null,
     };
   }
 
   componentDidMount() {
-    this.unsubscribeToggleBoardSetting = this.props.eventBus.subscribe(EventTypes.TOGGLE_BOARD_SETTING, this.onToggleBoardSetting);
-    this.unsubscribeCloseBoardSetting = this.props.eventBus.subscribe(EventTypes.CLOSE_BOARD_SETTING, this.onCloseBoardSetting);
+    this.unsubscribeToggleBoardSetting = this.props.eventBus.subscribe(
+      EventTypes.TOGGLE_BOARD_SETTING,
+      this.onToggleBoardSetting
+    );
+    this.unsubscribeCloseBoardSetting = this.props.eventBus.subscribe(
+      EventTypes.CLOSE_BOARD_SETTING,
+      this.onCloseBoardSetting
+    );
   }
 
   componentDidUpdate(prevProps) {
@@ -40,20 +46,23 @@ class Board extends Component {
   }
 
   onToggleBoardSetting = () => {
-    this.setState({isShowBoardSetting: !this.state.isShowBoardSetting});
-  }
+    this.setState({ isShowBoardSetting: !this.state.isShowBoardSetting });
+  };
 
   onCloseBoardSetting = () => {
     if (this.state.isShowBoardSetting) {
-      this.setState({isShowBoardSetting: false});
+      this.setState({ isShowBoardSetting: false });
     }
-  }
+  };
 
   onUpdateBoardSetting = (newBoard) => {
     const { boards, selectedBoardIndex } = this.props;
-    let newBoards = BoardsHelpers.updateBoard(boards, {board_index: selectedBoardIndex, new_board: newBoard});
+    let newBoards = BoardsHelpers.updateBoard(boards, {
+      board_index: selectedBoardIndex,
+      new_board: newBoard,
+    });
     this.props.updatePluginSettings(newBoards);
-  }
+  };
 
   moveList = ({ fromIndex, targetIndex }) => {
     const { activeBoard, dtableValue } = this.props;
@@ -62,66 +71,103 @@ class Board extends Component {
     const fromList = lists[fromIndex];
     const targetList = lists[targetIndex];
     if (!fromList || !targetList || targetList.name === null) return;
-    const { type: columnType, name: columnName, data: columnData } = groupbyColumn;
+    const {
+      type: columnType,
+      name: columnName,
+      data: columnData,
+    } = groupbyColumn;
     if (columnType === cellType.SINGLE_SELECT) {
       let updatedOptions = [...((columnData && columnData.options) || [])];
-      const fromOptionIndex = updatedOptions.findIndex(option => option.id === fromList.name);
-      const targetOptionIndex = updatedOptions.findIndex(option => option.id === targetList.name);
+      const fromOptionIndex = updatedOptions.findIndex(
+        (option) => option.id === fromList.name
+      );
+      const targetOptionIndex = updatedOptions.findIndex(
+        (option) => option.id === targetList.name
+      );
       if (fromOptionIndex < 0 || targetOptionIndex < 0) return;
       const movedOption = updatedOptions.splice(fromOptionIndex, 1)[0];
       updatedOptions.splice(targetOptionIndex, 0, movedOption);
-      const newColumnData = Object.assign({}, columnData, {options: updatedOptions});
+      const newColumnData = Object.assign({}, columnData, {
+        options: updatedOptions,
+      });
       dtable.modifyColumnData(selectedTable, columnName, newColumnData);
     }
-  }
+  };
 
   addNewList = (list) => {
     const { activeBoard, dtableValue } = this.props;
     const { cellType, dtable } = dtableValue;
     const { selectedTable, groupbyColumn } = activeBoard;
-    const { type: columnType, name: columnName, data: columnData } = groupbyColumn;
+    const {
+      type: columnType,
+      name: columnName,
+      data: columnData,
+    } = groupbyColumn;
     const { listName, payload } = list;
     if (columnType === cellType.SINGLE_SELECT) {
       const oldOptions = (columnData && columnData.options) || [];
       const { optionColor, textColor } = payload;
       const newOptionId = generateOptionID(oldOptions);
-      const newOption = { id: newOptionId, name: listName, color: optionColor, textColor };
+      const newOption = {
+        id: newOptionId,
+        name: listName,
+        color: optionColor,
+        textColor,
+      };
       const newOptions = [...oldOptions, newOption];
-      const newColumnData = Object.assign({}, columnData, {options: newOptions});
+      const newColumnData = Object.assign({}, columnData, {
+        options: newOptions,
+      });
       dtable.modifyColumnData(selectedTable, columnName, newColumnData);
     }
-  }
+  };
 
   onExpandRow = (row) => {
     const { selectedTable } = this.props.activeBoard;
     pluginContext.expandRow(row, selectedTable);
-  }
+  };
 
   onAppendRow = (listIndex) => {
     const { activeBoard, dtableValue } = this.props;
     const { cellType, collaborators, dtable } = dtableValue;
     const { lists, selectedTable, selectedView, groupbyColumn } = activeBoard;
     const targetList = lists[listIndex];
+    this.setState({ targetListIndex: targetList });
     if (!targetList) return;
     const { type: columnType, data: columnData } = groupbyColumn;
     const { name: listName, cards } = targetList;
     const cardsLen = cards ? cards.length : 0;
     const prevRowId = cardsLen > 0 ? cards[cardsLen - 1].id : '';
-    const initData = dtable.getInsertedRowInitData(selectedView, selectedTable, prevRowId);
+    const initData = dtable.getInsertedRowInitData(
+      selectedView,
+      selectedTable,
+      prevRowId
+    );
     let cellValue = listName;
     if (columnType === cellType.SINGLE_SELECT) {
       const options = (columnData && columnData.options) || [];
-      cellValue = options.find(option => option.id === listName).name;
+      cellValue = options.find((option) => option.id === listName).name;
     } else if (columnType === cellType.COLLABORATOR) {
-      const collaborator = collaborators.find(collaborator => listName === collaborator.email);
-      cellValue = collaborator ? [ collaborator.name ] : [];
+      const collaborator = collaborators.find(
+        (collaborator) => listName === collaborator.email
+      );
+      cellValue = collaborator ? [collaborator.name] : [];
     }
-    const rowData = Object.assign({}, initData, {[groupbyColumn.name]: cellValue});
-    const insertedRow = dtable.appendRow(selectedTable, rowData, selectedView, { collaborators });
+    const rowData = Object.assign({}, initData, {
+      [groupbyColumn.name]: cellValue,
+    });
+    const insertedRow = dtable.appendRow(selectedTable, rowData, selectedView, {
+      collaborators,
+    });
     insertedRow && pluginContext.expandRow(insertedRow, selectedTable);
-  }
+  };
 
-  onMoveRow = ({ fromListIndex, targetListIndex, fromCardIndex, targetCardIndex }) => {
+  onMoveRow = ({
+    fromListIndex,
+    targetListIndex,
+    fromCardIndex,
+    targetCardIndex,
+  }) => {
     const { dtableValue, activeBoard } = this.props;
     const { dtable } = dtableValue;
     const { lists, selectedTable, selectedView, groupbyColumn } = activeBoard;
@@ -134,19 +180,25 @@ class Board extends Component {
     const movedRow = movedCard.row;
     const viewRows = dtable.getViewRows(selectedView, selectedTable);
     const lastViewRow = viewRows[viewRows.length - 1];
-    let movePosition = 'move_below', targetRow, upperRow;
+    let movePosition = 'move_below',
+      targetRow,
+      upperRow;
     if (targetCardIndex === 0) {
       movePosition = 'move_above';
-      targetRow = targetListCards.length > 0 ? targetListCards[0].row : lastViewRow;
+      targetRow =
+        targetListCards.length > 0 ? targetListCards[0].row : lastViewRow;
     } else {
-      if (fromListIndex === targetListIndex && fromCardIndex < targetCardIndex) {
+      if (
+        fromListIndex === targetListIndex &&
+        fromCardIndex < targetCardIndex
+      ) {
         targetRow = targetListCards[targetCardIndex].row;
       } else {
         targetRow = targetListCards[targetCardIndex - 1].row;
       }
     }
     if (fromCardIndex === 0) {
-      const movedRowIndex = viewRows.find(row => row._id === movedRow._id);
+      const movedRowIndex = viewRows.find((row) => row._id === movedRow._id);
       const upperRowIndex = movedRowIndex - 1;
       upperRow = viewRows[upperRowIndex] || {};
     } else {
@@ -158,16 +210,29 @@ class Board extends Component {
     let updatedRowDataList = {};
     let oldRowDataList = {};
     if (fromListIndex !== targetListIndex) {
-      updatedRowDataList = this.getUpdatedRowData(movedRow, groupbyColumn, fromList, targetList);
+      updatedRowDataList = this.getUpdatedRowData(
+        movedRow,
+        groupbyColumn,
+        fromList,
+        targetList
+      );
       if (!updatedRowDataList) {
         return;
       }
 
       oldRowDataList = this.getOldRowData(movedRow, groupbyColumn);
     }
-    dtable.moveGroupRows(selectedTable, targetIds, movePosition, movedRows, upperRowIds, updatedRowDataList,
-      oldRowDataList, [ groupbyColumn ]);
-  }
+    dtable.moveGroupRows(
+      selectedTable,
+      targetIds,
+      movePosition,
+      movedRows,
+      upperRowIds,
+      updatedRowDataList,
+      oldRowDataList,
+      [groupbyColumn]
+    );
+  };
 
   getUpdatedRowData = (movedRow, groupbyColumn, fromList, targetList) => {
     const { dtableValue } = this.props;
@@ -189,7 +254,7 @@ class Board extends Component {
 
         // move record(under un-categorized list) to other list
         if (!fromName) {
-          return { [movedRowId]: { [key]: [ targetName ] } };
+          return { [movedRowId]: { [key]: [targetName] } };
         }
 
         // delete from current list
@@ -198,7 +263,7 @@ class Board extends Component {
           return null;
         }
 
-        let emails = [ ...originalCellValue ];
+        let emails = [...originalCellValue];
         emails.splice(deleteIndex, 1);
 
         // add target email which not exist
@@ -208,24 +273,26 @@ class Board extends Component {
         return { [movedRowId]: { [key]: emails } };
       }
       default: {
-        return { [movedRowId]: { [key]: targetName }};
+        return { [movedRowId]: { [key]: targetName } };
       }
     }
-  }
+  };
 
   getOldRowData = (movedRow, groupbyColumn) => {
     const { key } = groupbyColumn;
     const movedRowId = movedRow._id;
     const originalCellValue = movedRow[key];
-    return { [movedRowId]: { [key]: originalCellValue }};
-  }
+    return { [movedRowId]: { [key]: originalCellValue } };
+  };
 
   renderBoard = () => {
     const { activeBoard } = this.props;
     const { valid } = activeBoard;
     if (!valid) {
       return (
-        <div className="tips-empty-board">{intl.get('There_are_no_lists_yet')}</div>
+        <div className='tips-empty-board'>
+          {intl.get('There_are_no_lists_yet')}
+        </div>
       );
     }
     return (
@@ -236,16 +303,17 @@ class Board extends Component {
         moveCard={this.onMoveRow}
         addNewList={this.addNewList}
         getViewShownColumns={this.props.getViewShownColumns}
+        targetListIndex={this.state.targetListIndex}
       />
     );
-  }
+  };
 
   render() {
     const { boards, selectedBoardIndex } = this.props;
     return (
       <Fragment>
         {this.renderBoard()}
-        {this.state.isShowBoardSetting &&
+        {this.state.isShowBoardSetting && (
           <BoardSetting
             boardSetting={boards[selectedBoardIndex]}
             onCloseBoardSetting={this.onCloseBoardSetting}
@@ -253,7 +321,7 @@ class Board extends Component {
             getNonArchiveViews={this.props.getNonArchiveViews}
             getViewShownColumns={this.props.getViewShownColumns}
           />
-        }
+        )}
       </Fragment>
     );
   }
