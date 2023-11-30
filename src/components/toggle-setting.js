@@ -22,7 +22,7 @@ class ToggleSetting extends React.Component {
         <input
           type="checkbox"
           className="custom-switch-input"
-          checked={settings[settingKey]}
+          checked={!!settings[settingKey]}
           onChange={this.updateSettings}
           name="custom-switch-checkbox"
         />

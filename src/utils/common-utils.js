@@ -40,24 +40,15 @@ export const generateOptionID = (options) => {
 };
 
 export const getDtableUuid = () => {
-  if (window.dtable) {
-    return window.dtable.dtableUuid;
-  }
-  return window.dtablePluginConfig.dtableUuid;
+  return window.dtable.dtableUuid;
 };
 
 export const getMediaUrl = () => {
-  if (window.dtable) {
-    return window.dtable.mediaUrl;
-  }
-  return window.dtablePluginConfig.mediaUrl;
+  return window.dtable.mediaUrl;
 };
 
 export const getValueFromPluginConfig = (attribute) => {
-  if (window.dtable) {
-    return window.dtable[attribute];
-  }
-  return window.dtablePluginConfig[attribute];
+  return window.dtable[attribute];
 };
 
 export const isValidEmail = (email) => {

@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DTable from 'dtable-sdk';
+import {
+  CellType, getTableByName, getNonArchiveViews, getViewByName, getTableColumnByName,
+  getRowById, getViewShownColumns,
+} from 'dtable-utils';
 import { Provider } from 'react-redux';
 import intl from 'react-intl-universal';
 import store from './store';
@@ -43,14 +46,13 @@ class App extends React.Component {
       selectedBoardIndex: 0,
     };
     this.eventBus = new EventBus();
-    this.dtable = new DTable();
   }
 
   componentDidMount() {
     this.initPluginDTableData();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({showDialog: nextProps.showDialog});
   }
 
@@ -62,27 +64,11 @@ class App extends React.Component {
   async initPluginDTableData() {
     if (window.app === undefined) {
       // local develop
-      window.app = {};
-      window.app.state = {};
-      window.dtable = {};
-      await this.dtable.init(window.dtablePluginConfig);
-      await this.dtable.syncWithServer();
-      const relatedUsersRes = await this.getRelatedUsersFromServer(this.dtable.dtableStore);
-      const userList = relatedUsersRes.data.user_list;
-      window.app.collaborators = userList;
-      window.app.state.collaborators = userList;
-      this.dtable.subscribe('dtable-connect', () => { this.onDTableConnect(); });
-    } else {
-      // integrated to dtable app
-      this.dtable.initInBrowser(window.app.dtableStore);
+      window.dtableSDK.subscribe('dtable-connect', () => { this.onDTableConnect(); });
     }
-    this.unsubscribeLocalDtableChanged = this.dtable.subscribe('local-dtable-changed', () => { this.onDTableChanged(); });
-    this.unsubscribeRemoteDtableChanged = this.dtable.subscribe('remote-dtable-changed', () => { this.onDTableChanged(); });
+    this.unsubscribeLocalDtableChanged = window.dtableSDK.subscribe('local-dtable-changed', () => { this.onDTableChanged(); });
+    this.unsubscribeRemoteDtableChanged = window.dtableSDK.subscribe('remote-dtable-changed', () => { this.onDTableChanged(); });
     this.resetData();
-  }
-
-  async getRelatedUsersFromServer(dtableStore) {
-    return dtableStore.dtableAPI.getTableRelatedUsers();
   }
 
   onDTableConnect = () => {
@@ -94,20 +80,17 @@ class App extends React.Component {
   }
 
   resetData = () => {
-    let plugin_settings = this.dtable.getPluginSettings(PLUGIN_NAME) || {};
+    let plugin_settings = window.dtableSDK.getPluginSettings(PLUGIN_NAME) || {};
     if (!plugin_settings || Object.keys(plugin_settings).length === 0) {
       plugin_settings = DEFAULT_PLUGIN_SETTINGS;
     }
     const dtableUuid = getDtableUuid();
     const { boards } = plugin_settings;
     const selectedBoardIndex = this.getSelectedBoardIndexByLocalStorage(boards, dtableUuid);
-    this.collaborators = this.getRelatedUsersFromLocal();
-    this.cellType = this.dtable.getCellType();
-    this.columnIconConfig = this.dtable.getColumnIconConfig();
-    this.tables = this.dtable.getTables();
-    this.supportGroupbyColumnTypes = [this.cellType.SINGLE_SELECT, this.cellType.COLLABORATOR];
-    this.unsupportedSetTitleFieldTypes = { [this.cellType.DIGITAL_SIGN]: true };
-    this.optionColors = this.dtable.getOptionColors();
+    this.collaborators = window.app.state.collaborators;
+    this.tables = window.dtableSDK.getTables();
+    this.supportGroupbyColumnTypes = [CellType.SINGLE_SELECT, CellType.COLLABORATOR];
+    this.unsupportedSetTitleFieldTypes = { [CellType.DIGITAL_SIGN]: true };
 
     store.dispatch({ type: actionTypes.UPDATE_BOARDS, boards });
     this.initDtableValue();
@@ -136,17 +119,17 @@ class App extends React.Component {
   }
 
   getTableFormulaRows = (table, view) => {
-    let rows = this.dtable.getViewRows(view, table);
-    return this.dtable.getTableFormulaResults(table, rows);
+    const rows = window.dtableSDK.getViewRows(view, table);
+    return window.dtableSDK.getTableFormulaResults(table, rows);
   }
 
   getActiveBoard = (boardSetting, tables) => {
     const { _id, name, table_name, view_name, groupby_column_name, title_column_name, columns: configuredColumns, hideEmptyValues, showFieldNames, wrapText } = boardSetting;
-    const selectedTable = (table_name && this.dtable.getTableByName(table_name)) || tables[0];
-    const views = this.getNonArchiveViews(selectedTable);
-    const selectedView = (view_name && this.dtable.getViewByName(selectedTable, view_name)) || views[0];
-    const titleColumn = title_column_name && this.dtable.getColumnByName(selectedTable, title_column_name);
-    const groupbyColumn = groupby_column_name && this.dtable.getColumnByName(selectedTable, groupby_column_name);
+    const selectedTable = (table_name && getTableByName(tables, table_name)) || tables[0];
+    const views = getNonArchiveViews(selectedTable.views);
+    const selectedView = (view_name && getViewByName(selectedTable.views, view_name)) || views[0];
+    const titleColumn = title_column_name && getTableColumnByName(selectedTable, title_column_name);
+    const groupbyColumn = groupby_column_name && getTableColumnByName(selectedTable, groupby_column_name);
     const { key: groupbyColumnKey, type: groupbyColumnType } = groupbyColumn || {};
     let lists = [], canAddList = false, draggable = false, valid = false;
     if (!selectedTable || !selectedView || !groupbyColumn ||
@@ -158,11 +141,11 @@ class App extends React.Component {
     }
     lists = this.getLists(groupbyColumn);
     this.sortLists(lists, groupbyColumn);
-    this.dtable.forEachRow(selectedTable.name, selectedView.name, (row) => {
-      const originRow = this.dtable.getRowById(selectedTable, row._id);
+    window.dtableSDK.forEachRow(selectedTable.name, selectedView.name, (row) => {
+      const originRow = getRowById(selectedTable, row._id);
       let listIndex;
       switch (groupbyColumn.type) {
-        case this.cellType.SINGLE_SELECT: {
+        case CellType.SINGLE_SELECT: {
           canAddList = true;
           draggable = true;
           const listName = originRow[groupbyColumnKey] || null;
@@ -170,7 +153,7 @@ class App extends React.Component {
           this.updateLists(lists, listIndex, originRow, row);
           break;
         }
-        case this.cellType.COLLABORATOR: {
+        case CellType.COLLABORATOR: {
           const cellValue = row[groupby_column_name];
           if (Array.isArray(cellValue)) {
             cellValue.forEach((email) => {
@@ -198,7 +181,7 @@ class App extends React.Component {
     const { type: groupbyColumnType, data: groupbyColumnData } = groupbyColumn;
     let lists = [];
     switch (groupbyColumnType) {
-      case this.cellType.SINGLE_SELECT: {
+      case CellType.SINGLE_SELECT: {
         const options = (groupbyColumnData && groupbyColumnData.options) || [];
         lists = Array.isArray(options) && options.map(option => {
           const optionId = option.id;
@@ -206,7 +189,7 @@ class App extends React.Component {
         });
         break;
       }
-      case this.cellType.COLLABORATOR: {
+      case CellType.COLLABORATOR: {
         lists = Array.isArray(this.collaborators) && this.collaborators.map(collaborator => {
           const email = collaborator.email;
           return new List({name: email, cards: []});
@@ -234,11 +217,11 @@ class App extends React.Component {
 
   sortLists = (lists, groupbyColumn) => {
     const { type: columnType, data: columnData } = groupbyColumn;
-    if (columnType === this.cellType.COLLABORATOR) {
+    if (columnType === CellType.COLLABORATOR) {
       return lists;
     }
     let optionIds = [];
-    if (columnType === this.cellType.SINGLE_SELECT) {
+    if (columnType === CellType.SINGLE_SELECT) {
       const columnOptions = (columnData && columnData.options) || [];
       optionIds = columnOptions.map((option) => option.id);
     }
@@ -252,7 +235,7 @@ class App extends React.Component {
         return 1;
       }
       switch (columnType) {
-        case this.cellType.SINGLE_SELECT: {
+        case CellType.SINGLE_SELECT: {
           if (!Array.isArray(optionIds) || optionIds.length === 0) {
             return 0;
           }
@@ -276,14 +259,10 @@ class App extends React.Component {
 
   initDtableValue = () => {
     const dtableValue = {
-      dtable: this.dtable,
       tables: this.tables,
-      cellType: this.cellType,
-      columnIconConfig: this.columnIconConfig,
       collaborators: this.collaborators,
       supportGroupbyColumnTypes: this.supportGroupbyColumnTypes,
       unsupportedSetTitleFieldTypes: this.unsupportedSetTitleFieldTypes,
-      optionColors: this.optionColors,
     };
     store.dispatch({
       type: 'INIT_DTABLE_VALUE',
@@ -310,15 +289,6 @@ class App extends React.Component {
     window.app.onClosePlugin && window.app.onClosePlugin();
   }
 
-  getRelatedUsersFromLocal = () => {
-    let { collaborators, state } = window.app;
-    if (!collaborators) {
-      // dtable app
-      return state && state.collaborators;
-    }
-    return collaborators; // local develop
-  }
-
   onSelectBoard = (selectedBoardIndex, callback = null) => {
     const { boards = [], dtableValue } = store.getState();
     this.setState({ selectedBoardIndex }, () => {
@@ -335,15 +305,15 @@ class App extends React.Component {
   }
 
   updatePluginSettings = (boards) => {
-    this.dtable.updatePluginSettings(PLUGIN_NAME, { boards });
+    window.dtableSDK.updatePluginSettings(PLUGIN_NAME, { boards });
   }
 
   getNonArchiveViews = (table) => {
-    return this.dtable.getNonArchiveViews(table);
+    return getNonArchiveViews(table.views);
   }
 
   getViewShownColumns = (view, table) => {
-    return this.dtable.getViewShownColumns(view, table);
+    return getViewShownColumns(view, table.columns);
   }
 
   render() {

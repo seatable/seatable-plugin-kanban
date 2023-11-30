@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { CellType, getLinkCellValue, getTableById, getRowsByIds } from 'dtable-utils';
 import {
   TextFormatter,
   NumberFormatter,
@@ -43,12 +44,12 @@ class CellFormatter extends Component {
     this.calculateCollaboratorData(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.calculateCollaboratorData(nextProps);
   }
 
   calculateCollaboratorData = (props) => {
-    const { row, column, CellType } = props;
+    const { row, column } = props;
     if (column.type === CellType.LAST_MODIFIER) {
       this.getCollaborator(row._last_modifier);
     } else if (column.type === CellType.CREATOR) {
@@ -99,19 +100,22 @@ class CellFormatter extends Component {
   }
 
   getLinkCellValue = (linkId, table1Id, table2Id, rowId) => {
-    return this.props.dtable.getLinkCellValue(linkId, table1Id, table2Id, rowId);
+    const links = window.dtableSDK.getLinks();
+    return getLinkCellValue(links, linkId, table1Id, table2Id, rowId);
   }
 
   getRowsByID = (tableId, rowIds) => {
-    return this.props.dtable.getRowsByID(tableId, rowIds);
+    const table = this.getTableById(tableId);
+    return getRowsByIds(table, rowIds);
   }
 
   getTableById = (table_id) => {
-    return this.props.dtable.getTableById(table_id);
+    const tables = window.dtableSDK.getTables();
+    return getTableById(tables, table_id);
   }
 
   renderCellFormatter = () => {
-    const { column, row, collaborators, CellType, hideEmptyValues } = this.props;
+    const { column, row, collaborators, hideEmptyValues } = this.props;
     const { type: columnType, key: columnKey, data: columnData } = column;
     const { isDataLoaded, collaborator } = this.state;
     const cellValue = row[columnKey];
@@ -275,7 +279,6 @@ CellFormatter.propTypes = {
   column: PropTypes.object.isRequired,
   row: PropTypes.object.isRequired,
   table: PropTypes.object.isRequired,
-  CellType: PropTypes.object,
   collaborators: PropTypes.array,
 };
 
