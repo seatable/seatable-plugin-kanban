@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Alert, Button } from 'reactstrap';
 import intl from 'react-intl-universal';
+import { connect } from 'react-redux';
+import { CellType, SELECT_OPTION_COLORS } from 'dtable-utils';
 import PluginPopover from '../plugin-popover';
 import SingleSelectItem from './new-list-widgets/single-select-item';
-
 
 import '../../css/add-list-popover.css';
 
@@ -40,17 +40,15 @@ class NewListPopover extends Component {
   }
 
   renderListEditor = () => {
-    const { activeBoard, dtableValue } = this.props;
+    const { activeBoard } = this.props;
     const { newList } = this.state;
-    const { cellType, optionColors } = dtableValue;
     const { groupbyColumn } = activeBoard;
-    if (groupbyColumn.type === cellType.SINGLE_SELECT) {
-      const defaultOptionColor = optionColors[0];
+    if (groupbyColumn.type === CellType.SINGLE_SELECT) {
+      const defaultOptionColor = SELECT_OPTION_COLORS[0];
       const initNewList = newList || { optionColor: defaultOptionColor.COLOR, textColor: defaultOptionColor.TEXT_COLOR };
       return (
         <SingleSelectItem
           newList={initNewList}
-          optionColors={optionColors}
           updateNewList={this.updateNewList}
           setPluginPopoverState={this.setPluginPopoverState}
         />

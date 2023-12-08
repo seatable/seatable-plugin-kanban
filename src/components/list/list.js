@@ -22,7 +22,7 @@ class List extends Component {
     return `plugin_kanban_${this.props.boardId}_list`;
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!shallowEqual(this.props.cards, nextProps.cards)) {
       this.setState({
         currentPage: nextProps.currentPage

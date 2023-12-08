@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import intl from 'react-intl-universal';
+import { CellType } from 'dtable-utils';
 import pluginContext from '../../plugin-context';
 import BoardContainer from './board-container';
 import BoardSetting from '../board-setting';
@@ -56,14 +57,13 @@ class Board extends Component {
   }
 
   moveList = ({ fromIndex, targetIndex }) => {
-    const { activeBoard, dtableValue } = this.props;
-    const { cellType, dtable } = dtableValue;
+    const { activeBoard } = this.props;
     const { lists, selectedTable, groupbyColumn } = activeBoard;
     const fromList = lists[fromIndex];
     const targetList = lists[targetIndex];
     if (!fromList || !targetList || targetList.name === null) return;
     const { type: columnType, name: columnName, data: columnData } = groupbyColumn;
-    if (columnType === cellType.SINGLE_SELECT) {
+    if (columnType === CellType.SINGLE_SELECT) {
       let updatedOptions = [...((columnData && columnData.options) || [])];
       const fromOptionIndex = updatedOptions.findIndex(option => option.id === fromList.name);
       const targetOptionIndex = updatedOptions.findIndex(option => option.id === targetList.name);
@@ -71,24 +71,23 @@ class Board extends Component {
       const movedOption = updatedOptions.splice(fromOptionIndex, 1)[0];
       updatedOptions.splice(targetOptionIndex, 0, movedOption);
       const newColumnData = Object.assign({}, columnData, {options: updatedOptions});
-      dtable.modifyColumnData(selectedTable, columnName, newColumnData);
+      window.dtableSDK.modifyColumnData(selectedTable, columnName, newColumnData);
     }
   }
 
   addNewList = (list) => {
-    const { activeBoard, dtableValue } = this.props;
-    const { cellType, dtable } = dtableValue;
+    const { activeBoard } = this.props;
     const { selectedTable, groupbyColumn } = activeBoard;
     const { type: columnType, name: columnName, data: columnData } = groupbyColumn;
     const { listName, payload } = list;
-    if (columnType === cellType.SINGLE_SELECT) {
+    if (columnType === CellType.SINGLE_SELECT) {
       const oldOptions = (columnData && columnData.options) || [];
       const { optionColor, textColor } = payload;
       const newOptionId = generateOptionID(oldOptions);
       const newOption = { id: newOptionId, name: listName, color: optionColor, textColor };
       const newOptions = [...oldOptions, newOption];
       const newColumnData = Object.assign({}, columnData, {options: newOptions});
-      dtable.modifyColumnData(selectedTable, columnName, newColumnData);
+      window.dtableSDK.modifyColumnData(selectedTable, columnName, newColumnData);
     }
   }
 
@@ -99,7 +98,7 @@ class Board extends Component {
 
   onAppendRow = (listIndex) => {
     const { activeBoard, dtableValue } = this.props;
-    const { cellType, collaborators, dtable } = dtableValue;
+    const { collaborators } = dtableValue;
     const { lists, selectedTable, selectedView, groupbyColumn } = activeBoard;
     const targetList = lists[listIndex];
     if (!targetList) return;
@@ -107,23 +106,22 @@ class Board extends Component {
     const { name: listName, cards } = targetList;
     const cardsLen = cards ? cards.length : 0;
     const prevRowId = cardsLen > 0 ? cards[cardsLen - 1].id : '';
-    const initData = dtable.getInsertedRowInitData(selectedView, selectedTable, prevRowId);
+    const initData = window.dtableSDK.getInsertedRowInitData(selectedView, selectedTable, prevRowId);
     let cellValue = listName;
-    if (columnType === cellType.SINGLE_SELECT) {
+    if (columnType === CellType.SINGLE_SELECT) {
       const options = (columnData && columnData.options) || [];
       cellValue = options.find(option => option.id === listName).name;
-    } else if (columnType === cellType.COLLABORATOR) {
+    } else if (columnType === CellType.COLLABORATOR) {
       const collaborator = collaborators.find(collaborator => listName === collaborator.email);
       cellValue = collaborator ? [ collaborator.name ] : [];
     }
     const rowData = Object.assign({}, initData, {[groupbyColumn.name]: cellValue});
-    const insertedRow = dtable.appendRow(selectedTable, rowData, selectedView, { collaborators });
+    const insertedRow = window.dtableSDK.appendRow(selectedTable, rowData, selectedView, { collaborators });
     insertedRow && pluginContext.expandRow(insertedRow, selectedTable);
   }
 
   onMoveRow = ({ fromListIndex, targetListIndex, fromCardIndex, targetCardIndex }) => {
-    const { dtableValue, activeBoard } = this.props;
-    const { dtable } = dtableValue;
+    const { activeBoard } = this.props;
     const { lists, selectedTable, selectedView, groupbyColumn } = activeBoard;
     const fromList = lists[fromListIndex];
     const targetList = lists[targetListIndex];
@@ -132,7 +130,7 @@ class Board extends Component {
     const { cards: targetListCards } = targetList;
     const movedCard = fromListCards[fromCardIndex];
     const movedRow = movedCard.row;
-    const viewRows = dtable.getViewRows(selectedView, selectedTable);
+    const viewRows = window.dtableSDK.getViewRows(selectedView, selectedTable);
     const lastViewRow = viewRows[viewRows.length - 1];
     let movePosition = 'move_below', targetRow, upperRow;
     if (targetCardIndex === 0) {
@@ -165,20 +163,18 @@ class Board extends Component {
 
       oldRowDataList = this.getOldRowData(movedRow, groupbyColumn);
     }
-    dtable.moveGroupRows(selectedTable, targetIds, movePosition, movedRows, upperRowIds, updatedRowDataList,
+    window.dtableSDK.moveGroupRows(selectedTable, targetIds, movePosition, movedRows, upperRowIds, updatedRowDataList,
       oldRowDataList, [ groupbyColumn ]);
   }
 
   getUpdatedRowData = (movedRow, groupbyColumn, fromList, targetList) => {
-    const { dtableValue } = this.props;
-    const { cellType } = dtableValue;
     const { key, type } = groupbyColumn;
     const fromName = fromList.name;
     const targetName = targetList.name;
     const movedRowId = movedRow._id;
     const originalCellValue = movedRow[key];
     switch (type) {
-      case cellType.COLLABORATOR: {
+      case CellType.COLLABORATOR: {
         if (!targetName) {
           if (fromName) {
             // clear all emails

@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Input } from 'reactstrap';
+import { SELECT_OPTION_COLORS } from 'dtable-utils';
 import PluginPopover from '../../plugin-popover';
 
 class SingleSelectItem extends Component {
@@ -34,7 +35,7 @@ class SingleSelectItem extends Component {
   }
 
   render() {
-    const { optionColors, newList } = this.props;
+    const { newList } = this.props;
     const { isShowColorSelector } = this.state;
     let { optionColor, textColor, lisName } = newList || {};
     return (
@@ -60,7 +61,7 @@ class SingleSelectItem extends Component {
             popoverClassName="plugin-kanban-option-color-popover"
           >
             <div className="row gutters-xs">
-              {optionColors.map((item, index)=>{
+              {SELECT_OPTION_COLORS.map((item, index)=>{
                 let { COLOR: itemOptionColor, BORDER_COLOR: borderColor, TEXT_COLOR: textColor } = item;
                 return (
                   <div key={itemOptionColor} className="col-auto" onClick={this.onChangeOptionColor.bind(this, item)}>

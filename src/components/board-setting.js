@@ -2,6 +2,7 @@ import React, { Fragment }  from 'react';
 import PropTypes from 'prop-types';
 import intl from 'react-intl-universal';
 import { connect } from 'react-redux';
+import { COLUMNS_ICON_CONFIG } from 'dtable-utils';
 import { FieldDisplaySetting } from 'dtable-ui-component';
 import DtableSelect from './dtable-select';
 import ToggleSetting from './toggle-setting';
@@ -29,7 +30,7 @@ class BoardSetting extends React.Component {
   }
 
   getSelectorColumns = (columns) => {
-    const { columnIconConfig, supportGroupbyColumnTypes, unsupportedSetTitleFieldTypes } = this.props.dtableValue;
+    const { supportGroupbyColumnTypes, unsupportedSetTitleFieldTypes } = this.props.dtableValue;
     let groupbyColumns = [],
       titleColumns = [];
     columns && columns.forEach((column) => {
@@ -37,7 +38,7 @@ class BoardSetting extends React.Component {
       const columnOption = {
         name,
         value: name,
-        iconClass: columnIconConfig[type],
+        iconClass: COLUMNS_ICON_CONFIG[type],
       };
       if (supportGroupbyColumnTypes.includes(type)) {
         groupbyColumns.push(columnOption);

@@ -1,21 +1,15 @@
 class PluginContext {
 
-  constructor() {
-    this.settings = window.dtable || window.dtablePluginConfig;
-    this.api = window.dtableWebAPI || null;
-  }
-
   getConfig() {
-    return this.settings;
+    return window.dtable;
   }
 
   getSettingByKey(key) {
-    return this.settings[key] || '';
+    return window.dtable[key] || '';
   }
 
   getUserCommonInfo(email, avatar_size) {
-    if (!this.api) return Promise.reject();
-    return this.api.getUserCommonInfo(email, avatar_size);
+    return window.dtableWebAPI.getUserCommonInfo(email, avatar_size);
   }
 
   expandRow(row, table) {

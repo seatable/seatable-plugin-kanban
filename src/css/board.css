@@ -415,12 +415,12 @@
 }
 
 .plugin-kanban-card .cell-formatter-container {
+  display: inline-flex;
+  flex-wrap: wrap;
+  min-height: 20px;
+  width: 100%;
+  margin-top: 4px;
   font-size: 14px;
-  line-height: 1.2;
-  margin-top: 8px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .plugin-kanban-card .cell-formatter-container.digital-sign-formatter img {
@@ -456,12 +456,18 @@
   max-height: 62px;
 }
 
-.plugin-kanban-card .cell-formatter-container.link-formatter {
-  display: flex;
-}
-
 .plugin-kanban-card .cell-formatter-container .link-item {
-  cursor: inherit;
+  display: inline-flex;
+  align-items: center;
+  background: #eceff4;
+  border-radius: 3px;
+  font-size: 13px;
+  height: 20px;
+  margin: 4px 4px 0 0;
+  max-width: 100%;
+  padding: 0 2px;
+  vertical-align: middle;
+  cursor: default;
 }
 
 .plugin-kanban-card .cell-formatter-container.formula-formatter {

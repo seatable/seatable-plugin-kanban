@@ -11,7 +11,7 @@ class Card extends Component {
       listIndex, cardDraggable, card,
       dtableValue, activeBoard
     } = this.props;
-    const { dtable, tables, collaborators, cellType } = dtableValue;
+    const { tables, collaborators } = dtableValue;
     let { selectedTable, selectedView, titleColumn, formulaRows, configuredColumns, hideEmptyValues, showFieldNames, wrapText } = activeBoard;
     selectedTable = selectedTable || tables[0];
     selectedView = selectedView || selectedTable.views[0];
@@ -30,9 +30,7 @@ class Card extends Component {
 
     const cellFormatterProps = {
       row: card.row,
-      CellType: cellType,
       table: selectedTable,
-      dtable,
       tables,
       collaborators,
       formulaRows
