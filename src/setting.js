@@ -30,7 +30,7 @@ if (config.server !== config.server.replace(/\/+$/, '')) {
 
 /** (4/5) set locale for ReactIntlUniversal */
 if (intl.options && intl.options.locales && intl.options.locales[config.lang]) {
-  intl.options.currentLocale = 'en';//config.lang;
+  intl.options.currentLocale = config.lang;
 } else {
   console.warn(`[SeaTable Plugin Development] Locale "${config.lang}" not available`);
   console.info(`[SeaTable Plugin Development] Available locales are: "${Object.keys((intl && intl.options && intl.options.locales) || {'ReactIntlUniversal Loading Error': 1}).join('", "')}"`);
