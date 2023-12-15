@@ -13,7 +13,7 @@ class ToggleSetting extends React.Component {
     const { settings, settingKey } = this.props;
     const updated = Object.assign({}, settings, {[settingKey]: e.target.checked});
     this.props.updateSettings(updated);
-  }
+  };
 
   render() {
     const { settings, settingKey, settingDesc } = this.props;

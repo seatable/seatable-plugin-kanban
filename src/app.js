@@ -73,11 +73,11 @@ class App extends React.Component {
 
   onDTableConnect = () => {
     this.resetData();
-  }
+  };
 
   onDTableChanged = () => {
     this.resetData();
-  }
+  };
 
   resetData = () => {
     let plugin_settings = window.dtableSDK.getPluginSettings(PLUGIN_NAME) || {};
@@ -103,7 +103,7 @@ class App extends React.Component {
       isLoading: false,
       selectedBoardIndex,
     });
-  }
+  };
 
   getSelectedBoardIndexByLocalStorage = (boards, dtableUuid) => {
     const selectedBoardIds = this.getSelectedBoardIds();
@@ -116,12 +116,12 @@ class App extends React.Component {
     }
     const selectedBoardIndex = boards.findIndex(board => board._id === selectedBoardId);
     return selectedBoardIndex > 0 ? selectedBoardIndex : 0;
-  }
+  };
 
   getTableFormulaRows = (table, view) => {
     const rows = window.dtableSDK.getViewRows(view, table);
     return window.dtableSDK.getTableFormulaResults(table, rows);
-  }
+  };
 
   getActiveBoard = (boardSetting, tables) => {
     const { _id, name, table_name, view_name, groupby_column_name, title_column_name, columns: configuredColumns, hideEmptyValues, showFieldNames, wrapText } = boardSetting;
@@ -175,7 +175,7 @@ class App extends React.Component {
     }
     let formulaRows = this.getTableFormulaRows(selectedTable, selectedView);
     return { _id, name, lists, selectedTable, selectedView, formulaRows, groupbyColumn, titleColumn, configuredColumns, hideEmptyValues, showFieldNames, wrapText, canAddList, draggable, valid };
-  }
+  };
 
   getLists = (groupbyColumn) => {
     const { type: groupbyColumnType, data: groupbyColumnData } = groupbyColumn;
@@ -204,7 +204,7 @@ class App extends React.Component {
       lists.unshift({name: null, cards: []});
     }
     return lists;
-  }
+  };
 
   updateLists(lists, listIndex, originRow) {
     if (listIndex < 0) return;
@@ -255,7 +255,7 @@ class App extends React.Component {
         default: return 0;
       }
     });
-  }
+  };
 
   initDtableValue = () => {
     const dtableValue = {
@@ -268,26 +268,26 @@ class App extends React.Component {
       type: 'INIT_DTABLE_VALUE',
       dtableValue
     });
-  }
+  };
 
   storeSelectedViewId = (boardId) => {
     let dtableUuid = getDtableUuid();
     let selectedBoardIds = this.getSelectedBoardIds();
     selectedBoardIds[dtableUuid] = boardId;
     window.localStorage.setItem(KEY_SELECTED_BOARD_IDS, JSON.stringify(selectedBoardIds));
-  }
+  };
 
   getSelectedBoardIds = () => {
     let selectedBoardIds = window.localStorage.getItem(KEY_SELECTED_BOARD_IDS);
     return selectedBoardIds ? JSON.parse(selectedBoardIds) : {};
-  }
+  };
 
   onPluginToggle = () => {
     setTimeout(() => {
       this.setState({showDialog: false});
     }, 500);
     window.app.onClosePlugin && window.app.onClosePlugin();
-  }
+  };
 
   onSelectBoard = (selectedBoardIndex, callback = null) => {
     const { boards = [], dtableValue } = store.getState();
@@ -302,19 +302,19 @@ class App extends React.Component {
         callback && callback();
       }
     });
-  }
+  };
 
   updatePluginSettings = (boards) => {
     window.dtableSDK.updatePluginSettings(PLUGIN_NAME, { boards });
-  }
+  };
 
   getNonArchiveViews = (table) => {
     return getNonArchiveViews(table.views);
-  }
+  };
 
   getViewShownColumns = (view, table) => {
     return getViewShownColumns(view, table.columns);
-  }
+  };
 
   render() {
     let { isLoading, showDialog } = this.state;

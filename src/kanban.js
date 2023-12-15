@@ -16,17 +16,17 @@ class Kanban extends Component {
       this.setState({showDialog: false});
     }, 500);
     window.app.onClosePlugin && window.app.onClosePlugin();
-  }
+  };
 
   onToggleBoardSetting = () => {
     this.props.eventBus.dispatch(EventTypes.TOGGLE_BOARD_SETTING);
-  }
+  };
 
   onRenameBoard = (newName) => {
     const { boards, selectedBoardIndex } = this.props;
     const newBoards = BoardsHelpers.renameBoard(boards, {board_index: selectedBoardIndex, new_name: newName});
     this.props.updatePluginSettings(newBoards);
-  }
+  };
 
   onAppendBoard = (newBoard) => {
     const { boards } = this.props;
@@ -39,7 +39,7 @@ class Kanban extends Component {
       this.props.storeSelectedViewId(newSelectedBoard._id);
       this.props.eventBus.dispatch(EventTypes.BOARDS_SCROLL_TO_RIGHT_END);
     });
-  }
+  };
 
   onDeleteBoard = (index) => {
     const { boards } = this.props;
@@ -49,7 +49,7 @@ class Kanban extends Component {
     this.props.onSelectBoard(newSelectedBoardIndex);
     const newSelectedBoard = newBoards[newSelectedBoardIndex] || {};
     this.props.storeSelectedViewId(newSelectedBoard._id);
-  }
+  };
 
   render() {
     const { selectedBoardIndex, eventBus } = this.props;

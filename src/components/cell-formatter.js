@@ -55,7 +55,7 @@ class CellFormatter extends Component {
     } else if (column.type === CellType.CREATOR) {
       this.getCollaborator(row._creator);
     }
-  }
+  };
 
   getCollaborator = (value) => {
     if (!value) {
@@ -93,26 +93,26 @@ class CellFormatter extends Component {
       };
       this.setState({isDataLoaded: true, collaborator});
     });
-  }
+  };
 
   getUserCommonInfo = (email, avatarSize = '') => {
     return pluginContext.getUserCommonInfo(email, avatarSize);
-  }
+  };
 
   getLinkCellValue = (linkId, table1Id, table2Id, rowId) => {
     const links = window.dtableSDK.getLinks();
     return getLinkCellValue(links, linkId, table1Id, table2Id, rowId);
-  }
+  };
 
   getRowsByID = (tableId, rowIds) => {
     const table = this.getTableById(tableId);
     return getRowsByIds(table, rowIds);
-  }
+  };
 
   getTableById = (table_id) => {
     const tables = window.dtableSDK.getTables();
     return getTableById(tables, table_id);
-  }
+  };
 
   renderCellFormatter = () => {
     const { column, row, collaborators, hideEmptyValues } = this.props;
@@ -258,7 +258,7 @@ class CellFormatter extends Component {
       }
       default: return null;
     }
-  }
+  };
 
   render() {
     const { column, hideEmptyValues, showFieldNames } = this.props;

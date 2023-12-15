@@ -42,19 +42,19 @@ class Board extends Component {
 
   onToggleBoardSetting = () => {
     this.setState({isShowBoardSetting: !this.state.isShowBoardSetting});
-  }
+  };
 
   onCloseBoardSetting = () => {
     if (this.state.isShowBoardSetting) {
       this.setState({isShowBoardSetting: false});
     }
-  }
+  };
 
   onUpdateBoardSetting = (newBoard) => {
     const { boards, selectedBoardIndex } = this.props;
     let newBoards = BoardsHelpers.updateBoard(boards, {board_index: selectedBoardIndex, new_board: newBoard});
     this.props.updatePluginSettings(newBoards);
-  }
+  };
 
   moveList = ({ fromIndex, targetIndex }) => {
     const { activeBoard } = this.props;
@@ -73,7 +73,7 @@ class Board extends Component {
       const newColumnData = Object.assign({}, columnData, {options: updatedOptions});
       window.dtableSDK.modifyColumnData(selectedTable, columnName, newColumnData);
     }
-  }
+  };
 
   addNewList = (list) => {
     const { activeBoard } = this.props;
@@ -89,12 +89,12 @@ class Board extends Component {
       const newColumnData = Object.assign({}, columnData, {options: newOptions});
       window.dtableSDK.modifyColumnData(selectedTable, columnName, newColumnData);
     }
-  }
+  };
 
   onExpandRow = (row) => {
     const { selectedTable } = this.props.activeBoard;
     pluginContext.expandRow(row, selectedTable);
-  }
+  };
 
   onAppendRow = (listIndex) => {
     const { activeBoard, dtableValue } = this.props;
@@ -118,7 +118,7 @@ class Board extends Component {
     const rowData = Object.assign({}, initData, {[groupbyColumn.name]: cellValue});
     const insertedRow = window.dtableSDK.appendRow(selectedTable, rowData, selectedView, { collaborators });
     insertedRow && pluginContext.expandRow(insertedRow, selectedTable);
-  }
+  };
 
   onMoveRow = ({ fromListIndex, targetListIndex, fromCardIndex, targetCardIndex }) => {
     const { activeBoard } = this.props;
@@ -165,7 +165,7 @@ class Board extends Component {
     }
     window.dtableSDK.moveGroupRows(selectedTable, targetIds, movePosition, movedRows, upperRowIds, updatedRowDataList,
       oldRowDataList, [ groupbyColumn ]);
-  }
+  };
 
   getUpdatedRowData = (movedRow, groupbyColumn, fromList, targetList) => {
     const { key, type } = groupbyColumn;
@@ -207,14 +207,14 @@ class Board extends Component {
         return { [movedRowId]: { [key]: targetName }};
       }
     }
-  }
+  };
 
   getOldRowData = (movedRow, groupbyColumn) => {
     const { key } = groupbyColumn;
     const movedRowId = movedRow._id;
     const originalCellValue = movedRow[key];
     return { [movedRowId]: { [key]: originalCellValue }};
-  }
+  };
 
   renderBoard = () => {
     const { activeBoard } = this.props;
@@ -234,7 +234,7 @@ class Board extends Component {
         getViewShownColumns={this.props.getViewShownColumns}
       />
     );
-  }
+  };
 
   render() {
     const { boards, selectedBoardIndex } = this.props;

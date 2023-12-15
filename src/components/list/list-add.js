@@ -15,16 +15,16 @@ class ListAdd extends Component {
 
   toggleAddList = () => {
     this.setState({isShowAddListPopover: !this.state.isShowAddListPopover});
-  }
+  };
 
   onHideAddListPopover = () => {
     this.setState({isShowAddListPopover: false});
-  }
+  };
 
   onAddListConfirm = (list) => {
     this.props.onAddList(list);
     this.onHideAddListPopover();
-  }
+  };
 
   render() {
     return (

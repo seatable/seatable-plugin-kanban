@@ -51,13 +51,13 @@
 
 .plugin-kanban-boards-item .boards-item-content:hover {
   border-color: rgb(31, 87, 197);
-  color: #444;
+  color: #212529;
   cursor: pointer;
 }
 
 .plugin-kanban-boards-item.active .boards-item-content {
   border-color: rgb(31, 87, 197);
-  color: #444;
+  color: #212529;
   cursor: default;
 }
 
@@ -155,7 +155,7 @@
   bottom: 0;
   left: 0;
   padding: 8px 4px 0 4px;
-  color: #393939;
+  color: #212529;
   background-color: #e2e2e2;
   -webkit-user-select: none;
   user-select: none;
