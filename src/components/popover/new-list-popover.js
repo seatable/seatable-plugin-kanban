@@ -22,11 +22,11 @@ class NewListPopover extends Component {
 
   updateNewList = (newList) => {
     this.setState({ newList });
-  }
+  };
 
   setPluginPopoverState = () => {
     this.setState({ canHidePluginPopover: !this.state.canHidePluginPopover });
-  }
+  };
 
   onAddListConfirm = () => {
     const { newList } = this.state;
@@ -37,7 +37,7 @@ class NewListPopover extends Component {
       return;
     }
     this.props.onAddListConfirm({listName, payload});
-  }
+  };
 
   renderListEditor = () => {
     const { activeBoard } = this.props;
@@ -54,7 +54,7 @@ class NewListPopover extends Component {
         />
       );
     }
-  }
+  };
 
   render() {
     const { errMessage } = this.state;

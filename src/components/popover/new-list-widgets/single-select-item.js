@@ -19,20 +19,20 @@ class SingleSelectItem extends Component {
     }
     this.setState({ isShowColorSelector: !this.state.isShowColorSelector});
     this.props.setPluginPopoverState();
-  }
+  };
 
   onListNameChange = (evt) => {
     const listName = evt.target.value;
     const newList = Object.assign({}, this.props.newList, {listName});
     this.props.updateNewList(newList);
-  }
+  };
 
   onChangeOptionColor = (optionItem) => {
     const { COLOR, TEXT_COLOR } = optionItem;
     const newList = Object.assign({}, this.props.newList, {optionColor: COLOR, textColor: TEXT_COLOR});
     this.props.updateNewList(newList);
     this.onToggleColorSelector();
-  }
+  };
 
   render() {
     const { newList } = this.props;

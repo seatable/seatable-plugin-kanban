@@ -19,11 +19,11 @@ class NewBoardDialog extends React.Component {
       return;
     }
     this.setState({boardName: value});
-  }
+  };
 
   toggle = () => {
     this.props.onNewBoardCancel();
-  }
+  };
 
   handleSubmit = () => {
     let { boardName } = this.state;
@@ -34,7 +34,7 @@ class NewBoardDialog extends React.Component {
     }
     this.props.onNewBoardConfirm(boardName);
     this.props.onNewBoardCancel();
-  }
+  };
 
   render() {
     return (

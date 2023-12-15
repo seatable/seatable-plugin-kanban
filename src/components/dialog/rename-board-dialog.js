@@ -21,7 +21,7 @@ class RenameBoardDialog extends Component {
     } else {
       this.setState({boardName: value});
     }
-  }
+  };
 
   handleKeyDown = (e) => {
     if (e.keyCode === 13) {
@@ -29,7 +29,7 @@ class RenameBoardDialog extends Component {
       this.handleSubmit();
       return false;
     }
-  }
+  };
 
   handleSubmit = () => {
     let { boardName } = this.state;
@@ -40,11 +40,11 @@ class RenameBoardDialog extends Component {
     }
     this.props.onRenameBoard(boardName);
     this.props.hideRenameBoardDialog();
-  }
+  };
 
   toggle = () => {
     this.props.hideRenameBoardDialog();
-  }
+  };
 
   render() {
     return (

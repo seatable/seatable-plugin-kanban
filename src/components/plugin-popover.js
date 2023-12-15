@@ -35,7 +35,7 @@ class PluginPopover extends React.Component {
   onHistoryState = (e) => {
     e.preventDefault();
     this.props.hidePluginPopover(e);
-  }
+  };
 
   onKeyDown = (e) => {
     if (isHotkey('esc', e)) {
@@ -47,7 +47,7 @@ class PluginPopover extends React.Component {
       if (canHidePluginPopover) return;
       e.stopImmediatePropagation();
     }
-  }
+  };
 
   onMouseDown = (e) => {
     const { canHidePluginPopover } = this.props;
@@ -55,11 +55,11 @@ class PluginPopover extends React.Component {
     if (this.popoverRef && e && getEventClassName(e).indexOf('popover') === -1 && !this.popoverRef.contains(e.target)) {
       this.props.hidePluginPopover(e);
     }
-  }
+  };
 
   onPopoverInsideClick = (e) => {
     e.stopPropagation();
-  }
+  };
 
   render() {
     const { target, innerClassName, popoverClassName, hideArrow, modifiers } = this.props;

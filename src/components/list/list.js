@@ -51,26 +51,26 @@ class List extends Component {
         this.setState({loading: false});
       });
     }
-  }
+  };
 
   listDidMount = node => {
     if (node) {
       node.addEventListener('scroll', this.handleScroll);
     }
-  }
+  };
 
   handleCardClick = (card, evt) => {
     evt.stopPropagation();
     this.props.onCardClick(card.row);
-  }
+  };
 
   shouldAcceptDrop = sourceContainerOptions => {
     return sourceContainerOptions.groupName === this.groupName;
-  }
+  };
 
   onDragStart = ({ payload }) => {
     return payload;
-  }
+  };
 
   onDragEnd = (listIndex, result) => {
     if (this.state.isDraggingOver) {
@@ -89,7 +89,7 @@ class List extends Component {
         targetCardIndex: addedIndex,
       });
     }
-  }
+  };
 
   renderHeader = () => {
     const { listNameNode, draggable } = this.props;
@@ -99,7 +99,7 @@ class List extends Component {
         draggable={draggable}
       />
     );
-  }
+  };
 
   renderDragContainer = () => {
     const { listIndex, cards } = this.props;
@@ -137,7 +137,7 @@ class List extends Component {
         </Container>
       </div>
     );
-  }
+  };
 
   render() {
     return (

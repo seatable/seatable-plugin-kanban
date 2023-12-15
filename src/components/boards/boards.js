@@ -70,7 +70,7 @@ class Boards extends Component {
         canScrollNext: _canScrollNext,
       });
     }
-  }
+  };
 
   onScrollWithControl = (type) => {
     const { offsetWidth, scrollWidth, scrollLeft } = this.boardsScroll;
@@ -104,15 +104,15 @@ class Boards extends Component {
         }
       }, 15);
     }
-  }
+  };
 
   onBoardsScroll = () => {
     this.checkAvailableScrollType();
-  }
+  };
 
   setBoardItem = idx => boardItem => {
     this.boards[idx] = boardItem;
-  }
+  };
 
   scrollToRightEnd = () => {
     if (!this.boardsScroll) return;
@@ -120,7 +120,7 @@ class Boards extends Component {
     if (scrollWidth > offsetWidth) {
       this.boardsScroll.scrollLeft = scrollWidth - offsetWidth;
     }
-  }
+  };
 
   onDropdownToggle = (evt) => {
     evt.preventDefault();
@@ -134,29 +134,29 @@ class Boards extends Component {
         left
       }
     });
-  }
+  };
 
   onHideBoardDropdown = () => {
     if (this.state.isShowBoardDropdown) {
       this.setState({isShowBoardDropdown: false});
     }
-  }
+  };
 
   onToggleRenameBoard = () => {
     this.setState({isShowRenameBoardDialog: !this.state.isShowRenameBoardDialog});
-  }
+  };
 
   hideRenameBoardDialog = () => {
     this.setState({isShowRenameBoardDialog: false});
-  }
+  };
 
   onNewBoardToggle = () => {
     this.setState({isShowNewBoardDialog: !this.state.isShowNewBoardDialog});
-  }
+  };
 
   onHideNewBoardDialog = () => {
     this.setState({isShowNewBoardDialog: false});
-  }
+  };
 
   onAppendBoard = (name) => {
     const { boards } = this.props;
@@ -165,11 +165,11 @@ class Boards extends Component {
       name,
     };
     this.props.onAppendBoard(newBoard);
-  }
+  };
 
   onSelectBoard = (index) => {
     this.props.onSelectBoard(index);
-  }
+  };
 
   render() {
     const { boards, selectedBoardIndex } = this.props;

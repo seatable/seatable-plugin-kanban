@@ -22,23 +22,23 @@ class BoardContainer extends Component {
 
   onDragStart = ({ payload }) => {
     return payload;
-  }
+  };
 
   onListDrop = ({ removedIndex, addedIndex }) => {
     if (removedIndex !== addedIndex) {
       this.props.moveList({fromIndex: removedIndex, targetIndex: addedIndex});
     }
-  }
+  };
 
   getListDetails = index => {
     return this.props.activeBoard.lists[index];
-  }
+  };
 
   getCardDetails = (listIndex, cardIndex) => {
     const list = this.props.activeBoard.lists[listIndex] || {};
     const cards = list.cards || [];
     return Object.assign({}, cards[cardIndex], {listIndex, cardIndex});
-  }
+  };
 
   getListNameNode = (list) => {
     const listName = list.name;
@@ -57,7 +57,7 @@ class BoardContainer extends Component {
         collaborators={collaborators}
       />
     );
-  }
+  };
 
   render() {
     const { activeBoard } = this.props;

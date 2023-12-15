@@ -27,7 +27,7 @@ class BoardSetting extends React.Component {
 
   updateBoardSetting = (boardSettings) => {
     this.props.onUpdateBoardSetting(boardSettings);
-  }
+  };
 
   getSelectorColumns = (columns) => {
     const { supportGroupbyColumnTypes, unsupportedSetTitleFieldTypes } = this.props.dtableValue;
@@ -48,7 +48,7 @@ class BoardSetting extends React.Component {
       }
     });
     return { groupbyColumns, titleColumns };
-  }
+  };
 
   renderSelector = (options, settingKey) => {
     const { boardSetting } = this.props;
@@ -68,7 +68,7 @@ class BoardSetting extends React.Component {
         onChange={this.onModifySettings}
       />
     );
-  }
+  };
 
   getSelectorOptions(selectedTable, { groupbyColumns, titleColumns }) {
     const { tables } = this.props.dtableValue;
@@ -105,7 +105,7 @@ class BoardSetting extends React.Component {
       return item;
     });
     this.props.onUpdateBoardSetting(settings);
-  }
+  };
 
   moveColumn = (targetColumnKey, targetIndexColumnKey) => {
     const { boardSetting: settings } = this.props;
@@ -118,7 +118,7 @@ class BoardSetting extends React.Component {
     configuredColumns.splice(targetIndex, 0, targetColumn);
     settings.columns = configuredColumns;
     this.props.onUpdateBoardSetting(settings);
-  }
+  };
 
   onToggleColumnsVisibility = (columns, allColumnsShown) => {
     const { boardSetting: settings } = this.props;
@@ -128,7 +128,7 @@ class BoardSetting extends React.Component {
     }));
     settings.columns = updatedColumns;
     this.props.onUpdateBoardSetting(settings);
-  }
+  };
 
   getCurrentConfiguredColumns = (columns) => {
     const { boardSetting: settings } = this.props;
@@ -151,7 +151,7 @@ class BoardSetting extends React.Component {
       configuredColumns = baseConfiguredColumns.concat(addedColumns);
     }
     return configuredColumns;
-  }
+  };
 
   render() {
     const { dtableValue, activeBoard, boardSetting } = this.props;
