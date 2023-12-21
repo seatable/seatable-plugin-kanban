@@ -123,18 +123,11 @@
   cursor: pointer;
 }
 
-.kanban-setting-selector__menu .kanban-setting-selector__option--is-selected .dtable-font {
-  color: #fff !important;
-}
-
 .plugin-kanban-board-setting .null-option-name,
 .kanban-setting-selector__menu .null-option-name {
   color: rgba(0, 0, 0, .25) !important;
 }
 
-.kanban-setting-selector__menu .kanban-setting-selector__option--is-selected .null-option-name {
-  color: #fff !important;
-}
 /* column manager */
 .kanban-column-setting-item {
   position: relative;

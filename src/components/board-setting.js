@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import intl from 'react-intl-universal';
 import { connect } from 'react-redux';
 import { COLUMNS_ICON_CONFIG } from 'dtable-utils';
-import { FieldDisplaySetting } from 'dtable-ui-component';
-import DtableSelect from './dtable-select';
+import { FieldDisplaySetting, DTableSelect } from 'dtable-ui-component';
 import ToggleSetting from './toggle-setting';
 import { SETTING_KEY } from '../constants';
 import * as zIndexes from '../constants/zIndexes';
@@ -61,7 +60,7 @@ class BoardSetting extends React.Component {
       selectedOption = options[0];
     }
     return (
-      <DtableSelect
+      <DTableSelect
         classNamePrefix={'kanban-setting-selector'}
         value={selectedOption}
         options={options}

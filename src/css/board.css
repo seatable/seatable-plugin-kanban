@@ -272,11 +272,9 @@
 
 .plugin-kanban-dragged-card {
   cursor: grab !important;
-  /* transform: rotate(3deg); */
 }
 
 .plugin-kanban-dragged-list {
-  /* transform: rotate(3deg); */
   cursor: grab !important;
   background-color: #fff !important;
 }
