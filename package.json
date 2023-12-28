@@ -1,6 +1,6 @@
 {
   "name": "seatable-plugin-kanban",
-  "version": "0.1.32",
+  "version": "1.0.0",
   "description": "Display records on a kanban board.",
   "dependencies": {
     "classnames": "^2.2.6",
@@ -23,6 +23,7 @@
     "translate": "node scripts/translate.js",
     "push-translate": "tx push -s",
     "pull-translate": "tx pull -a -f && npm run translate",
+    "push-git": "git push origin master && git push https://github.com/seatable/seatable-plugin-kanban.git master",
     "build-plugin": "export GENERATE_SOURCEMAP=false && npm run clean && npm run build && node scripts/build-plugin.js"
   },
   "browserslist": {
