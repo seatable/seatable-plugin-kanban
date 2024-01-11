@@ -110,7 +110,8 @@ class Board extends Component {
     let cellValue = listName;
     if (columnType === CellType.SINGLE_SELECT) {
       const options = (columnData && columnData.options) || [];
-      cellValue = options.find(option => option.id === listName).name;
+      const option = options.find(option => option.id === listName) || {};
+      cellValue = option.name || '';
     } else if (columnType === CellType.COLLABORATOR) {
       const collaborator = collaborators.find(collaborator => listName === collaborator.email);
       cellValue = collaborator ? [ collaborator.name ] : [];

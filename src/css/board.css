@@ -406,9 +406,10 @@
 }
 
 .plugin-kanban-card .name-cell-container .cell-formatter-container {
+  margin: 0 0 8px;
+  line-height: 20px;
   font-size: 15px;
   font-weight: 500;
-  margin: 0 0 8px;
   cursor: pointer;
 }
 

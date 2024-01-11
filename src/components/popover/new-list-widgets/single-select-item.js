@@ -1,7 +1,14 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { Input } from 'reactstrap';
 import { SELECT_OPTION_COLORS } from 'dtable-utils';
 import PluginPopover from '../../plugin-popover';
+
+const propTypes = {
+  newList: PropTypes.object,
+  setPluginPopoverState: PropTypes.func,
+  updateNewList: PropTypes.func,
+};
 
 class SingleSelectItem extends Component {
 
@@ -82,5 +89,7 @@ class SingleSelectItem extends Component {
     );
   }
 }
+
+SingleSelectItem.propTypes = propTypes;
 
 export default SingleSelectItem;

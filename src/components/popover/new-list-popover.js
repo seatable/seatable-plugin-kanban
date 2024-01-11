@@ -93,6 +93,7 @@ class NewListPopover extends Component {
 }
 
 NewListPopover.propTypes = {
+  activeBoard: PropTypes.object,
   onAddListCancel: PropTypes.func,
   onAddListConfirm: PropTypes.func,
 };

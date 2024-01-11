@@ -118,6 +118,7 @@ Container.propTypes = {
   lockAxis: PropTypes.string,
   dragClass: PropTypes.string,
   dropClass: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   onDragStart: PropTypes.func,
   onDragEnd: PropTypes.func,
   onDrop: PropTypes.func,
@@ -128,7 +129,8 @@ Container.propTypes = {
   onDragLeave: PropTypes.func,
   render: PropTypes.func,
   getGhostParent: PropTypes.func,
-  removeOnDropOut: PropTypes.bool
+  removeOnDropOut: PropTypes.bool,
+  onDropReady: PropTypes.func,
 };
 
 Container.defaultProps = {

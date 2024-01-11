@@ -9,7 +9,11 @@ class PluginContext {
   }
 
   getUserCommonInfo(email, avatar_size) {
-    return window.dtableWebAPI.getUserCommonInfo(email, avatar_size);
+    if (window.dtableWebAPI && window.dtableWebAPI.getUserCommonInfo) {
+      return window.dtableWebAPI.getUserCommonInfo(email, avatar_size);
+    } else {
+      return Promise.reject('getUserCommonInfo API is not defined');
+    }
   }
 
   expandRow(row, table) {

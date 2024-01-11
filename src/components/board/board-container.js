@@ -130,6 +130,7 @@ BoardContainer.propTypes = {
   moveList: PropTypes.func,
   onCardClick: PropTypes.func,
   onCardAdd: PropTypes.func,
+  onAddCard: PropTypes.func,
   moveCard: PropTypes.func,
   addNewList: PropTypes.func,
   getViewShownColumns: PropTypes.func,

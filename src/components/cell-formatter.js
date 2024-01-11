@@ -276,6 +276,9 @@ class CellFormatter extends Component {
 }
 
 CellFormatter.propTypes = {
+  hideEmptyValues: PropTypes.bool,
+  showFieldNames: PropTypes.bool,
+  formulaRows: PropTypes.object,
   column: PropTypes.object.isRequired,
   row: PropTypes.object.isRequired,
   table: PropTypes.object.isRequired,

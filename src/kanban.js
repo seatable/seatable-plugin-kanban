@@ -101,11 +101,14 @@ const mapStateToProps = (state) => {
 };
 
 Kanban.propTypes = {
+  selectedBoardIndex: PropTypes.number,
+  boards: PropTypes.array,
   eventBus: PropTypes.object,
   updatePluginSettings: PropTypes.func,
   storeSelectedViewId: PropTypes.func,
   getNonArchiveViews: PropTypes.func,
   getViewShownColumns: PropTypes.func,
+  onSelectBoard: PropTypes.func,
 };
 
 export default connect(mapStateToProps, null)(Kanban);
