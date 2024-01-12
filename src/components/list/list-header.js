@@ -19,14 +19,19 @@ const ListHeader = ({ listNameNode, draggable }) => {
 };
 
 ListHeader.propTypes = {
-  updateTitle: PropTypes.func,
+  draggable: PropTypes.bool,
   editLaneTitle: PropTypes.bool,
   canAddLanes: PropTypes.bool,
   laneDraggable: PropTypes.bool,
   label: PropTypes.string,
   name: PropTypes.string,
+  listNameNode: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]),
   onDelete: PropTypes.func,
   onDoubleClick: PropTypes.func,
+  updateTitle: PropTypes.func,
 };
 
 ListHeader.defaultProps = {

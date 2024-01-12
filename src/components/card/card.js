@@ -71,6 +71,8 @@ class Card extends Component {
 }
 
 Card.propTypes = {
+  cardDraggable: PropTypes.bool,
+  card: PropTypes.object,
   dtableValue: PropTypes.object,
   activeBoard: PropTypes.object,
   listIndex: PropTypes.number.isRequired,

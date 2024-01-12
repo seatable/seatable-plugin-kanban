@@ -154,15 +154,24 @@ class List extends Component {
 }
 
 List.propTypes = {
+  id: PropTypes.string,
+  listIndex: PropTypes.number,
+  listName: PropTypes.string,
+  listNameNode: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]),
   boardId: PropTypes.string,
   cards: PropTypes.array,
   currentPage: PropTypes.number,
   draggable: PropTypes.bool,
+  actions: PropTypes.object,
   onCardClick: PropTypes.func,
   onAddCard: PropTypes.func,
   moveCard: PropTypes.func,
   onListScroll: PropTypes.func,
   getViewShownColumns: PropTypes.func,
+  getCardDetails: PropTypes.func,
 };
 
 export default List;

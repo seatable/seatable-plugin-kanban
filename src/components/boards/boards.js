@@ -285,6 +285,7 @@ function mapStateToProps(state) {
 Boards.propTypes = {
   boards: PropTypes.array,
   selectedBoardIndex: PropTypes.number,
+  eventBus: PropTypes.object,
   onSelectBoard: PropTypes.func,
   onRenameBoard: PropTypes.func,
   onAppendBoard: PropTypes.func,

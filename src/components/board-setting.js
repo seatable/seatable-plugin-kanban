@@ -271,6 +271,7 @@ const mapStateToProps = (state) => {
 BoardSetting.propTypes = {
   dtableValue: PropTypes.object,
   boardSetting: PropTypes.object,
+  activeBoard: PropTypes.object,
   onUpdateBoardSetting: PropTypes.func,
   onCloseBoardSetting: PropTypes.func,
   getNonArchiveViews: PropTypes.func,

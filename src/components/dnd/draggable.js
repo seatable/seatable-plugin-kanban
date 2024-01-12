@@ -21,6 +21,8 @@ class Draggable extends Component {
 }
 
 Draggable.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   render: PropTypes.func
 };
 
