@@ -407,7 +407,7 @@
 
 .plugin-kanban-card .name-cell-container .cell-formatter-container {
   margin: 0 0 8px;
-  line-height: 20px;
+  line-height: 1.5;
   font-size: 15px;
   font-weight: 500;
   cursor: pointer;
@@ -419,7 +419,7 @@
   min-height: 20px;
   width: 100%;
   margin-top: 4px;
-  font-size: 14px;
+  line-height: 1.5;
 }
 
 .plugin-kanban-card .cell-formatter-container.digital-sign-formatter img {
@@ -502,7 +502,7 @@
   font-size: 12px;
   color: #666;
   font-weight: normal;
-  margin-bottom: -5px;
+  margin-bottom: 0;
 }
 
 .plugin-kanban .btn-toggle-expand {
