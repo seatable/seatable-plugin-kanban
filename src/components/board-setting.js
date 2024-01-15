@@ -2,7 +2,7 @@ import React, { Fragment }  from 'react';
 import PropTypes from 'prop-types';
 import intl from 'react-intl-universal';
 import { connect } from 'react-redux';
-import { COLUMNS_ICON_CONFIG } from 'dtable-utils';
+import { COLUMNS_ICON_CONFIG, getNonArchiveViews, getNonPrivateViews } from 'dtable-utils';
 import { FieldDisplaySetting, DTableSelect } from 'dtable-ui-component';
 import ToggleSetting from './toggle-setting';
 import { SETTING_KEY } from '../constants';
@@ -71,7 +71,7 @@ class BoardSetting extends React.Component {
 
   getSelectorOptions(selectedTable, { groupbyColumns, titleColumns }) {
     const { tables } = this.props.dtableValue;
-    const views = this.props.getNonArchiveViews(selectedTable);
+    const views = getNonPrivateViews(getNonArchiveViews((selectedTable.views)));
     const tableOptions = this.createOptions(tables, SETTING_KEY.TABLE_NAME, 'name');
     const viewOptions = this.createOptions(views, SETTING_KEY.VIEW_NAME, 'name');
     const groupbyColumnOptions = this.createOptions(groupbyColumns, SETTING_KEY.GROUPBY_COLUMN_NAME, 'value');
@@ -274,7 +274,6 @@ BoardSetting.propTypes = {
   activeBoard: PropTypes.object,
   onUpdateBoardSetting: PropTypes.func,
   onCloseBoardSetting: PropTypes.func,
-  getNonArchiveViews: PropTypes.func,
   getViewShownColumns: PropTypes.func,
 };
 

@@ -247,7 +247,6 @@ class Board extends Component {
             boardSetting={boards[selectedBoardIndex]}
             onCloseBoardSetting={this.onCloseBoardSetting}
             onUpdateBoardSetting={this.onUpdateBoardSetting}
-            getNonArchiveViews={this.props.getNonArchiveViews}
             getViewShownColumns={this.props.getViewShownColumns}
           />
         }
@@ -274,7 +273,6 @@ Board.propTypes = {
   onBackToHome: PropTypes.func,
   updatePluginSettings: PropTypes.func,
   modifyColumnData: PropTypes.func,
-  getNonArchiveViews: PropTypes.func,
   getViewShownColumns: PropTypes.func,
 };
 
