@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  CellType, getTableByName, getNonArchiveViews, getViewByName, getTableColumnByName,
-  getRowById, getViewShownColumns,
+  CellType, getTableByName, getNonArchiveViews, getNonPrivateViews,
+  getViewByName, getTableColumnByName, getRowById, getViewShownColumns,
 } from 'dtable-utils';
 import { Provider } from 'react-redux';
 import intl from 'react-intl-universal';
@@ -126,7 +126,7 @@ class App extends React.Component {
   getActiveBoard = (boardSetting, tables) => {
     const { _id, name, table_name, view_name, groupby_column_name, title_column_name, columns: configuredColumns, hideEmptyValues, showFieldNames, wrapText } = boardSetting;
     const selectedTable = (table_name && getTableByName(tables, table_name)) || tables[0];
-    const views = getNonArchiveViews(selectedTable.views);
+    const views = getNonPrivateViews(getNonArchiveViews(selectedTable.views));
     const selectedView = (view_name && getViewByName(selectedTable.views, view_name)) || views[0];
     const titleColumn = title_column_name && getTableColumnByName(selectedTable, title_column_name);
     const groupbyColumn = groupby_column_name && getTableColumnByName(selectedTable, groupby_column_name);
@@ -308,10 +308,6 @@ class App extends React.Component {
     window.dtableSDK.updatePluginSettings(PLUGIN_NAME, { boards });
   };
 
-  getNonArchiveViews = (table) => {
-    return getNonArchiveViews(table.views);
-  };
-
   getViewShownColumns = (view, table) => {
     return getViewShownColumns(view, table.columns);
   };
@@ -329,7 +325,6 @@ class App extends React.Component {
           onSelectBoard={this.onSelectBoard}
           updatePluginSettings={this.updatePluginSettings}
           storeSelectedViewId={this.storeSelectedViewId}
-          getNonArchiveViews={this.getNonArchiveViews}
           getViewShownColumns={this.getViewShownColumns}
         />
       </Provider>
