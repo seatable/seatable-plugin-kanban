@@ -20,6 +20,10 @@ const de = {
   "Name_is_required": "Der Name ist eine Pflichtangabe.",
   "Title_field": "Titel",
   "Other_fields": "Weitere Spalten",
+  "Fields": "Spalten",
+  "Show_all": "Alle anzeigen",
+  "Hide_all": "Alle ausblenden",
+  "Other_fields_shown_in_kanban": "Other fields shown in kanban",
   "Do_not_show_empty_values": "Leere Werte nicht anzeigen",
   "Show_field_names": "Spaltennamen anzeigen",
   "Wrap_text": "Text umbrechen"

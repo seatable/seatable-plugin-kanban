@@ -20,6 +20,10 @@
   "Name_is_required": "Le nom est nécessaire.",
   "Title_field": "Titre",
   "Other_fields": "Autres colonnes",
+  "Fields": "Colonnes",
+  "Show_all": "Afficher tout",
+  "Hide_all": "Masquer tout",
+  "Other_fields_shown_in_kanban": "Other fields shown in kanban",
   "Do_not_show_empty_values": "Ne pas afficher les valeurs vides",
   "Show_field_names": " Afficher nom de colonne",
   "Wrap_text": "Renvoyer à la ligne"

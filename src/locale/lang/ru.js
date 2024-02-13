@@ -20,6 +20,10 @@ const ru = {
   "Name_is_required": "Имя обязательно",
   "Title_field": "Поле заголовка",
   "Other_fields": "Другие поля",
+  "Fields": "Fields",
+  "Show_all": "Show all",
+  "Hide_all": "Скрыть все",
+  "Other_fields_shown_in_kanban": "Other fields shown in kanban",
   "Do_not_show_empty_values": "Don't show empty values",
   "Show_field_names": "Show field names",
   "Wrap_text": "Wrap text"
