@@ -19,11 +19,11 @@
   "Submit": "提交",
   "Name_is_required": "名称必须存在",
   "Title_field": "标题字段",
+  "Other_fields": "其他字段",
   "Fields": "字段",
   "Show_all": "显示全部",
   "Hide_all": "隐藏全部",
   "Other_fields_shown_in_kanban": "看板中显示的其他字段",
-  "Other_fields": "其他字段",
   "Do_not_show_empty_values": "不显示空值",
   "Show_field_names": "显示字段名称",
   "Wrap_text": "文本自动换行"

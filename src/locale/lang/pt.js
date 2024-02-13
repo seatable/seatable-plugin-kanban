@@ -1,4 +1,4 @@
-{
+const pt = {
   "Kanban": "Kanban",
   "Settings": "Configurações",
   "Table": "Tabela",
@@ -28,3 +28,6 @@
   "Show_field_names": "Mostrar nomes de campos",
   "Wrap_text": "Moldar texto"
 }
+;
+
+export default pt;
