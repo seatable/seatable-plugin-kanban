@@ -23,7 +23,7 @@ const de = {
   "Fields": "Spalten",
   "Show_all": "Alle anzeigen",
   "Hide_all": "Alle ausblenden",
-  "Other_fields_shown_in_kanban": "Other fields shown in kanban",
+  "Other_fields_shown_in_kanban": "Anzuzeigende Spalten",
   "Do_not_show_empty_values": "Leere Werte nicht anzeigen",
   "Show_field_names": "Spaltennamen anzeigen",
   "Wrap_text": "Text umbrechen"
