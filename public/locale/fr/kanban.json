@@ -23,8 +23,12 @@
   "Fields": "Colonnes",
   "Show_all": "Afficher tout",
   "Hide_all": "Masquer tout",
-  "Other_fields_shown_in_kanban": "Other fields shown in kanban",
+  "Other_fields_shown_in_kanban": "Autres champs pour l'affichage",
   "Do_not_show_empty_values": "Ne pas afficher les valeurs vides",
   "Show_field_names": " Afficher nom de colonne",
-  "Wrap_text": "Renvoyer à la ligne"
+  "Wrap_text": "Renvoyer à la ligne",
+  "Add_view": "Ajouter une vue",
+  "Dropdown_options": "Options de liste déroulante",
+  "Close_plugin": "Fermer le plugin",
+  "Color_picker": "Pipette à couleurs"
 }

@@ -26,7 +26,11 @@ const zh_CN = {
   "Other_fields_shown_in_kanban": "看板中显示的其他字段",
   "Do_not_show_empty_values": "不显示空值",
   "Show_field_names": "显示字段名称",
-  "Wrap_text": "文本自动换行"
+  "Wrap_text": "文本自动换行",
+  "Add_view": "新建视图",
+  "Dropdown_options": "下拉选项",
+  "Close_plugin": "关闭插件",
+  "Color_picker": "颜色选择器"
 }
 ;
 

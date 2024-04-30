@@ -30,7 +30,7 @@ const en = {
   "Add_view": "Add view",
   "Dropdown_options": "Dropdown options",
   "Close_plugin": "Close plugin",
-  "Color_picker": "Color picker",
+  "Color_picker": "Color picker"
 }
 ;
 
