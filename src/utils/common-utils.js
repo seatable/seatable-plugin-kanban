@@ -60,3 +60,11 @@ export const getEventClassName = (e) => {
   if (!e || !e.target) return '';
   return e.target.getAttribute('class') || '';
 };
+
+export const handleEnterKeyDown = (callback) => {
+  return function(e) {
+    if (e.key === 'Enter') {
+      typeof callback === 'function' && callback(e);
+    }
+  };
+};

@@ -27,12 +27,18 @@ class Board extends Component {
     this.unsubscribeCloseBoardSetting = this.props.eventBus.subscribe(EventTypes.CLOSE_BOARD_SETTING, this.onCloseBoardSetting);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps,prevState) {
     const { activeBoard } = this.props;
     if (prevProps.activeBoard._id !== activeBoard._id) {
       const isShowBoardSetting = !activeBoard.valid;
       this.setState({ isShowBoardSetting });
-    }
+    }    
+    const { isShowBoardSetting } = this.state;
+    const { isShowBoardSetting: prevSetting } = prevState;
+    const closeSettingBtn = document.querySelector('#border-setting-close-btn');
+    const toggleSettingBtn = document.querySelector('#border-setting-toggle-btn');
+    if(!isShowBoardSetting && prevSetting) toggleSettingBtn && toggleSettingBtn.focus();
+    if(isShowBoardSetting && !prevSetting) closeSettingBtn && closeSettingBtn.focus();
   }
 
   componentWillUnmount() {
