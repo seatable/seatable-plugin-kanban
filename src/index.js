@@ -12,7 +12,7 @@ class TaskList {
     // local develop
     window.app = {};
     window.app.state = {};
-    window.dtable  = {
+    window.dtable = {
       ...window.dtablePluginConfig,
     };
     await dtableSDK.init(window.dtablePluginConfig);
@@ -39,7 +39,7 @@ class TaskList {
 TaskList.execute();
 
 const openBtn = document.getElementById('plugin-controller');
-openBtn.addEventListener('click', function() {
+openBtn.addEventListener('click', function () {
   TaskList.execute();
 }, false);
 

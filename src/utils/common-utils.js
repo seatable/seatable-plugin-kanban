@@ -8,10 +8,10 @@ export const generatorBase64Code = (keyLength = 4) => {
 };
 
 export const generatorBoardId = (boards) => {
-  let board_id, isUnique = false;
+  let board_id;
+  let isUnique = false;
   while (!isUnique) {
     board_id = generatorBase64Code(4);
-
     // eslint-disable-next-line
     isUnique = boards.every(item => {return item._id !== board_id;});
     if (isUnique) {
@@ -26,8 +26,7 @@ export const generateOptionID = (options) => {
   let optionID;
   let isIDUnique = false;
   while (!isIDUnique) {
-    optionID =  '' + Math.floor(Math.random() * Math.pow(10, 6));
-
+    optionID = '' + Math.floor(Math.random() * Math.pow(10, 6));
     // eslint-disable-next-line
     isIDUnique = options.every((option) => {
       return option.id !== optionID;

@@ -41,18 +41,18 @@ class Board extends Component {
   }
 
   onToggleBoardSetting = () => {
-    this.setState({isShowBoardSetting: !this.state.isShowBoardSetting});
+    this.setState({ isShowBoardSetting: !this.state.isShowBoardSetting });
   };
 
   onCloseBoardSetting = () => {
     if (this.state.isShowBoardSetting) {
-      this.setState({isShowBoardSetting: false});
+      this.setState({ isShowBoardSetting: false });
     }
   };
 
   onUpdateBoardSetting = (newBoard) => {
     const { boards, selectedBoardIndex } = this.props;
-    let newBoards = BoardsHelpers.updateBoard(boards, {board_index: selectedBoardIndex, new_board: newBoard});
+    let newBoards = BoardsHelpers.updateBoard(boards, { board_index: selectedBoardIndex, new_board: newBoard });
     this.props.updatePluginSettings(newBoards);
   };
 
@@ -70,7 +70,7 @@ class Board extends Component {
       if (fromOptionIndex < 0 || targetOptionIndex < 0) return;
       const movedOption = updatedOptions.splice(fromOptionIndex, 1)[0];
       updatedOptions.splice(targetOptionIndex, 0, movedOption);
-      const newColumnData = Object.assign({}, columnData, {options: updatedOptions});
+      const newColumnData = Object.assign({}, columnData, { options: updatedOptions });
       window.dtableSDK.modifyColumnData(selectedTable, columnName, newColumnData);
     }
   };
@@ -86,7 +86,7 @@ class Board extends Component {
       const newOptionId = generateOptionID(oldOptions);
       const newOption = { id: newOptionId, name: listName, color: optionColor, textColor };
       const newOptions = [...oldOptions, newOption];
-      const newColumnData = Object.assign({}, columnData, {options: newOptions});
+      const newColumnData = Object.assign({}, columnData, { options: newOptions });
       window.dtableSDK.modifyColumnData(selectedTable, columnName, newColumnData);
     }
   };
@@ -114,9 +114,9 @@ class Board extends Component {
       cellValue = option.name || '';
     } else if (columnType === CellType.COLLABORATOR) {
       const collaborator = collaborators.find(collaborator => listName === collaborator.email);
-      cellValue = collaborator ? [ collaborator.name ] : [];
+      cellValue = collaborator ? [collaborator.name] : [];
     }
-    const rowData = Object.assign({}, initData, {[groupbyColumn.name]: cellValue});
+    const rowData = Object.assign({}, initData, { [groupbyColumn.name]: cellValue });
     const insertedRow = window.dtableSDK.appendRow(selectedTable, rowData, selectedView, { collaborators });
     insertedRow && pluginContext.expandRow(insertedRow, selectedTable);
   };
@@ -133,7 +133,7 @@ class Board extends Component {
     const movedRow = movedCard.row;
     const viewRows = window.dtableSDK.getViewRows(selectedView, selectedTable);
     const lastViewRow = viewRows[viewRows.length - 1];
-    let movePosition = 'move_below', targetRow, upperRow;
+    let movePosition = 'move_below'; let targetRow; let upperRow;
     if (targetCardIndex === 0) {
       movePosition = 'move_above';
       targetRow = targetListCards.length > 0 ? targetListCards[0].row : lastViewRow;
@@ -165,7 +165,7 @@ class Board extends Component {
       oldRowDataList = this.getOldRowData(movedRow, groupbyColumn);
     }
     window.dtableSDK.moveGroupRows(selectedTable, targetIds, movePosition, movedRows, upperRowIds, updatedRowDataList,
-      oldRowDataList, [ groupbyColumn ]);
+      oldRowDataList, [groupbyColumn]);
   };
 
   getUpdatedRowData = (movedRow, groupbyColumn, fromList, targetList) => {
@@ -186,7 +186,7 @@ class Board extends Component {
 
         // move record(under un-categorized list) to other list
         if (!fromName) {
-          return { [movedRowId]: { [key]: [ targetName ] } };
+          return { [movedRowId]: { [key]: [targetName] } };
         }
 
         // delete from current list
@@ -195,7 +195,7 @@ class Board extends Component {
           return null;
         }
 
-        let emails = [ ...originalCellValue ];
+        let emails = [...originalCellValue];
         emails.splice(deleteIndex, 1);
 
         // add target email which not exist
@@ -205,7 +205,7 @@ class Board extends Component {
         return { [movedRowId]: { [key]: emails } };
       }
       default: {
-        return { [movedRowId]: { [key]: targetName }};
+        return { [movedRowId]: { [key]: targetName } };
       }
     }
   };
@@ -214,7 +214,7 @@ class Board extends Component {
     const { key } = groupbyColumn;
     const movedRowId = movedRow._id;
     const originalCellValue = movedRow[key];
-    return { [movedRowId]: { [key]: originalCellValue }};
+    return { [movedRowId]: { [key]: originalCellValue } };
   };
 
   renderBoard = () => {

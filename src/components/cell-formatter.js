@@ -59,14 +59,14 @@ class CellFormatter extends Component {
 
   getCollaborator = (value) => {
     if (!value) {
-      this.setState({isDataLoaded: true, collaborator: null});
+      this.setState({ isDataLoaded: true, collaborator: null });
       return;
     }
-    this.setState({isDataLoaded: false, collaborator: null});
+    this.setState({ isDataLoaded: false, collaborator: null });
     let { collaborators } = this.props;
     let collaborator = collaborators && collaborators.find(c => c.email === value);
     if (collaborator) {
-      this.setState({isDataLoaded: true, collaborator: collaborator});
+      this.setState({ isDataLoaded: true, collaborator: collaborator });
       return;
     }
 
@@ -77,13 +77,13 @@ class CellFormatter extends Component {
         name: value,
         avatar_url: defaultAvatarUrl,
       };
-      this.setState({isDataLoaded: true, collaborator});
+      this.setState({ isDataLoaded: true, collaborator });
       return;
     }
 
     this.getUserCommonInfo(value).then(res => {
       collaborator = res.data;
-      this.setState({isDataLoaded: true, collaborator});
+      this.setState({ isDataLoaded: true, collaborator });
     }).catch(() => {
       let mediaUrl = getMediaUrl();
       let defaultAvatarUrl = `${mediaUrl}/avatars/default.png`;
@@ -91,7 +91,7 @@ class CellFormatter extends Component {
         name: value,
         avatar_url: defaultAvatarUrl,
       };
-      this.setState({isDataLoaded: true, collaborator});
+      this.setState({ isDataLoaded: true, collaborator });
     });
   };
 
@@ -197,7 +197,7 @@ class CellFormatter extends Component {
       }
       case CellType.FORMULA:
       case CellType.LINK_FORMULA: {
-        let formulaRows = this.props.formulaRows ? {...this.props.formulaRows} : {};
+        let formulaRows = this.props.formulaRows ? { ...this.props.formulaRows } : {};
         let formulaValue = formulaRows[row._id] ? formulaRows[row._id][columnKey] : '';
         if (!formulaValue) return EMPTY_CELL_FORMATTER;
         return <FormulaFormatter value={formulaValue} column={column} collaborators={collaborators} containerClassName="plugin-kanban-cell-formatter-formula" />;

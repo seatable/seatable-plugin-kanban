@@ -44,7 +44,7 @@ function initOptions(props = defaultOptions) {
 }
 
 function isDragRelevant({ element, options }) {
-  return function(sourceContainer, payload) {
+  return function (sourceContainer, payload) {
     if (options.shouldAcceptDrop) {
       return options.shouldAcceptDrop(sourceContainer.getOptions(), payload);
     }
@@ -148,7 +148,7 @@ function findDraggebleAtPos({ layout }) {
 }
 
 function resetDraggables({ element, draggables, layout, options }) {
-  return function() {
+  return function () {
     draggables.forEach(p => {
       setAnimation(p, false);
       layout.setTranslation(p, 0);
@@ -176,7 +176,7 @@ function setTargetContainer(draggableInfo, element, set = true) {
 function handleDrop({ element, draggables, layout, options }) {
   const draggablesReset = resetDraggables({ element, draggables, layout, options });
   const dropHandler = (SmoothDnD.dropHandler || domDropHandler)({ element, draggables, layout, options });
-  return function(draggableInfo, { addedIndex, removedIndex }) {
+  return function (draggableInfo, { addedIndex, removedIndex }) {
     draggablesReset();
     // if drop zone is valid => complete drag else do nothing everything will be reverted by draggablesReset()
     if (draggableInfo.targetElement || options.removeOnDropOut) {
@@ -228,7 +228,7 @@ function registerToParentContainer(container, relevantContainers) {
   if (parentInfo) {
     parentInfo.container.getChildContainers().push(container);
     container.setParentContainer(parentInfo.container);
-    //current should be draggable
+    // current should be draggable
     parentInfo.draggable[containersInDraggable].push(container);
   }
 }
@@ -373,7 +373,7 @@ function resetShadowAdjustment() {
 
 function handleInsertionSizeChange({ element, draggables, layout, options }) {
   let strectherElement = null;
-  return function({ dragResult: { addedIndex, removedIndex, elementSize } }) {
+  return function ({ dragResult: { addedIndex, removedIndex, elementSize } }) {
     if (removedIndex === null) {
       if (addedIndex !== null) {
         if (!strectherElement) {
@@ -419,7 +419,7 @@ function handleInsertionSizeChange({ element, draggables, layout, options }) {
 function calculateTranslations({ element, draggables, layout }) {
   let prevAddedIndex = null;
   let prevRemovedIndex = null;
-  return function({ dragResult: { addedIndex, removedIndex, elementSize } }) {
+  return function ({ dragResult: { addedIndex, removedIndex, elementSize } }) {
     if (addedIndex !== prevAddedIndex || removedIndex !== prevRemovedIndex) {
       for (let index = 0; index < draggables.length; index++) {
         if (index !== removedIndex) {
@@ -624,7 +624,7 @@ function compose(params) {
 
 // Container definition begin
 function Container(element) {
-  return function(options) {
+  return function (options) {
     let dragResult = null;
     let lastDraggableInfo = null;
     const props = getContainerProps(element, options);
@@ -673,7 +673,7 @@ function Container(element) {
       draggables.forEach(p => setAnimation(p, true, options.animationDuration));
     }
 
-    props.layout.setScrollListener(function() {
+    props.layout.setScrollListener(function () {
       processLastDraggableInfo();
     });
 
@@ -701,13 +701,13 @@ function Container(element) {
       dispose,
       prepareDrag,
       isPosInChildContainer: () => posIsInChildContainer,
-      handleDrag: function(draggableInfo) {
+      handleDrag: function (draggableInfo) {
         lastDraggableInfo = draggableInfo;
         dragResult = dragHandler(draggableInfo);
         handleDragLeftDeferedTranslation();
         return dragResult;
       },
-      handleDrop: function(draggableInfo) {
+      handleDrop: function (draggableInfo) {
         lastDraggableInfo = null;
         onChildPositionCaptured(false);
         dragHandler = getDragHandler(props);
@@ -716,10 +716,10 @@ function Container(element) {
         parentContainer = null;
         childContainers = [];
       },
-      getDragResult: function() {
+      getDragResult: function () {
         return dragResult;
       },
-      getTranslateCalculator: function(...params) {
+      getTranslateCalculator: function (...params) {
         return calculateTranslations(props)(...params);
       },
       setParentContainer: e => {
@@ -766,7 +766,7 @@ function SmoothDnD(element, options) {
   element[containerInstance] = container;
   Mediator.register(container);
   return {
-    dispose: function() {
+    dispose: function () {
       Mediator.unregister(container);
       container.layout.dispose();
       container.dispose(container);

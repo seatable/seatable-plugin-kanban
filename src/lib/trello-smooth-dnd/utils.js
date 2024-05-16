@@ -136,7 +136,7 @@ export const listenScrollParent = (element, clb) => {
     global.removeEventListener('scroll', clb);
   };
 
-  setTimeout(function() {
+  setTimeout(function () {
     let currentElement = element;
     while (currentElement) {
       if (

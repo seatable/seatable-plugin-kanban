@@ -8,7 +8,7 @@ class Draggable extends Component {
 
   render() {
     if (this.props.render) {
-      return React.cloneElement(this.props.render(), {className: wrapperClass});
+      return React.cloneElement(this.props.render(), { className: wrapperClass });
     }
 
     const clsName = `${this.props.className ? this.props.className + ' ' : ''}`;

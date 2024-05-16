@@ -33,10 +33,10 @@ class NewListPopover extends Component {
     let { listName, ...payload } = newList || {};
     listName = listName && listName.trim();
     if (!listName) {
-      this.setState({errMessage: 'Name_is_required'});
+      this.setState({ errMessage: 'Name_is_required' });
       return;
     }
-    this.props.onAddListConfirm({listName, payload});
+    this.props.onAddListConfirm({ listName, payload });
   };
 
   renderListEditor = () => {

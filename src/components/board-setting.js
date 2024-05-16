@@ -1,4 +1,4 @@
-import React, { Fragment }  from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import intl from 'react-intl-universal';
 import { connect } from 'react-redux';
@@ -17,9 +17,9 @@ class BoardSetting extends React.Component {
     let { setting_key, value } = selectedOption;
     let updated;
     if (setting_key === SETTING_KEY.TABLE_NAME) {
-      updated = {_id: boardSetting._id, name: boardSetting.name, [setting_key]: value};  // Need init settings after select new table.
+      updated = { _id: boardSetting._id, name: boardSetting.name, [setting_key]: value }; // Need init settings after select new table.
     } else {
-      updated = Object.assign({}, boardSetting, {[setting_key]: value});
+      updated = Object.assign({}, boardSetting, { [setting_key]: value });
     }
     this.updateBoardSetting(updated);
   };
@@ -30,8 +30,8 @@ class BoardSetting extends React.Component {
 
   getSelectorColumns = (columns) => {
     const { supportGroupbyColumnTypes, unsupportedSetTitleFieldTypes } = this.props.dtableValue;
-    let groupbyColumns = [],
-      titleColumns = [];
+    let groupbyColumns = [];
+    let titleColumns = [];
     columns && columns.forEach((column) => {
       const { type, name } = column;
       const columnOption = {
@@ -146,7 +146,7 @@ class BoardSetting extends React.Component {
       });
       const addedColumns = columns
         .filter(item => !baseConfiguredColumns.some(c => item.key == c.key))
-        .map(item => ({key: item.key, shown: false}));
+        .map(item => ({ key: item.key, shown: false }));
       configuredColumns = baseConfiguredColumns.concat(addedColumns);
     }
     return configuredColumns;
@@ -179,7 +179,7 @@ class BoardSetting extends React.Component {
     };
 
     return (
-      <div className="plugin-kanban-board-setting" style={{zIndex: zIndexes.BOARD_SETTING}}>
+      <div className="plugin-kanban-board-setting" style={{ zIndex: zIndexes.BOARD_SETTING }}>
         <div className="setting-container">
           <div className="setting-header">
             <div className="setting-header-container">

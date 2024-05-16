@@ -19,7 +19,7 @@ class RenameBoardDialog extends Component {
     if (value === boardName) {
       return;
     } else {
-      this.setState({boardName: value});
+      this.setState({ boardName: value });
     }
   };
 
@@ -35,7 +35,7 @@ class RenameBoardDialog extends Component {
     let { boardName } = this.state;
     boardName = boardName.trim();
     if (!boardName) {
-      this.setState({errMessage: 'Name_is_required'});
+      this.setState({ errMessage: 'Name_is_required' });
       return;
     }
     this.props.onRenameBoard(boardName);

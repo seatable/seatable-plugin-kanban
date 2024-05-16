@@ -26,7 +26,7 @@ class BoardContainer extends Component {
 
   onListDrop = ({ removedIndex, addedIndex }) => {
     if (removedIndex !== addedIndex) {
-      this.props.moveList({fromIndex: removedIndex, targetIndex: addedIndex});
+      this.props.moveList({ fromIndex: removedIndex, targetIndex: addedIndex });
     }
   };
 
@@ -37,7 +37,7 @@ class BoardContainer extends Component {
   getCardDetails = (listIndex, cardIndex) => {
     const list = this.props.activeBoard.lists[listIndex] || {};
     const cards = list.cards || [];
-    return Object.assign({}, cards[cardIndex], {listIndex, cardIndex});
+    return Object.assign({}, cards[cardIndex], { listIndex, cardIndex });
   };
 
   getListNameNode = (list) => {
@@ -137,7 +137,7 @@ BoardContainer.propTypes = {
 };
 
 BoardContainer.defaultProps = {
-  activeBoard: {lists: []},
+  activeBoard: { lists: [] },
 };
 
 export default connect(mapStateToProps, null)(BoardContainer);

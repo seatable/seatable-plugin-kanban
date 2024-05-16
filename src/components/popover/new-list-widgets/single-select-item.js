@@ -24,19 +24,19 @@ class SingleSelectItem extends Component {
       event.stopPropagation();
       event.nativeEvent && event.nativeEvent.stopImmediatePropagation();
     }
-    this.setState({ isShowColorSelector: !this.state.isShowColorSelector});
+    this.setState({ isShowColorSelector: !this.state.isShowColorSelector });
     this.props.setPluginPopoverState();
   };
 
   onListNameChange = (evt) => {
     const listName = evt.target.value;
-    const newList = Object.assign({}, this.props.newList, {listName});
+    const newList = Object.assign({}, this.props.newList, { listName });
     this.props.updateNewList(newList);
   };
 
   onChangeOptionColor = (optionItem) => {
     const { COLOR, TEXT_COLOR } = optionItem;
-    const newList = Object.assign({}, this.props.newList, {optionColor: COLOR, textColor: TEXT_COLOR});
+    const newList = Object.assign({}, this.props.newList, { optionColor: COLOR, textColor: TEXT_COLOR });
     this.props.updateNewList(newList);
     this.onToggleColorSelector();
   };
@@ -68,14 +68,14 @@ class SingleSelectItem extends Component {
             popoverClassName="plugin-kanban-option-color-popover"
           >
             <div className="row gutters-xs">
-              {SELECT_OPTION_COLORS.map((item, index)=>{
+              {SELECT_OPTION_COLORS.map((item, index) => {
                 let { COLOR: itemOptionColor, BORDER_COLOR: borderColor, TEXT_COLOR: textColor } = item;
                 return (
                   <div key={itemOptionColor} className="col-auto" onClick={this.onChangeOptionColor.bind(this, item)}>
                     <label className="colorinput">
-                      <span className="colorinput-color" style={{backgroundColor: itemOptionColor, borderColor: borderColor}}>
+                      <span className="colorinput-color" style={{ backgroundColor: itemOptionColor, borderColor: borderColor }}>
                         {optionColor === itemOptionColor &&
-                          <i className="dtable-font dtable-icon-check-mark ml-1" style={{color: textColor}}></i>
+                          <i className="dtable-font dtable-icon-check-mark ml-1" style={{ color: textColor }}></i>
                         }
                       </span>
                     </label>

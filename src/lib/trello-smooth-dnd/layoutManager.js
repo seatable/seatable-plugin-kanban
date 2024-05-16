@@ -2,7 +2,6 @@ import * as Utils from './utils';
 import { translationValue, visibilityValue, extraSizeForInsertion, containersInDraggable } from './constants';
 
 
-
 const horizontalMap = {
   size: 'offsetWidth',
   distanceToParent: 'offsetLeft',
@@ -62,7 +61,7 @@ export default function layoutManager(containerElement, orientation, _animationD
   };
   let registeredScrollListener = null;
 
-  global.addEventListener('resize', function() {
+  global.addEventListener('resize', function () {
     invalidateContainerRectangles(containerElement);
     // invalidateContainerScale(containerElement);
   });
@@ -72,7 +71,7 @@ export default function layoutManager(containerElement, orientation, _animationD
   }, 10);
   // invalidate();
 
-  const scrollListener = Utils.listenScrollParent(containerElement, function() {
+  const scrollListener = Utils.listenScrollParent(containerElement, function () {
     invalidateContainerRectangles(containerElement);
     registeredScrollListener && registeredScrollListener();
   });
@@ -261,7 +260,7 @@ export default function layoutManager(containerElement, orientation, _animationD
 
   return {
     getSize,
-    //getDistanceToContainerBegining,
+    // getDistanceToContainerBegining,
     getContainerRectangles,
     getBeginEndOfDOMRect,
     getBeginEndOfContainer,

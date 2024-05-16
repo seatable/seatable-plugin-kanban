@@ -14,11 +14,11 @@ class ListAdd extends Component {
   }
 
   toggleAddList = () => {
-    this.setState({isShowAddListPopover: !this.state.isShowAddListPopover});
+    this.setState({ isShowAddListPopover: !this.state.isShowAddListPopover });
   };
 
   onHideAddListPopover = () => {
-    this.setState({isShowAddListPopover: false});
+    this.setState({ isShowAddListPopover: false });
   };
 
   onAddListConfirm = (list) => {

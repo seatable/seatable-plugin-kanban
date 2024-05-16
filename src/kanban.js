@@ -13,7 +13,7 @@ class Kanban extends Component {
 
   onPluginToggle = () => {
     setTimeout(() => {
-      this.setState({showDialog: false});
+      this.setState({ showDialog: false });
     }, 500);
     window.app.onClosePlugin && window.app.onClosePlugin();
   };
@@ -24,7 +24,7 @@ class Kanban extends Component {
 
   onRenameBoard = (newName) => {
     const { boards, selectedBoardIndex } = this.props;
-    const newBoards = BoardsHelpers.renameBoard(boards, {board_index: selectedBoardIndex, new_name: newName});
+    const newBoards = BoardsHelpers.renameBoard(boards, { board_index: selectedBoardIndex, new_name: newName });
     this.props.updatePluginSettings(newBoards);
   };
 
@@ -32,7 +32,7 @@ class Kanban extends Component {
     const { boards } = this.props;
     const boardsLen = boards.length;
     const insertIndex = boardsLen + 1;
-    const newBoards = BoardsHelpers.insertBoard(boards, {board_index: insertIndex, new_board: newBoard});
+    const newBoards = BoardsHelpers.insertBoard(boards, { board_index: insertIndex, new_board: newBoard });
     this.props.updatePluginSettings(newBoards);
     this.props.onSelectBoard(boardsLen, () => {
       const newSelectedBoard = newBoards[boardsLen] || {};
@@ -43,7 +43,7 @@ class Kanban extends Component {
 
   onDeleteBoard = (index) => {
     const { boards } = this.props;
-    const newBoards = BoardsHelpers.deleteBoard(boards, {board_index: index});
+    const newBoards = BoardsHelpers.deleteBoard(boards, { board_index: index });
     const newSelectedBoardIndex = index > 0 ? index - 1 : 0;
     this.props.updatePluginSettings(newBoards);
     this.props.onSelectBoard(newSelectedBoardIndex);

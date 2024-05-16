@@ -7,7 +7,7 @@ import classNames from 'classnames';
 const ListHeader = ({ listNameNode, draggable }) => {
   return (
     <div className="list-header">
-      <span className={classNames('list-title', {'draggable': draggable})}>
+      <span className={classNames('list-title', { 'draggable': draggable })}>
         {listNameNode}
       </span>
       {/* <div className="btn-list-dropdown">

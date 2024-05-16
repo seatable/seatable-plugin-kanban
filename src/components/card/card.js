@@ -6,7 +6,7 @@ import CellFormatter from '../cell-formatter';
 
 class Card extends Component {
 
-  render()  {
+  render() {
     const {
       listIndex, cardDraggable, card,
       dtableValue, activeBoard

@@ -38,7 +38,7 @@ class List extends Component {
     // In some browsers and/or screen sizes a decimal rest value between 0 and 1 exists, so it should be checked on < 1 instead of < 0
     if (elemScrollPosition < 1 && onListScroll && !this.state.loading) {
       const { currentPage } = this.state;
-      this.setState({loading: true});
+      this.setState({ loading: true });
       const nextPage = currentPage + 1;
       onListScroll(nextPage, this.props.id).then(moreCards => {
         if ((moreCards || []).length > 0) {
@@ -48,7 +48,7 @@ class List extends Component {
             nextPage: nextPage
           });
         }
-        this.setState({loading: false});
+        this.setState({ loading: false });
       });
     }
   };
@@ -74,7 +74,7 @@ class List extends Component {
 
   onDragEnd = (listIndex, result) => {
     if (this.state.isDraggingOver) {
-      this.setState({isDraggingOver: false});
+      this.setState({ isDraggingOver: false });
     }
     const { removedIndex, addedIndex, payload } = result;
     const { listIndex: fromListIndex, cardIndex: fromCardIndex } = payload;
@@ -104,7 +104,7 @@ class List extends Component {
   renderDragContainer = () => {
     const { listIndex, cards } = this.props;
     const cardList = cards.map((cardItem, idx) => {
-      const card = Object.assign({}, cardItem, {listIndex, cardIndex: idx});
+      const card = Object.assign({}, cardItem, { listIndex, cardIndex: idx });
       const { id: cardId } = card;
       return (
         <Draggable key={`plugin-kanban-card-${cardId}`}>
@@ -129,8 +129,8 @@ class List extends Component {
           dropClass={''}
           onDragStart={this.onDragStart}
           onDrop={e => this.onDragEnd(listIndex, e)}
-          onDragEnter={() => this.setState({isDraggingOver: true})}
-          onDragLeave={() => this.setState({isDraggingOver: false})}
+          onDragEnter={() => this.setState({ isDraggingOver: true })}
+          onDragLeave={() => this.setState({ isDraggingOver: false })}
           shouldAcceptDrop={this.shouldAcceptDrop}
           getChildPayload={index => this.props.getCardDetails(listIndex, index)}>
           {cardList}

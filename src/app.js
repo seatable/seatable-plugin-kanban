@@ -26,7 +26,7 @@ import './css/app.css';
  */
 const DEFAULT_PLUGIN_SETTINGS = {
   boards: [
-    {_id: '0000', name: intl.get('Default_board')}
+    { _id: '0000', name: intl.get('Default_board') }
   ]
 };
 
@@ -53,7 +53,7 @@ class App extends React.Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    this.setState({showDialog: nextProps.showDialog});
+    this.setState({ showDialog: nextProps.showDialog });
   }
 
   componentWillUnmount() {
@@ -131,7 +131,10 @@ class App extends React.Component {
     const titleColumn = title_column_name && getTableColumnByName(selectedTable, title_column_name);
     const groupbyColumn = groupby_column_name && getTableColumnByName(selectedTable, groupby_column_name);
     const { key: groupbyColumnKey, type: groupbyColumnType } = groupbyColumn || {};
-    let lists = [], canAddList = false, draggable = false, valid = false;
+    let lists = [];
+    let canAddList = false;
+    let draggable = false;
+    let valid = false;
     if (!selectedTable || !selectedView || !groupbyColumn ||
       this.supportGroupbyColumnTypes.indexOf(groupbyColumnType) < 0
     ){
@@ -185,14 +188,14 @@ class App extends React.Component {
         const options = (groupbyColumnData && groupbyColumnData.options) || [];
         lists = Array.isArray(options) && options.map(option => {
           const optionId = option.id;
-          return new List({name: optionId, cards: []});
+          return new List({ name: optionId, cards: [] });
         });
         break;
       }
       case CellType.COLLABORATOR: {
         lists = Array.isArray(this.collaborators) && this.collaborators.map(collaborator => {
           const email = collaborator.email;
-          return new List({name: email, cards: []});
+          return new List({ name: email, cards: [] });
         });
         break;
       }
@@ -201,7 +204,7 @@ class App extends React.Component {
       }
     }
     if (lists.length > 0) {
-      lists.unshift({name: null, cards: []});
+      lists.unshift({ name: null, cards: [] });
     }
     return lists;
   };
@@ -284,7 +287,7 @@ class App extends React.Component {
 
   onPluginToggle = () => {
     setTimeout(() => {
-      this.setState({showDialog: false});
+      this.setState({ showDialog: false });
     }, 500);
     window.app.onClosePlugin && window.app.onClosePlugin();
   };

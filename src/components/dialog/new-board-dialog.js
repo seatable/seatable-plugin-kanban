@@ -18,7 +18,7 @@ class NewBoardDialog extends React.Component {
     if (value === this.state.boardName) {
       return;
     }
-    this.setState({boardName: value});
+    this.setState({ boardName: value });
   };
 
   toggle = () => {
@@ -29,7 +29,7 @@ class NewBoardDialog extends React.Component {
     let { boardName } = this.state;
     boardName = boardName.trim();
     if (!boardName) {
-      this.setState({errMessage: 'Name_is_required'});
+      this.setState({ errMessage: 'Name_is_required' });
       return;
     }
     this.props.onNewBoardConfirm(boardName);
@@ -45,7 +45,7 @@ class NewBoardDialog extends React.Component {
             <FormGroup>
               <Label for="boardName">{intl.get('Name')}</Label>
               <Input id="boardName" value={this.state.boardName} innerRef={input => {this.newInput = input;}} onChange={this.handleChange} autoFocus={true} />
-              <Input style={{display: 'none'}} />
+              <Input style={{ display: 'none' }} />
             </FormGroup>
           </Form>
           {this.state.errMessage && <Alert color="danger" className="mt-2">{intl.get(this.state.errMessage)}</Alert>}

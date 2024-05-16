@@ -138,24 +138,24 @@ class Boards extends Component {
 
   onHideBoardDropdown = () => {
     if (this.state.isShowBoardDropdown) {
-      this.setState({isShowBoardDropdown: false});
+      this.setState({ isShowBoardDropdown: false });
     }
   };
 
   onToggleRenameBoard = () => {
-    this.setState({isShowRenameBoardDialog: !this.state.isShowRenameBoardDialog});
+    this.setState({ isShowRenameBoardDialog: !this.state.isShowRenameBoardDialog });
   };
 
   hideRenameBoardDialog = () => {
-    this.setState({isShowRenameBoardDialog: false});
+    this.setState({ isShowRenameBoardDialog: false });
   };
 
   onNewBoardToggle = () => {
-    this.setState({isShowNewBoardDialog: !this.state.isShowNewBoardDialog});
+    this.setState({ isShowNewBoardDialog: !this.state.isShowNewBoardDialog });
   };
 
   onHideNewBoardDialog = () => {
-    this.setState({isShowNewBoardDialog: false});
+    this.setState({ isShowNewBoardDialog: false });
   };
 
   onAppendBoard = (name) => {
