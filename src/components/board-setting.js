@@ -185,13 +185,14 @@ class BoardSetting extends React.Component {
           <div className="setting-header">
             <div className="setting-header-container">
               <h3 className="h5 m-0">{intl.get('Settings')}</h3>
-              <i 
-                className="dtable-font dtable-icon-x btn-close" 
+              <i
+                className="dtable-font dtable-icon-x btn-close"
                 id="border-setting-close-btn"
                 tabIndex={0}
                 onClick={this.props.onCloseBoardSetting}
                 onKeyDown={handleEnterKeyDown(this.props.onCloseBoardSetting)}
-              ></i>
+              >
+              </i>
             </div>
           </div>
           <div className="setting-body">

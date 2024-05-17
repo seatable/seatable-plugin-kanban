@@ -33,7 +33,7 @@ class Boards extends Component {
     };
     this.boards = [];
   }
-  
+
 
   componentDidMount() {
     let { selectedBoardIndex } = this.props;
@@ -54,13 +54,13 @@ class Boards extends Component {
   }
 
   componentDidUpdate() {
-    if(this.handleArrowKeyDown) {
+    if (this.handleArrowKeyDown) {
       document.removeEventListener('keydown', this.handleArrowKeyDown);
     }
 
     const btns = document.querySelectorAll('.dropdown-item-btn');
     const dropDownBtn = document.querySelector('.btn-view-dropdown');
-    if(!btns.length) return;
+    if (!btns.length) return;
     let currentIdx = -1;
     this.handleArrowKeyDown = (e) => {
       if (e.key === 'ArrowUp') {
@@ -235,7 +235,7 @@ class Boards extends Component {
                     ref={this.setBoardItem(i)}
                     onClick={this.onSelectBoard.bind(this, i)}
                   >
-                    <div 
+                    <div
                       className="boards-item-name"
                       tabIndex={0}
                       aria-label={name}
@@ -259,8 +259,8 @@ class Boards extends Component {
                               dropdownMenuPosition={dropdownMenuPosition}
                               options={
                                 <Fragment>
-                                  <button 
-                                    className="dropdown-item dropdown-item-btn" 
+                                  <button
+                                    className="dropdown-item dropdown-item-btn"
                                     onClick={this.onToggleRenameBoard}
                                     onKeyDown={handleEnterKeyDown(this.onToggleRenameBoard)}
                                   >
@@ -268,8 +268,8 @@ class Boards extends Component {
                                     <span className="item-text">{intl.get('Rename_board')}</span>
                                   </button>
                                   {boards.length > 1 &&
-                                    <button 
-                                      className="dropdown-item dropdown-item-btn" 
+                                    <button
+                                      className="dropdown-item dropdown-item-btn"
                                       onClick={this.props.onDeleteBoard.bind(this, i)}
                                       onKeyDown={handleEnterKeyDown(this.props.onDeleteBoard.bind(this, i))}
                                     >
@@ -308,7 +308,7 @@ class Boards extends Component {
         }
         <div className="btn-add-board"
           onClick={this.onNewBoardToggle}>
-          <i 
+          <i
             className="dtable-font dtable-icon-add-table"
             aria-label={intl.get('Add_view')}
             tabIndex={0}

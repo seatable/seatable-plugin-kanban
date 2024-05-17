@@ -10,7 +10,7 @@ const propTypes = {
 const ListFooter = ({ onAddCard }) => {
   return (
     <div className="list-footer">
-      <div className="btn-add-card" 
+      <div className="btn-add-card"
         onClick={onAddCard}
         tabIndex={0}
         onKeyDown={handleEnterKeyDown(onAddCard)}

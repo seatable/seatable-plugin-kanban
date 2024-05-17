@@ -24,7 +24,7 @@ class PluginPopover extends React.Component {
     document.addEventListener('mousedown', this.onMouseDown);
     document.addEventListener('keydown', this.onKeyDown);
     window.addEventListener('popstate', this.onHistoryState);
-    const firstColor = document.querySelector('#kanban-color-0');    
+    const firstColor = document.querySelector('#kanban-color-0');
     firstColor && firstColor.focus();
   }
 

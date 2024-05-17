@@ -71,21 +71,25 @@ class Kanban extends Component {
               onDeleteBoard={this.onDeleteBoard}
             />
             <div className="kanban-operators">
-              {selectedBoardIndex > -1 && <span
-                className="kanban-operator dtable-font dtable-icon-set-up btn-settings" 
+              {selectedBoardIndex > -1 &&
+              <span
+                className="kanban-operator dtable-font dtable-icon-set-up btn-settings"
                 id='border-setting-toggle-btn'
                 onClick={this.onToggleBoardSetting}
                 aria-label={intl.get('Settings')}
                 tabIndex={0}
                 onKeyDown={handleEnterKeyDown(this.onToggleBoardSetting)}
-              ></span>}
+              >
+              </span>
+              }
               <span
-                className="kanban-operator dtable-font dtable-icon-x btn-close" 
+                className="kanban-operator dtable-font dtable-icon-x btn-close"
                 onClick={this.onPluginToggle}
                 aria-label={intl.get('Close_plugin')}
                 tabIndex={0}
                 onKeyDown={handleEnterKeyDown(this.onPluginToggle)}
-              ></span>
+              >
+              </span>
             </div>
           </div>
         </div>

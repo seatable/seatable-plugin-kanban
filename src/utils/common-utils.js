@@ -62,7 +62,7 @@ export const getEventClassName = (e) => {
 };
 
 export const handleEnterKeyDown = (callback) => {
-  return function(e) {
+  return function (e) {
     if (e.key === 'Enter') {
       typeof callback === 'function' && callback(e);
     }

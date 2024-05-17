@@ -43,7 +43,7 @@ class SingleSelectItem extends Component {
     this.props.updateNewList(newList);
   };
 
-  onChangeOptionColor = (optionItem) => {    
+  onChangeOptionColor = (optionItem) => {
     const { COLOR, TEXT_COLOR } = optionItem;
     const newList = Object.assign({}, this.props.newList, { optionColor: COLOR, textColor: TEXT_COLOR });
     this.props.updateNewList(newList);
@@ -84,9 +84,9 @@ class SingleSelectItem extends Component {
               {SELECT_OPTION_COLORS.map((item, index) => {
                 let { COLOR: itemOptionColor, BORDER_COLOR: borderColor, TEXT_COLOR: textColor } = item;
                 return (
-                  <div 
-                    key={itemOptionColor} 
-                    className="col-auto" 
+                  <div
+                    key={itemOptionColor}
+                    className="col-auto"
                     onClick={this.onChangeOptionColor.bind(this, item)}
                   >
                     <label className="colorinput">

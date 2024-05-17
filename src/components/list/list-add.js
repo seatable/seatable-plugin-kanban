@@ -28,16 +28,16 @@ class ListAdd extends Component {
   };
 
   handleEnterKeyDown = (e) => {
-    if(e.target === e.currentTarget) {
+    if (e.target === e.currentTarget) {
       handleEnterKeyDown(this.toggleAddList)(e);
     }
   };
 
   render() {
     return (
-      <div 
+      <div
         id="plugin-kanban-btn-add-list"
-        className="plugin-kanban-btn-add-list" 
+        className="plugin-kanban-btn-add-list"
         onClick={this.toggleAddList}
         tabIndex={0}
         onKeyDown={this.handleEnterKeyDown}
