@@ -26,7 +26,11 @@ const en = {
   "Other_fields_shown_in_kanban": "Other fields shown in kanban",
   "Do_not_show_empty_values": "Don't show empty values",
   "Show_field_names": "Show field names",
-  "Wrap_text": "Wrap text"
+  "Wrap_text": "Wrap text",
+  "Add_view": "Add view",
+  "Dropdown_options": "Dropdown options",
+  "Close_plugin": "Close plugin",
+  "Color_picker": "Color picker"
 }
 ;
 

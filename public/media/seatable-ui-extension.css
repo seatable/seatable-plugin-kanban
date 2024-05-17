@@ -5,6 +5,17 @@
   color: #212529;
 }
 
+.btn-outline-primary,
+.btn-primary {
+  color: #fff;
+  background-color: #ED7109;
+  border-color: #ED7109;
+}
+
+.custom-switch {
+  padding-left: 0;
+}
+
 /* 2 reset ant-design-mobile.css common style */
 .am-action-sheet-button-list {
   color: #212529;
@@ -16,8 +27,12 @@
 }
 
 /* 3 seatable common style */
+.seatable-text-orange {
+  color: #ED7109 !important;
+}
+
 .seatable-bg-orange {
-  background-color: #ff8000 !important;
+  background-color: #ED7109 !important;
 }
 
 .seatable-input-subtitle {
@@ -28,12 +43,12 @@
 
 .seatable-tip-default {
   font-size: 13px;
-  color: #999;
+  color: #666;
 }
 
 .seatable-tip-large {
   font-size: 14px;
-  color: #999;
+  color: #666;
 }
 
 .seatable-tip-danger {
@@ -121,11 +136,13 @@
 }
 
 .dtable-dropdown-menu .dropdown-item.disabled,
+.dtable-dropdown-menu .dropdown-item.disabled .multicolor-icon,
 .dtable-dropdown-menu .dropdown-item.disabled .item-icon,
 .dtable-dropdown-menu .dropdown-item.disabled:hover .item-icon {
   color: #c2c2c2;
 }
 
+.dtable-dropdown-menu .dropdown-item.disabled:hover .multicolor-icon,
 .dtable-dropdown-menu .dropdown-item.disabled:hover {
   background-color: unset;
   cursor: default;
@@ -221,4 +238,8 @@
 .left-to-right-hide {
   animation: leftToRightHide 0.3s;
   animation-timing-function: cubic-bezier(0.42, 0, 0.58, 1); /* ease-in-out */
+}
+
+:focus-visible {
+  outline: -webkit-focus-ring-color auto 1px;
 }

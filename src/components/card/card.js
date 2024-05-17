@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import CellFormatter from '../cell-formatter';
+import { handleEnterKeyDown } from '../../utils/common-utils';
 
 class Card extends Component {
 
@@ -36,13 +37,17 @@ class Card extends Component {
       formulaRows
     };
 
+    const unFormattedValue = card.row[titleColumn.key];
     return (
       <article
         data-id={listIndex}
         className={classNames('plugin-kanban-card movable', {
           'draggable': cardDraggable
         })}
+        tabIndex={0}
         onClick={this.props.onCardClick}
+        aria-label={unFormattedValue}
+        onKeyDown={handleEnterKeyDown(this.props.onCardClick)}
       >
         <Fragment>
           <div className="name-cell-container">

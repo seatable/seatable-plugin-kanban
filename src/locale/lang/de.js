@@ -26,7 +26,11 @@ const de = {
   "Other_fields_shown_in_kanban": "Anzuzeigende Spalten",
   "Do_not_show_empty_values": "Leere Werte nicht anzeigen",
   "Show_field_names": "Spaltennamen anzeigen",
-  "Wrap_text": "Text umbrechen"
+  "Wrap_text": "Text umbrechen",
+  "Add_view": "Ansicht hinzufügen",
+  "Dropdown_options": "Dropdown-Optionen",
+  "Close_plugin": "Neue Ansicht hinzufügen",
+  "Color_picker": "Farbwähler"
 }
 ;
 

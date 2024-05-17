@@ -23,8 +23,12 @@
   "Fields": "Campos",
   "Show_all": "Mostrar tudo",
   "Hide_all": "Ocultar tudo",
-  "Other_fields_shown_in_kanban": "Other fields shown in kanban",
+  "Other_fields_shown_in_kanban": "Otros campos mostrados en kanban",
   "Do_not_show_empty_values": "Não mostrar valores vazios",
   "Show_field_names": "Mostrar nomes de campos",
-  "Wrap_text": "Moldar texto"
+  "Wrap_text": "Moldar texto",
+  "Add_view": "Agregar vista",
+  "Dropdown_options": "Opciones desplegables",
+  "Close_plugin": "Fechar plug-in",
+  "Color_picker": "Selector de color"
 }

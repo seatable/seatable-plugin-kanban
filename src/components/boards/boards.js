@@ -7,7 +7,7 @@ import DropdownMenu from '../dropdownmenu';
 import ModalPortal from '../dialog/modal-portal';
 import RenameBoardDialog from '../dialog/rename-board-dialog';
 import NewBoardDialog from '../dialog/new-board-dialog';
-import { generatorBoardId } from '../../utils/common-utils';
+import { generatorBoardId, handleEnterKeyDown } from '../../utils/common-utils';
 import * as EventTypes from '../../constants/event-types';
 
 const SCROLL_TYPE = {
@@ -34,6 +34,7 @@ class Boards extends Component {
     this.boards = [];
   }
 
+
   componentDidMount() {
     let { selectedBoardIndex } = this.props;
     let { left } = this.boards[selectedBoardIndex].getBoundingClientRect();
@@ -51,6 +52,38 @@ class Boards extends Component {
     document.removeEventListener('click', this.onHideBoardDropdown);
     this.unsubscribeScrollToRightEnd();
   }
+
+  componentDidUpdate() {
+    if (this.handleArrowKeyDown) {
+      document.removeEventListener('keydown', this.handleArrowKeyDown);
+    }
+
+    const btns = document.querySelectorAll('.dropdown-item-btn');
+    const dropDownBtn = document.querySelector('.btn-view-dropdown');
+    if (!btns.length) return;
+    let currentIdx = -1;
+    this.handleArrowKeyDown = (e) => {
+      if (e.key === 'ArrowUp') {
+        currentIdx--;
+        if (currentIdx < 0) {
+          dropDownBtn.focus();
+          currentIdx = -1;
+        } else {
+          btns[currentIdx].focus();
+        }
+      } else if (e.key === 'ArrowDown') {
+        currentIdx++;
+        if (currentIdx >= btns.length) {
+          dropDownBtn.focus();
+          currentIdx = -1;
+        } else {
+          btns[currentIdx].focus();
+        }
+      }
+    };
+    document.addEventListener('keydown', this.handleArrowKeyDown);
+  }
+
 
   checkAvailableScrollType = () => {
     const { canScrollPrev, canScrollNext } = this.state;
@@ -202,12 +235,22 @@ class Boards extends Component {
                     ref={this.setBoardItem(i)}
                     onClick={this.onSelectBoard.bind(this, i)}
                   >
-                    <div className="boards-item-name">{name}</div>
+                    <div
+                      className="boards-item-name"
+                      tabIndex={0}
+                      aria-label={name}
+                      onKeyDown={handleEnterKeyDown(this.onSelectBoard.bind(this, i))}
+                    >
+                      {name}
+                    </div>
                     {isActiveBoard &&
                       <div
-                        className="btn-boards-item-dropdown"
+                        className="btn-boards-item-dropdown btn-view-dropdown"
                         ref={ref => this.btnBoardDropdown = ref}
                         onClick={this.onDropdownToggle}
+                        tabIndex={0}
+                        aria-label={intl.get('Dropdown_options')}
+                        onKeyDown={handleEnterKeyDown(this.onDropdownToggle)}
                       >
                         <i className="dtable-font dtable-icon-drop-down"></i>
                         {isShowBoardDropdown &&
@@ -216,12 +259,20 @@ class Boards extends Component {
                               dropdownMenuPosition={dropdownMenuPosition}
                               options={
                                 <Fragment>
-                                  <button className="dropdown-item" onClick={this.onToggleRenameBoard}>
+                                  <button
+                                    className="dropdown-item dropdown-item-btn"
+                                    onClick={this.onToggleRenameBoard}
+                                    onKeyDown={handleEnterKeyDown(this.onToggleRenameBoard)}
+                                  >
                                     <i className="item-icon dtable-font dtable-icon-rename"></i>
                                     <span className="item-text">{intl.get('Rename_board')}</span>
                                   </button>
                                   {boards.length > 1 &&
-                                    <button className="dropdown-item" onClick={this.props.onDeleteBoard.bind(this, i)}>
+                                    <button
+                                      className="dropdown-item dropdown-item-btn"
+                                      onClick={this.props.onDeleteBoard.bind(this, i)}
+                                      onKeyDown={handleEnterKeyDown(this.props.onDeleteBoard.bind(this, i))}
+                                    >
                                       <i className="item-icon dtable-font dtable-icon-delete"></i>
                                       <span className="item-text">{intl.get('Delete_board')}</span>
                                     </button>
@@ -255,8 +306,15 @@ class Boards extends Component {
             </span>
           </div>
         }
-        <div className="btn-add-board" onClick={this.onNewBoardToggle}>
-          <i className="dtable-font dtable-icon-add-table"></i>
+        <div className="btn-add-board"
+          onClick={this.onNewBoardToggle}>
+          <i
+            className="dtable-font dtable-icon-add-table"
+            aria-label={intl.get('Add_view')}
+            tabIndex={0}
+            onKeyDown={handleEnterKeyDown(this.onNewBoardToggle)}
+          >
+          </i>
         </div>
         {isShowNewBoardDialog &&
           <NewBoardDialog

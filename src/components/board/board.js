@@ -19,6 +19,7 @@ class Board extends Component {
     const { activeBoard } = props;
     this.state = {
       isShowBoardSetting: !activeBoard.valid,
+      focusOnSetting: false
     };
   }
 
@@ -27,12 +28,22 @@ class Board extends Component {
     this.unsubscribeCloseBoardSetting = this.props.eventBus.subscribe(EventTypes.CLOSE_BOARD_SETTING, this.onCloseBoardSetting);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     const { activeBoard } = this.props;
     if (prevProps.activeBoard._id !== activeBoard._id) {
       const isShowBoardSetting = !activeBoard.valid;
       this.setState({ isShowBoardSetting });
     }
+
+    // isShowBoardSetting get involved when id changes
+    // use another state to control focus status is more easier to understand
+    const { focusOnSetting } = this.state;
+    const { focusOnSetting: prevSetting } = prevState;
+
+    const closeSettingBtn = document.querySelector('#border-setting-close-btn');
+    const toggleSettingBtn = document.querySelector('#border-setting-toggle-btn');
+    if (!focusOnSetting && prevSetting) toggleSettingBtn && toggleSettingBtn.focus();
+    if (focusOnSetting && !prevSetting) closeSettingBtn && closeSettingBtn.focus();
   }
 
   componentWillUnmount() {
@@ -41,12 +52,18 @@ class Board extends Component {
   }
 
   onToggleBoardSetting = () => {
-    this.setState({ isShowBoardSetting: !this.state.isShowBoardSetting });
+    this.setState({
+      isShowBoardSetting: !this.state.isShowBoardSetting,
+      focusOnSetting: !this.state.isShowBoardSetting
+    });
   };
 
   onCloseBoardSetting = () => {
     if (this.state.isShowBoardSetting) {
-      this.setState({ isShowBoardSetting: false });
+      this.setState({
+        isShowBoardSetting: false,
+        focusOnSetting: false
+      });
     }
   };
 

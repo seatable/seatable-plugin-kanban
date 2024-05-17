@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Input } from 'reactstrap';
 import { SELECT_OPTION_COLORS } from 'dtable-utils';
 import PluginPopover from '../../plugin-popover';
+import { handleEnterKeyDown } from '../../../utils/common-utils';
+import intl from 'react-intl-universal';
 
 const propTypes = {
   newList: PropTypes.object,
@@ -17,6 +19,13 @@ class SingleSelectItem extends Component {
     this.state = {
       isShowColorSelector: false,
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { isShowColorSelector } = this.state;
+    const { isShowColorSelector: prevSetting } = prevState;
+    const selector = document.getElementById('plugin-kanban-option-item-id');
+    !isShowColorSelector && prevSetting && selector && selector.focus();
   }
 
   onToggleColorSelector = (event) => {
@@ -53,6 +62,10 @@ class SingleSelectItem extends Component {
             onClick={this.onToggleColorSelector}
             style={{ backgroundColor: optionColor }}
             id="plugin-kanban-option-item-id"
+            aria-label={intl.get('Color_picker')}
+            tabIndex={0}
+            onKeyDown={handleEnterKeyDown(this.onToggleColorSelector)}
+
           >
             <i className="dtable-font dtable-icon-drop-down" style={{ color: textColor }}></i>
           </span>
@@ -71,9 +84,20 @@ class SingleSelectItem extends Component {
               {SELECT_OPTION_COLORS.map((item, index) => {
                 let { COLOR: itemOptionColor, BORDER_COLOR: borderColor, TEXT_COLOR: textColor } = item;
                 return (
-                  <div key={itemOptionColor} className="col-auto" onClick={this.onChangeOptionColor.bind(this, item)}>
+                  <div
+                    key={itemOptionColor}
+                    className="col-auto"
+                    onClick={this.onChangeOptionColor.bind(this, item)}
+                  >
                     <label className="colorinput">
-                      <span className="colorinput-color" style={{ backgroundColor: itemOptionColor, borderColor: borderColor }}>
+                      <span
+                        className="colorinput-color"
+                        style={{ backgroundColor: itemOptionColor, borderColor: borderColor }}
+                        tabIndex={0}
+                        id={`kanban-color-${index}`}
+                        onKeyDown={handleEnterKeyDown(this.onChangeOptionColor.bind(this, item))}
+                        aria-label={'color:' + itemOptionColor}
+                      >
                         {optionColor === itemOptionColor &&
                           <i className="dtable-font dtable-icon-check-mark ml-1" style={{ color: textColor }}></i>
                         }
