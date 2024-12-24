@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Button, Alert } from 'reactstrap';
+import { Modal, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Button, Alert } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { DTableModalHeader } from 'dtable-ui-component';
 import intl from 'react-intl-universal';
 
 class RenameBoardDialog extends Component {
@@ -49,7 +50,7 @@ class RenameBoardDialog extends Component {
   render() {
     return (
       <Modal isOpen={true} toggle={this.toggle} autoFocus={false}>
-        <ModalHeader toggle={this.toggle}>{intl.get('Rename_board')}</ModalHeader>
+        <DTableModalHeader toggle={this.toggle}>{intl.get('Rename_board')}</DTableModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
