@@ -20,6 +20,11 @@ class PluginPopover extends React.Component {
 
   popoverRef = null;
 
+  static defaultProps = {
+    hideArrow: true,
+    canHidePluginPopover: true
+  };
+
   componentDidMount() {
     document.addEventListener('mousedown', this.onMouseDown);
     document.addEventListener('keydown', this.onKeyDown);
@@ -83,11 +88,6 @@ class PluginPopover extends React.Component {
     );
   }
 }
-
-PluginPopover.defaultProps = {
-  hideArrow: true,
-  canHidePluginPopover: true
-};
 
 PluginPopover.propTypes = propTypes;
 

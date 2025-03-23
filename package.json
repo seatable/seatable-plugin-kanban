@@ -4,15 +4,15 @@
   "description": "Display records on a kanban board.",
   "dependencies": {
     "classnames": "^2.2.6",
-    "dtable-ui-component": "5.2.11",
+    "dtable-ui-component": "6.0.5",
     "dtable-utils": "5.0.10",
     "is-hotkey": "^0.1.8",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "react-intl-universal": "^2.9.0",
-    "react-redux": "^7.2.3",
-    "reactstrap": "8.9.0",
-    "redux": "^4.0.5",
+    "react-redux": "^9.2.0",
+    "reactstrap": "^9.2.3",
+    "redux": "^5.0.1",
     "shallowequal": "^1.1.0"
   },
   "scripts": {

@@ -83,7 +83,7 @@ class Kanban extends Component {
               </span>
               }
               <span
-                className="kanban-operator dtable-font dtable-icon-x btn-close"
+                className="kanban-operator dtable-font dtable-icon-x"
                 onClick={this.onPluginToggle}
                 aria-label={intl.get('Close_plugin')}
                 tabIndex={0}
