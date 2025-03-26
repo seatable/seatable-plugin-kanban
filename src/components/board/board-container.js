@@ -10,6 +10,10 @@ import AddList from '../list/list-add';
 
 class BoardContainer extends Component {
 
+  static defaultProps = {
+    activeBoard: { lists: [] },
+  };
+
   constructor(props) {
     super(props);
     this.unCategorized = intl.get('Uncategorized');
@@ -134,10 +138,6 @@ BoardContainer.propTypes = {
   moveCard: PropTypes.func,
   addNewList: PropTypes.func,
   getViewShownColumns: PropTypes.func,
-};
-
-BoardContainer.defaultProps = {
-  activeBoard: { lists: [] },
 };
 
 export default connect(mapStateToProps, null)(BoardContainer);

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import container, { dropHandlers } from '../../lib/trello-smooth-dnd';
 
@@ -8,15 +7,22 @@ container.wrapChild = p => p; // dont wrap children they will already be wrapped
 
 class Container extends Component {
 
+  static defaultProps = {
+    behaviour: 'move',
+    orientation: 'vertical',
+    className: 'reactTrelloBoard'
+  };
+
   constructor(props) {
     super(props);
     this.getContainerOptions = this.getContainerOptions.bind(this);
     this.setRef = this.setRef.bind(this);
+    this.containerRef = React.createRef();
     this.prevContainer = null;
   }
 
   componentDidMount() {
-    this.containerDiv = this.containerDiv || ReactDOM.findDOMNode(this);
+    this.containerDiv = this.containerRef.current;
     this.prevContainer = this.containerDiv;
     this.container = container(this.containerDiv, this.getContainerOptions());
   }
@@ -27,7 +33,7 @@ class Container extends Component {
   }
 
   componentDidUpdate() {
-    this.containerDiv = this.containerDiv || ReactDOM.findDOMNode(this);
+    this.containerDiv = this.containerRef.current;
     if (this.containerDiv) {
       if (this.prevContainer && this.prevContainer !== this.containerDiv) {
         this.container.dispose();
@@ -42,7 +48,7 @@ class Container extends Component {
       return this.props.render(this.setRef);
     } else {
       return (
-        <div style={this.props.style} ref={this.setRef}>
+        <div style={this.props.style} ref={this.containerRef} className={this.props.className}>
           {this.props.children}
         </div>
       );
@@ -131,12 +137,6 @@ Container.propTypes = {
   getGhostParent: PropTypes.func,
   removeOnDropOut: PropTypes.bool,
   onDropReady: PropTypes.func,
-};
-
-Container.defaultProps = {
-  behaviour: 'move',
-  orientation: 'vertical',
-  className: 'reactTrelloBoard'
 };
 
 export default Container;

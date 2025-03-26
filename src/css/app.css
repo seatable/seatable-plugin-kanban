@@ -45,7 +45,7 @@
 }
 
 .plugin-kanban .plugin-header .kanban-operator,
-.plugin-kanban .btn-close {
+.plugin-kanban .dtable-icon-x {
   display: inline-block;
   width: 24px;
   height: 24px;
@@ -56,7 +56,7 @@
 }
 
 .plugin-kanban .plugin-header .kanban-operator:hover,
-.plugin-kanban .btn-close:hover {
+.plugin-kanban .dtable-icon-x:hover {
   opacity: .75;
 }
 
@@ -64,6 +64,6 @@
   margin-right: .25rem;
 }
 
-.plugin-kanban .btn-close {
+.plugin-kanban .dtable-icon-x {
   font-weight: 700;
 }

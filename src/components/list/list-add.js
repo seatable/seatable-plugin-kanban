@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import intl from 'react-intl-universal';
-import ModalPortal from '../dialog/modal-portal';
+import { ModalPortal } from 'dtable-ui-component';
 import NewListPopover from '../popover/new-list-popover';
 import { handleEnterKeyDown } from '../../utils/common-utils';
 

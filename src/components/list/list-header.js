@@ -34,10 +34,4 @@ ListHeader.propTypes = {
   updateTitle: PropTypes.func,
 };
 
-ListHeader.defaultProps = {
-  updateTitle: () => {},
-  editLaneTitle: false,
-  canAddLanes: false
-};
-
 export default ListHeader;
