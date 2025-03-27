@@ -6,7 +6,7 @@ class TaskList {
 
   static execute() {
     const root = createRoot(document.querySelector('#plugin-wrapper'));
-    root.render(<App showDialog={true} {...props} key={(new Date()).getTime()} />);
+    root.render(<App showDialog={true} key={(new Date()).getTime()} />);
   }
 
 }
