@@ -124,7 +124,7 @@ class App extends React.Component {
   };
 
   getActiveBoard = (boardSetting, tables) => {
-    const { _id, name, table_name, view_name, groupby_column_name, title_column_name, columns: configuredColumns, hideEmptyValues, showFieldNames, wrapText } = boardSetting;
+    const { _id, name, table_name, view_name, groupby_column_name, title_column_name, columns: configuredColumns, hideEmptyValues, showFieldNames, wrapText, collaborator_order } = boardSetting;
     const selectedTable = (table_name && getTableByName(tables, table_name)) || tables[0];
     const views = getNonPrivateViews(getNonArchiveViews(selectedTable.views));
     const selectedView = (view_name && getViewByName(selectedTable.views, view_name)) || views[0];
@@ -142,8 +142,24 @@ class App extends React.Component {
     } else {
       valid = true;
     }
+
+    let collaboratorOrder = [];
+    const currentCollaboratorEmails = this.collaborators.map(collaborator => collaborator.email) || [];
+    if (Array.isArray(collaborator_order)) {
+      // add new and filter out old ones
+      collaboratorOrder = collaborator_order.filter(email => currentCollaboratorEmails.includes(email));
+      currentCollaboratorEmails.forEach(email => {
+        if (!collaboratorOrder.includes(email)) {
+          collaboratorOrder.push(email);
+        }
+      });
+    } else {
+      // use default order
+      collaboratorOrder = currentCollaboratorEmails;
+    }
+
     lists = this.getLists(groupbyColumn);
-    this.sortLists(lists, groupbyColumn);
+    this.sortLists(lists, groupbyColumn, collaboratorOrder);
     window.dtableSDK.forEachRow(selectedTable.name, selectedView.name, (row) => {
       const originRow = getRowById(selectedTable, row._id);
       let listIndex;
@@ -157,6 +173,7 @@ class App extends React.Component {
           break;
         }
         case CellType.COLLABORATOR: {
+          draggable = true;
           const cellValue = row[groupby_column_name];
           if (Array.isArray(cellValue)) {
             cellValue.forEach((email) => {
@@ -177,7 +194,7 @@ class App extends React.Component {
       lists.splice(0, 1);
     }
     let formulaRows = this.getTableFormulaRows(selectedTable, selectedView);
-    return { _id, name, lists, selectedTable, selectedView, formulaRows, groupbyColumn, titleColumn, configuredColumns, hideEmptyValues, showFieldNames, wrapText, canAddList, draggable, valid };
+    return { _id, name, lists, selectedTable, selectedView, formulaRows, groupbyColumn, titleColumn, configuredColumns, hideEmptyValues, showFieldNames, wrapText, canAddList, draggable, valid, collaboratorOrder };
   };
 
   getLists = (groupbyColumn) => {
@@ -206,6 +223,8 @@ class App extends React.Component {
     if (lists.length > 0) {
       lists.unshift({ name: null, cards: [] });
     }
+
+
     return lists;
   };
 
@@ -218,15 +237,15 @@ class App extends React.Component {
     lists[listIndex].cards.push(card);
   }
 
-  sortLists = (lists, groupbyColumn) => {
+  sortLists = (lists, groupbyColumn, collaboratorOrder) => {
     const { type: columnType, data: columnData } = groupbyColumn;
-    if (columnType === CellType.COLLABORATOR) {
-      return lists;
-    }
     let optionIds = [];
     if (columnType === CellType.SINGLE_SELECT) {
       const columnOptions = (columnData && columnData.options) || [];
       optionIds = columnOptions.map((option) => option.id);
+    }
+    if (columnType === CellType.COLLABORATOR) {
+      optionIds = collaboratorOrder;
     }
     lists.sort((currentList, nextList) => {
       const { name: currentListName } = currentList;
@@ -238,7 +257,8 @@ class App extends React.Component {
         return 1;
       }
       switch (columnType) {
-        case CellType.SINGLE_SELECT: {
+        case CellType.SINGLE_SELECT:
+        case CellType.COLLABORATOR: {
           if (!Array.isArray(optionIds) || optionIds.length === 0) {
             return 0;
           }

@@ -74,8 +74,8 @@ class Board extends Component {
   };
 
   moveList = ({ fromIndex, targetIndex }) => {
-    const { activeBoard } = this.props;
-    const { lists, selectedTable, groupbyColumn } = activeBoard;
+    const { activeBoard, boards, selectedBoardIndex } = this.props;
+    const { lists, selectedTable, groupbyColumn, collaboratorOrder } = activeBoard;
     const fromList = lists[fromIndex];
     const targetList = lists[targetIndex];
     if (!fromList || !targetList || targetList.name === null) return;
@@ -89,6 +89,16 @@ class Board extends Component {
       updatedOptions.splice(targetOptionIndex, 0, movedOption);
       const newColumnData = Object.assign({}, columnData, { options: updatedOptions });
       window.dtableSDK.modifyColumnData(selectedTable, columnName, newColumnData);
+    } else if (columnType === CellType.COLLABORATOR) {
+      const updatedOrder = [...collaboratorOrder];
+      const fromOrderIndex = updatedOrder.findIndex(order => order === fromList.name);
+      const targetOrderIndex = updatedOrder.findIndex(order => order === targetList.name);
+      if (fromOrderIndex < 0 || targetOrderIndex < 0) return;
+      const movedOrder = updatedOrder.splice(fromOrderIndex, 1)[0];
+      updatedOrder.splice(targetOrderIndex, 0, movedOrder);
+      const borderSetting = boards[selectedBoardIndex];
+      const newBoardSetting = Object.assign({}, borderSetting, { collaborator_order: updatedOrder });
+      this.onUpdateBoardSetting(newBoardSetting);
     }
   };
 
