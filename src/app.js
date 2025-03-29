@@ -224,8 +224,6 @@ class App extends React.Component {
     if (lists.length > 0) {
       lists.unshift({ name: null, cards: [] });
     }
-
-
     return lists;
   };
 
