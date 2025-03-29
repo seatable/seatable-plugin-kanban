@@ -146,13 +146,14 @@ class App extends React.Component {
     let collaboratorOrder = [];
     const currentCollaboratorEmails = this.collaborators.map(collaborator => collaborator.email) || [];
     if (Array.isArray(collaborator_order)) {
-      // add new and filter out old ones
-      collaboratorOrder = collaborator_order.filter(email => currentCollaboratorEmails.includes(email));
-      currentCollaboratorEmails.forEach(email => {
-        if (!collaboratorOrder.includes(email)) {
-          collaboratorOrder.push(email);
-        }
-      });
+      const collaboratorSet = new Set(currentCollaboratorEmails);
+      const orderSet = new Set(collaborator_order);
+      collaboratorOrder = [
+        // filter out old ones
+        ...collaborator_order.filter(email => collaboratorSet.has(email)),
+        // add new ones
+        ...currentCollaboratorEmails.filter(email => !orderSet.has(email))
+      ];
     } else {
       // use default order
       collaboratorOrder = currentCollaboratorEmails;
