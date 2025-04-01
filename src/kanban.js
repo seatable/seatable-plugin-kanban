@@ -6,9 +6,9 @@ import Boards from './components/boards/boards';
 import Board from './components/board/board';
 import BoardsHelpers from './helpers/boards-helper';
 import * as EventTypes from './constants/event-types';
+import { handleEnterKeyDown } from './utils/common-utils';
 
 import kanbanLogo from './assets/image/kanban.png';
-import { handleEnterKeyDown } from './utils/common-utils';
 
 class Kanban extends Component {
 
