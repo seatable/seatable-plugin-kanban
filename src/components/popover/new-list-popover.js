@@ -58,7 +58,7 @@ class NewListPopover extends Component {
 
   render() {
     const { errMessage } = this.state;
-    const modifiers = {
+    const modifiers = [{
       offset: {
         offset: 0
       },
@@ -69,7 +69,7 @@ class NewListPopover extends Component {
         padding: 10,
         boundariesElement: document.body
       }
-    };
+    }];
     return (
       <PluginPopover
         target={'plugin-kanban-btn-add-list'}
