@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import intl from 'react-intl-universal';
 import Boards from './components/boards/boards';
+import { Button } from 'reactstrap';
+import Icon from './components/icon';
 import Board from './components/board/board';
 import BoardsHelpers from './helpers/boards-helper';
 import * as EventTypes from './constants/event-types';
@@ -70,20 +72,27 @@ class Kanban extends Component {
               onAppendBoard={this.onAppendBoard}
               onDeleteBoard={this.onDeleteBoard}
             />
-            <div className="kanban-operators">
+            <div className="d-flex align-items-center plugin-calendar-operators kanban-operators">
               {selectedBoardIndex > -1 &&
-              <span
-                className="kanban-operator dtable-font dtable-icon-set-up btn-settings"
-                id='border-setting-toggle-btn'
-                onClick={this.onToggleBoardSetting}
-                aria-label={intl.get('Settings')}
-                tabIndex={0}
-                onKeyDown={handleEnterKeyDown(this.onToggleBoardSetting)}
-              >
-              </span>
+                <Button className="mr-4 migrate-to-view-button" onClick={this.props.onMigrateToView} color="secondary">
+                  <Icon symbol='move-to' className='mr-2' />
+                  <span>{intl.get('Migrate_to_view')}</span>
+                </Button>
+              }
+              {selectedBoardIndex > -1 &&
+                <span
+                  className="mr-1 op-icon"
+                  id='border-setting-toggle-btn'
+                  onClick={this.onToggleBoardSetting}
+                  aria-label={intl.get('Settings')}
+                  tabIndex={0}
+                  onKeyDown={handleEnterKeyDown(this.onToggleBoardSetting)}
+                >
+                  <i className="dtable-font dtable-icon-set-up"></i>
+                </span>
               }
               <span
-                className="kanban-operator dtable-font dtable-icon-x"
+                className="dtable-font dtable-icon-x op-icon"
                 onClick={this.onPluginToggle}
                 aria-label={intl.get('Close_plugin')}
                 tabIndex={0}
@@ -125,6 +134,7 @@ Kanban.propTypes = {
   storeSelectedViewId: PropTypes.func,
   getViewShownColumns: PropTypes.func,
   onSelectBoard: PropTypes.func,
+  onMigrateToView: PropTypes.func,
 };
 
 export default connect(mapStateToProps, null)(Kanban);

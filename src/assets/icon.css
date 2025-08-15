@@ -1,0 +1,10 @@
+.multicolor-icon {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+.scale-icon {
+  transform: scale(1.5);
+}

@@ -30,7 +30,11 @@ const zh_CN = {
   "Add_view": "新建视图",
   "Dropdown_options": "下拉选项",
   "Close_plugin": "关闭插件",
-  "Color_picker": "颜色选择器"
+  "Color_picker": "颜色选择器",
+  "Migrate_to_view": "迁移为视图",
+  "Starting_migration": "正在迁移...",
+  "Migrate_to_views_successfully": "迁移为视图成功",
+  "Migration_failed": "迁移失败，请重试"
 }
 ;
 

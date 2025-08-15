@@ -30,7 +30,11 @@ const fr = {
   "Add_view": "Ajouter une vue",
   "Dropdown_options": "Options de liste déroulante",
   "Close_plugin": "Fermer le plugin",
-  "Color_picker": "Pipette à couleurs"
+  "Color_picker": "Sélecteur de couleur",
+  "Migrate_to_view": "Migrer vers la vue",
+  "Starting_migration": "Démarrage de la migration...",
+  "Migrate_to_views_successfully": "Migration vers les vues réussie",
+  "Migration_failed": "Échec de la migration, veuillez réessayer"
 }
 ;
 

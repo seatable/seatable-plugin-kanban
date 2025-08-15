@@ -30,7 +30,11 @@ const en = {
   "Add_view": "Add view",
   "Dropdown_options": "Dropdown options",
   "Close_plugin": "Close plugin",
-  "Color_picker": "Color picker"
+  "Color_picker": "Color picker",
+  "Migrate_to_view": "Migrate to view",
+  "Starting_migration": "Starting migration...",
+  "Migrate_to_views_successfully": "Migrate to views successfully",
+  "Migration_failed": "Migration failed, please try again"
 }
 ;
 
