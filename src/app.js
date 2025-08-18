@@ -330,6 +330,7 @@ class App extends React.Component {
   updatePluginSettings = (boards) => {
     window.dtableSDK.updatePluginSettings(PLUGIN_NAME, { boards });
   };
+  
   getViewShownColumns = (view, table) => {
     return getViewShownColumns(view, table.columns);
   };
