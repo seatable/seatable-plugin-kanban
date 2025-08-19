@@ -30,7 +30,11 @@ const pt = {
   "Add_view": "Agregar vista",
   "Dropdown_options": "Opciones desplegables",
   "Close_plugin": "Fechar plug-in",
-  "Color_picker": "Selector de color"
+  "Color_picker": "Selector de color",
+  "Migrate_to_view": "Migrate to view",
+  "Starting_migration": "Starting migration...",
+  "Migrate_to_views_successfully": "Migrate to views successfully",
+  "Migration_failed": "Migration failed, please try again"
 }
 ;
 

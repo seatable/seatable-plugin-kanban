@@ -67,3 +67,39 @@
 .plugin-kanban .dtable-icon-x {
   font-weight: 700;
 }
+
+.plugin-kanban .op-icon {
+  height: 24px;
+  width: 24px;
+  text-align: center;
+  cursor: pointer;
+  color: #000;
+  opacity: .5;
+}
+
+.plugin-kanban .op-icon.dtable-icon-x {
+  font-weight: 700;
+}
+
+.plugin-kanban .op-icon:hover {
+  opacity: .75;
+}
+
+.plugin-kanban .migrate-to-view-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 26px;
+  padding: 0px 6px;
+  font-weight: 400;
+  border-radius: 2px;
+  border-color: rgba(0, 0, 0, 0.5) !important;
+  color: #000;
+  opacity: .5;
+}
+
+.plugin-kanban .migrate-to-view-button:hover {
+  border-color: rgba(0, 0, 0, 0.75) !important;
+  color: #000 !important;
+  opacity: .75;
+}

@@ -6,6 +6,7 @@ import {
 } from 'dtable-utils';
 import { Provider } from 'react-redux';
 import intl from 'react-intl-universal';
+import { toaster } from 'dtable-ui-component';
 import store from './store';
 import EventBus from './utils/event-bus';
 import { getDtableUuid } from './utils';
@@ -329,9 +330,91 @@ class App extends React.Component {
   updatePluginSettings = (boards) => {
     window.dtableSDK.updatePluginSettings(PLUGIN_NAME, { boards });
   };
-
+  
   getViewShownColumns = (view, table) => {
     return getViewShownColumns(view, table.columns);
+  };
+
+  // Create a unique view name by appending an incremental suffix if needed
+  getSuffixedViewName = (viewName, views) => {
+    if (!Array.isArray(views) || views.length === 0) return viewName || '';
+    const existedViewNames = views.map(v => v.name);
+    if (!viewName) viewName = intl.get('Kanban');
+    if (existedViewNames.indexOf(viewName) === -1) return viewName;
+    const reg = new RegExp(`^${viewName} (\\d+)$`);
+    let maxNum = 0;
+    existedViewNames.forEach(name => {
+      const match = name.match(reg);
+      if (match && match[1]) {
+        const num = Number(match[1]);
+        if (!isNaN(num)) maxNum = Math.max(maxNum, num);
+      }
+    });
+    return `${viewName} ${maxNum + 1}`;
+  };
+
+  // Migrate plugin boards to kanban views
+  migratePluginView = async () => {
+    try {
+      const plugin_settings = window.dtableSDK.getPluginSettings(PLUGIN_NAME) || {};
+      const { boards = [] } = plugin_settings;
+      if (!Array.isArray(boards) || boards.length === 0) return;
+
+      toaster.notify(intl.get('Starting_migration'));
+      this.tables = this.tables || window.dtableSDK.getTables();
+      for (let i = 0; i < boards.length; i++) {
+        const board = boards[i] || {};
+        const {
+          name = intl.get('Kanban'),
+          table_name,
+          groupby_column_name = '',
+          title_column_name = '',
+          columns: configuredColumns = [],
+          hideEmptyValues = false,
+          showFieldNames = false,
+          wrapText = false,
+          collaborator_order = [],
+        } = board;
+
+        const selectedTable = (table_name && getTableByName(this.tables, table_name)) || this.tables[0];
+        if (!selectedTable) continue;
+
+        const titleColumn = title_column_name && getTableColumnByName(selectedTable, title_column_name);
+        const groupbyColumn = groupby_column_name && getTableColumnByName(selectedTable, groupby_column_name);
+        const title_column_key = titleColumn ? titleColumn.key : '';
+        const groupby_column_key = groupbyColumn ? groupbyColumn.key : '';
+
+        const selectTableViews = window.dtableSDK.getViews(selectedTable) || [];
+        const viewName = this.getSuffixedViewName(name, selectTableViews);
+
+        const view_Data = {
+          type: 'kanban',
+          name: viewName,
+          custom_settings: {
+            groupby_column_key,
+            title_column_key,
+            hide_empty_values: !!hideEmptyValues,
+            show_fields_name: !!showFieldNames,
+            wrap_text: !!wrapText,
+            card_columns: Array.isArray(configuredColumns) ? configuredColumns : [],
+            collaborator_order,
+          },
+        };
+
+        await new Promise((resolve, reject) => {
+          try {
+            window.dtableSDK.migratePluginView(selectedTable.name, view_Data);
+            setTimeout(resolve, 500);
+          } catch (error) {
+            reject(error);
+          }
+        });
+      }
+      toaster.success(intl.get('Migrate_to_views_successfully'));
+    } catch (error) {
+      console.error('Migration error:', error);
+      toaster.danger(intl.get('Migration_failed'));
+    }
   };
 
   render() {
@@ -348,6 +431,7 @@ class App extends React.Component {
           updatePluginSettings={this.updatePluginSettings}
           storeSelectedViewId={this.storeSelectedViewId}
           getViewShownColumns={this.getViewShownColumns}
+          onMigrateToView={this.migratePluginView}
         />
       </Provider>
     );
